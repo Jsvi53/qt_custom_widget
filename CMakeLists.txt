@@ -19,8 +19,11 @@ find_package(Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
 set(SRC_DIR src)
 set(INCLUDE_DIR include)
 
-# 设置翻译文件（如果有）
-set(TS_FILES ${SRC_DIR}/qt_custom_widget_zh_CN.ts)
+# 设置翻译文件路径（将 .ts 文件放在 TsFile 目录中）
+set(TS_FILES ${CMAKE_SOURCE_DIR}/TsFile/qt_custom_widget_zh_CN.ts)
+
+# 添加 TsFile 目录，并设置 CLEAN_NO_CUSTOM 属性
+add_subdirectory(TsFile)
 
 # 添加可执行文件
 add_executable(qt_custom_widget
@@ -29,8 +32,10 @@ add_executable(qt_custom_widget
     ${INCLUDE_DIR}/mainwindow.h
     ${SRC_DIR}/mainwindow.ui
 
-
-    ${TS_FILES}
+    # 添加 QSwitchButton 模块
+    ${SRC_DIR}/qswitchbutton/switchbuttonshowwindow.cpp
+    ${INCLUDE_DIR}/qswitchbutton/switchbuttonshowwindow.h
+    ${TS_FILES}  # 添加翻译文件
 )
 
 # 包含头文件目录

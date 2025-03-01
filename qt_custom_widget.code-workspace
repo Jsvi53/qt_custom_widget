@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.cpp": "cpp",
+			"qwidget": "cpp",
+			"qmainwindow": "cpp"
+		}
+	}
+}
