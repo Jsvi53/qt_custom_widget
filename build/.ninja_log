@@ -1,0 +1,14 @@
+# ninja log v5
+3	1376	0	CMakeFiles/qt_custom_widget_autogen	c9ab2ef0ee60b91c
+3	1376	0	qt_custom_widget_autogen/mocs_compilation.cpp	c9ab2ef0ee60b91c
+3	1376	0	qt_custom_widget_autogen/include/src/ui_mainwindow.h	c9ab2ef0ee60b91c
+3	1376	0	F:/code/projects/29_QT_projects/qt_custom_widget/build/CMakeFiles/qt_custom_widget_autogen	c9ab2ef0ee60b91c
+3	1376	0	F:/code/projects/29_QT_projects/qt_custom_widget/build/qt_custom_widget_autogen/mocs_compilation.cpp	c9ab2ef0ee60b91c
+3	1376	0	F:/code/projects/29_QT_projects/qt_custom_widget/build/qt_custom_widget_autogen/include/src/ui_mainwindow.h	c9ab2ef0ee60b91c
+1379	1689	7625037850245087	F:/code/projects/29_QT_projects/qt_custom_widget/src/qt_custom_widget_zh_CN.ts	373e9442f4626ce4
+1379	1689	7625037850245087	CMakeFiles/qt_custom_widget_zh_CN.ts_lst_file	373e9442f4626ce4
+1379	1689	7625037850245087	F:/code/projects/29_QT_projects/qt_custom_widget/build/CMakeFiles/qt_custom_widget_zh_CN.ts_lst_file	373e9442f4626ce4
+1690	45401	7625038452533525	CMakeFiles/qt_custom_widget.dir/qt_custom_widget_autogen/mocs_compilation.cpp.obj	95c61c596fbd7a22
+42010	46186	7625038460422931	CMakeFiles/qt_custom_widget.dir/src/main.cpp.obj	13c7574da3095e50
+42148	46366	7625038462186917	CMakeFiles/qt_custom_widget.dir/src/mainwindow.cpp.obj	3faf80a48e1e361e
+46367	47517	7625038473666275	qt_custom_widget.exe	a049c38a833b53f9
