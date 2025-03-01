@@ -1,4 +1,0 @@
-F:/code/projects/29_QT_projects/qt_custom_widget/build/CMakeFiles/qt_custom_widget.dir
-F:/code/projects/29_QT_projects/qt_custom_widget/build/CMakeFiles/edit_cache.dir
-F:/code/projects/29_QT_projects/qt_custom_widget/build/CMakeFiles/rebuild_cache.dir
-F:/code/projects/29_QT_projects/qt_custom_widget/build/CMakeFiles/qt_custom_widget_autogen.dir
