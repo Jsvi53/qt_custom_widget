@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="qt_custom_widget_zh_CN">
+<TS version="2.1" language="zh_CN">
+<context>
+    <name>Form</name>
+    <message>
+        <location filename="qswitchbutton/qswitchbuttonwindow.ui" line="16"/>
+        <location filename="../build/qt_custom_widget_autogen/include/ui_qswitchbuttonwindow.h" line="35"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 <context>
     <name>MainWindow</name>
     <message>

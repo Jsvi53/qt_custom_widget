@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.cpp": "cpp",
+        "qapplication": "cpp",
+        "qpainter": "cpp"
+    }
+}

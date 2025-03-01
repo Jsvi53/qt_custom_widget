@@ -28,6 +28,8 @@ add_executable(qt_custom_widget
     ${SRC_DIR}/mainwindow.cpp
     ${INCLUDE_DIR}/mainwindow.h
     ${SRC_DIR}/mainwindow.ui
+
+
     ${TS_FILES}
 )
 
