@@ -2,6 +2,7 @@
 #define SWITCHBUTTONSHOWWINDOW_H
 
 #include <QFrame>
+#include "qswitchbutton/qswitchbutton.h"
 
 namespace Ui {
 class SwitchButtonShowWindow;
@@ -17,6 +18,7 @@ public:
 
 private:
     Ui::SwitchButtonShowWindow *ui;
+    SwitchButton *m_switchButton;
 };
 
 #endif // SWITCHBUTTONSHOWWINDOW_H

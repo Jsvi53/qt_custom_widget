@@ -8,7 +8,43 @@
 		"files.associations": {
 			"*.cpp": "cpp",
 			"qwidget": "cpp",
-			"qmainwindow": "cpp"
+			"qmainwindow": "cpp",
+			"qframe": "cpp",
+			"qpolarchart": "cpp",
+			"qlineseries": "cpp",
+			"qchartview": "cpp",
+			"qvalueaxis": "cpp"
 		}
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Debug Qt Application",
+				"type": "cppdbg",
+				"request": "launch",
+				"program": "${workspaceFolder}/build/qt_custom_widget.exe",
+				"args": [],
+				"stopAtEntry": false,
+				"cwd": "${workspaceFolder}/build",
+				"environment": [
+					{
+						"name": "PATH",
+						"value": "${env:PATH};D:/program/Qt/Qt5.12.9/5.12.9/mingw73_64/bin"
+					}
+				],
+				"externalConsole": false,
+				"MIMode": "gdb",
+				"miDebuggerPath": "D:/program/Qt/Qt5.12.9/Tools/mingw730_64/bin/gdb.exe",
+				"setupCommands": [
+					{
+						"description": "Enable pretty-printing for gdb",
+						"text": "-enable-pretty-printing",
+						"ignoreFailures": true
+					}
+				],
+				"visualizerFile": "c:\\Users\\28581_000\\AppData\\Roaming\\Code\\User\\workspaceStorage\\1b2fb78e1466b7a3f0483c23a26ad3fd\\tonka3000.qtvsctools\\qt.natvis.xml"
+			}
+		]
 	}
 }

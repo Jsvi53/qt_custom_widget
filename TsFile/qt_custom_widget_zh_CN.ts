@@ -4,9 +4,18 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/mainwindow.ui" line="14"/>
+        <location filename="../src/mainwindow/mainwindow.ui" line="14"/>
         <location filename="../build/qt_custom_widget_autogen/include/ui_mainwindow.h" line="50"/>
         <source>MainWindow</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PolarChartShowWindow</name>
+    <message>
+        <location filename="../src/chart/polarchartshowwindow.ui" line="14"/>
+        <location filename="../build/qt_custom_widget_autogen/include/ui_polarchartshowwindow.h" line="35"/>
+        <source>Frame</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -1,20 +1,23 @@
 /*** 
  * @Date: 2025-03-01 10:24:48
  * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-01 17:26:30
+ * @LastEditTime: 2025-03-02 14:13:41
  * @FilePath: \qt_custom_widget\src\main.cpp
  */
-#include "mainwindow.h"
-#include "qswitchbutton/switchbuttonshowwindow.h"
 #include <QApplication>
+
+#include "qswitchbutton/switchbuttonshowwindow.h"
+#include "chart/polarchartshowwindow.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
 
-    SwitchButtonShowWindow switchbuttonwindow;
-    switchbuttonwindow.show();
+    // SwitchButtonShowWindow swbtn_window;
+    // swbtn_window.show();
+
+    PolarChartShowWindow chart_window;
+    chart_window.show();
+
     return a.exec();
 }
