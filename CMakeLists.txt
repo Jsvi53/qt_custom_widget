@@ -53,6 +53,14 @@ add_executable(qt_custom_widget
     ${INCLUDE_DIR}/chart/polarchartshowwindow.h
     ${SRC_DIR}/chart/polarchartshowwindow.cpp
     ${SRC_DIR}/chart/polarchartshowwindow.ui
+
+    # 添加 xychart 模块
+    ${INCLUDE_DIR}/chart/barchart.h
+    ${SRC_DIR}/chart/barchart.cpp
+    ${INCLUDE_DIR}/chart/barchartshowwindow.h
+    ${SRC_DIR}/chart/barchartshowwindow.cpp
+    ${SRC_DIR}/chart/barchartshowwindow.ui
+
 )
 
 # 包含头文件目录

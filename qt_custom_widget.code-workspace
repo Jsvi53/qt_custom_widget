@@ -13,7 +13,10 @@
 			"qpolarchart": "cpp",
 			"qlineseries": "cpp",
 			"qchartview": "cpp",
-			"qvalueaxis": "cpp"
+			"qvalueaxis": "cpp",
+			"new": "cpp",
+			"qvboxlayout": "cpp",
+			"qbarcategoryaxis": "cpp"
 		}
 	},
 	"launch": {
