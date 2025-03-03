@@ -17,6 +17,7 @@ find_package(Qt5 REQUIRED COMPONENTS
     LinguistTools
     Widgets
     Charts
+    Multimedia
 )
 
 # 设置源文件和头文件路径
@@ -54,12 +55,19 @@ add_executable(qt_custom_widget
     ${SRC_DIR}/chart/polarchartshowwindow.cpp
     ${SRC_DIR}/chart/polarchartshowwindow.ui
 
-    # 添加 xychart 模块
+    # 添加 barchart 模块
     ${INCLUDE_DIR}/chart/barchart.h
     ${SRC_DIR}/chart/barchart.cpp
     ${INCLUDE_DIR}/chart/barchartshowwindow.h
     ${SRC_DIR}/chart/barchartshowwindow.cpp
     ${SRC_DIR}/chart/barchartshowwindow.ui
+
+    # 添加 wave 模块
+    ${INCLUDE_DIR}/chart/wavechart.h
+    ${SRC_DIR}/chart/wavechart.cpp
+    ${INCLUDE_DIR}/chart/wavechartshowwindow.h
+    ${SRC_DIR}/chart/wavechartshowwindow.cpp
+    ${SRC_DIR}/chart/wavechartshowwindow.ui
 
 )
 
@@ -70,6 +78,7 @@ target_include_directories(qt_custom_widget PRIVATE ${INCLUDE_DIR})
 target_link_libraries(qt_custom_widget PRIVATE
     Qt5::Widgets
     Qt5::Charts
+    Qt5::Multimedia
 )
 
 # install(FILES ${QM_FILES} DESTINATION share/${PROJECT_NAME}/translations)

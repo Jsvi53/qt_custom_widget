@@ -1,3 +1,9 @@
+/*** 
+ * @Date: 2025-03-03 19:39:02
+ * @LastEditors: jsvi53
+ * @LastEditTime: 2025-03-03 23:24:35
+ * @FilePath: \qt_custom_widget\src\chart\barchart.cpp
+ */
 #include "chart/barchart.h"
 
 BalancingBarChart::BalancingBarChart(QWidget *parent) : QFrame(parent)
@@ -41,6 +47,7 @@ void BalancingBarChart::initChart()
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(chartView);
     setLayout(layout); // 设置布局
+
 }
 
 // 设置柱状图数据
