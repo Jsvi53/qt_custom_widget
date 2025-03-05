@@ -75,6 +75,20 @@ add_executable(qt_custom_widget
     ${INCLUDE_DIR}/chart/balancingshowphasechart.h
     ${SRC_DIR}/chart/balancingshowphasechart.cpp
     ${SRC_DIR}/chart/balancingshowphasechart.ui
+
+    # 添加 schenckmain 模块
+    ${INCLUDE_DIR}/schenckmain/schenckmain.h
+    ${SRC_DIR}/schenckmain/schenckmain.cpp
+    ${SRC_DIR}/schenckmain/schenckmain.ui
+
+    # 添加 test 模块
+    ${INCLUDE_DIR}/test/test.h
+    ${SRC_DIR}/test/test.cpp
+    ${SRC_DIR}/test/test.ui
+
+    # 添加 manager 模块
+    ${INCLUDE_DIR}/manager/managerwindow.h
+    ${SRC_DIR}/manager/managerwindow.cpp
 )
 
 # 包含头文件目录

@@ -21,7 +21,8 @@
 			"*.tcc": "cpp",
 			"string": "cpp",
 			"qtmath": "cpp",
-			"qcategoryaxis": "cpp"
+			"qcategoryaxis": "cpp",
+			"qstackedwidget": "cpp"
 		}
 	},
 	"launch": {
