@@ -4,6 +4,8 @@
 
 Test::Test(QWidget *parent) : QWidget(parent), ui(new Ui::Test) {
     ui->setupUi(this);
+
+    connect(ui->pushButton, &QPushButton::clicked, this, &Test::showMainInterface);
 }
 
 Test::~Test() {

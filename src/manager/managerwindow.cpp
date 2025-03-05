@@ -11,13 +11,13 @@ WindowManager::WindowManager(QWidget *parent) : QWidget(parent) {
 
     stackedWidget->addWidget(schenckMain);
     stackedWidget->addWidget(test);
-    stackedWidget->setCurrentIndex(0);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(stackedWidget);
     setLayout(layout);
 
     connect(schenckMain, &SchenckMain::showSubInterface, this, &WindowManager::showSubInterface);
+    connect(test, &Test::showMainInterface, this, &WindowManager::showMainInterface);
 }
 
 WindowManager::~WindowManager() {

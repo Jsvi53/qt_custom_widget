@@ -15,6 +15,9 @@ public:
     explicit Test(QWidget *parent = nullptr);
     ~Test();
 
+signals:
+    void showMainInterface();
+
 private:
     Ui::Test *ui;
 };

@@ -14,7 +14,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 查找 Qt 库
 find_package(Qt5 REQUIRED COMPONENTS
-    LinguistTools
+    # LinguistTools
     Widgets
     Charts
     Multimedia
@@ -25,13 +25,13 @@ set(SRC_DIR src)
 set(INCLUDE_DIR include)
 
 # 设置翻译文件路径
-set(TS_FILES ${CMAKE_SOURCE_DIR}/TsFile/qt_custom_widget_zh_CN.ts)
+# set(TS_FILES ${CMAKE_SOURCE_DIR}/TsFile/qt_custom_widget_zh_CN.ts)
 
 # 添加 TsFile 目录，并设置 CLEAN_NO_CUSTOM 属性
 add_subdirectory(TsFile)
 
 # 生成翻译文件
-qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+# qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 
 
 # 添加可执行文件
