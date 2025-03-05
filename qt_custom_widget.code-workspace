@@ -16,7 +16,12 @@
 			"qvalueaxis": "cpp",
 			"new": "cpp",
 			"qvboxlayout": "cpp",
-			"qbarcategoryaxis": "cpp"
+			"qbarcategoryaxis": "cpp",
+			"qmenubar": "cpp",
+			"*.tcc": "cpp",
+			"string": "cpp",
+			"qtmath": "cpp",
+			"qcategoryaxis": "cpp"
 		}
 	},
 	"launch": {

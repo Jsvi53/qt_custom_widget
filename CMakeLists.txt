@@ -69,6 +69,12 @@ add_executable(qt_custom_widget
     ${SRC_DIR}/chart/wavechartshowwindow.cpp
     ${SRC_DIR}/chart/wavechartshowwindow.ui
 
+    # 添加 phasechart 模块
+    ${INCLUDE_DIR}/chart/balancingphasechart.h
+    ${SRC_DIR}/chart/balancingphasechart.cpp
+    ${INCLUDE_DIR}/chart/balancingshowphasechart.h
+    ${SRC_DIR}/chart/balancingshowphasechart.cpp
+    ${SRC_DIR}/chart/balancingshowphasechart.ui
 )
 
 # 包含头文件目录
