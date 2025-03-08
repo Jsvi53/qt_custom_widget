@@ -89,6 +89,14 @@ add_executable(qt_custom_widget
     # 添加 manager 模块
     ${INCLUDE_DIR}/manager/managerwindow.h
     ${SRC_DIR}/manager/managerwindow.cpp
+
+    # 添加 login 模块
+    ${INCLUDE_DIR}/fileapp/filetemplatewindow.h
+    ${INCLUDE_DIR}/fileapp/TemplateParams.h
+    ${INCLUDE_DIR}/fileapp/TemplateConfigPage.h
+    ${SRC_DIR}/fileapp/filetemplatewindow.cpp
+    ${SRC_DIR}/fileapp/TemplateConfigPage.cpp
+    ${SRC_DIR}/fileapp/filetemplatewindow.ui
 )
 
 # 包含头文件目录

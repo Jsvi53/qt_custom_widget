@@ -1,8 +1,8 @@
 /*** 
  * @Date: 2025-03-01 10:24:48
  * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-05 10:53:02
- * @FilePath: \qt_custom_widget\src\main.cpp
+ * @LastEditTime: 2025-03-09 01:03:31
+ * @FilePath: /qt_custom_widget/src/main.cpp
  */
 #include <QApplication>
 
@@ -14,6 +14,8 @@
 #include "schenckmain/schenckmain.h"
 #include "test/test.h"
 #include "manager/managerwindow.h"
+#include "fileapp/filetemplatewindow.h"
+#include "mainwindow/mainwindow.h"
 
 int main(int argc, char *argv[])
 {
@@ -41,9 +43,15 @@ int main(int argc, char *argv[])
     // Test test;
     // test.show();
 
-    WindowManager windowManager;
-    windowManager.resize(1280, 800);
-    windowManager.show();
+    // WindowManager windowManager;
+    // windowManager.resize(1280, 800);
+    // windowManager.show();
+
+    // FileTemplateWindow fileTemplateWindow;
+    // fileTemplateWindow.show();
+
+    MainWindow mainWindow;
+    mainWindow.show();
 
     return a.exec();
 }

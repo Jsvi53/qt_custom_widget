@@ -23,7 +23,11 @@
 			"qtmath": "cpp",
 			"qcategoryaxis": "cpp",
 			"qstackedwidget": "cpp"
-		}
+		},
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "ms-vscode.cpptools",
+		"clang-format.style": "file:.clang-format",// 配置文件路径
+		"clang-format.assumeFilename": "${workspaceRoot}/.vscode/.clang-format",
 	},
 	"launch": {
 		"version": "0.2.0",
