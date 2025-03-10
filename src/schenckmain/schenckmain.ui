@@ -29,7 +29,7 @@
             <string>SchenckMain</string>
         </property>
         <property name="styleSheet">
-            <string notr="true"/>
+            <string notr="true" />
         </property>
         <widget class="QWidget" name="centralwidget">
             <widget class="QWidget" name="verticalLayoutWidget">
@@ -64,10 +64,10 @@
                             </property>
                             <property name="styleSheet">
                                 <string notr="true">QFrame {
-    background: white;  /* 设置背景透明 */
-    border: none;             /* 可选：移除边框 */
-	border-bottom: 1px solid #000000;  /* 设置下边框，颜色为黑色，宽度为1像素 */
-}</string>
+                                    background: white; /* 设置背景透明 */
+                                    border: none; /* 可选：移除边框 */
+                                    border-bottom: 1px solid #000000; /* 设置下边框，颜色为黑色，宽度为1像素 */
+                                    }</string>
                             </property>
                             <property name="frameShape">
                                 <enum>QFrame::StyledPanel</enum>
@@ -103,7 +103,7 @@
                                 </property>
                                 <property name="styleSheet">
                                     <string notr="true">color: rgb(0, 0, 0);
-border:none</string>
+                                        border:none</string>
                                 </property>
                                 <property name="text">
                                     <string>08:26</string>
@@ -147,7 +147,7 @@ border:none</string>
                                 </property>
                                 <property name="styleSheet">
                                     <string notr="true">color: rgb(0, 0, 0);
-border:none</string>
+                                        border:none</string>
                                 </property>
                                 <property name="text">
                                     <string>02/26</string>
@@ -167,7 +167,9 @@ border:none</string>
                                 </sizepolicy>
                             </property>
                             <property name="styleSheet">
-                                <string notr="true">background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(0, 0, 0, 89), stop:1 rgba(255, 255, 255, 255));</string>
+                                <string notr="true">background-color: qlineargradient(spread:pad,
+                                    x1:1, y1:1, x2:1, y2:0, stop:0 rgba(0, 0, 0, 89), stop:1
+                                    rgba(255, 255, 255, 255));</string>
                             </property>
                             <property name="frameShape">
                                 <enum>QFrame::NoFrame</enum>
@@ -198,9 +200,9 @@ border:none</string>
                                 </property>
                                 <property name="styleSheet">
                                     <string notr="true">QFrame {
-    background: transparent;  /* 设置背景透明 */
-    border: none;             /* 可选：移除边框 */
-}</string>
+                                        background: transparent; /* 设置背景透明 */
+                                        border: none; /* 可选：移除边框 */
+                                        }</string>
                                 </property>
                                 <property name="frameShape">
                                     <enum>QFrame::StyledPanel</enum>
@@ -237,7 +239,8 @@ border:none</string>
                                                 </size>
                                             </property>
                                             <property name="styleSheet">
-                                                <string notr="true">background-color: rgb(255, 255, 255);</string>
+                                                <string notr="true">background-color: rgb(255, 255,
+                                                    255);</string>
                                             </property>
                                             <property name="text">
                                                 <string>PushButton</string>
@@ -259,7 +262,8 @@ border:none</string>
                                                 </size>
                                             </property>
                                             <property name="styleSheet">
-                                                <string notr="true">background-color: rgb(255, 255, 255);</string>
+                                                <string notr="true">background-color: rgb(255, 255,
+                                                    255);</string>
                                             </property>
                                             <property name="text">
                                                 <string>PushButton</string>
@@ -281,7 +285,8 @@ border:none</string>
                                                 </size>
                                             </property>
                                             <property name="styleSheet">
-                                                <string notr="true">background-color: rgb(255, 255, 255);</string>
+                                                <string notr="true">background-color: rgb(255, 255,
+                                                    255);</string>
                                             </property>
                                             <property name="text">
                                                 <string>PushButton</string>
@@ -303,7 +308,8 @@ border:none</string>
                                                 </size>
                                             </property>
                                             <property name="styleSheet">
-                                                <string notr="true">background-color: rgb(255, 255, 255);</string>
+                                                <string notr="true">background-color: rgb(255, 255,
+                                                    255);</string>
                                             </property>
                                             <property name="text">
                                                 <string>PushButton</string>
@@ -325,7 +331,8 @@ border:none</string>
                                                 </size>
                                             </property>
                                             <property name="styleSheet">
-                                                <string notr="true">background-color: rgb(255, 255, 255);</string>
+                                                <string notr="true">background-color: rgb(255, 255,
+                                                    255);</string>
                                             </property>
                                             <property name="text">
                                                 <string>PushButton</string>
@@ -347,7 +354,8 @@ border:none</string>
                                                 </size>
                                             </property>
                                             <property name="styleSheet">
-                                                <string notr="true">background-color: rgb(255, 255, 255);</string>
+                                                <string notr="true">background-color: rgb(255, 255,
+                                                    255);</string>
                                             </property>
                                             <property name="text">
                                                 <string>PushButton</string>
@@ -369,7 +377,8 @@ border:none</string>
                                                 </size>
                                             </property>
                                             <property name="styleSheet">
-                                                <string notr="true">background-color: rgb(255, 255, 255);</string>
+                                                <string notr="true">background-color: rgb(255, 255,
+                                                    255);</string>
                                             </property>
                                             <property name="text">
                                                 <string>PushButton</string>
@@ -391,7 +400,8 @@ border:none</string>
                                                 </size>
                                             </property>
                                             <property name="styleSheet">
-                                                <string notr="true">background-color: rgb(255, 255, 255);</string>
+                                                <string notr="true">background-color: rgb(255, 255,
+                                                    255);</string>
                                             </property>
                                             <property name="text">
                                                 <string>PushButton</string>
@@ -413,7 +423,8 @@ border:none</string>
                                                 </size>
                                             </property>
                                             <property name="styleSheet">
-                                                <string notr="true">background-color: rgb(255, 255, 255);</string>
+                                                <string notr="true">background-color: rgb(255, 255,
+                                                    255);</string>
                                             </property>
                                             <property name="text">
                                                 <string>PushButton</string>
@@ -435,7 +446,8 @@ border:none</string>
                                                 </size>
                                             </property>
                                             <property name="styleSheet">
-                                                <string notr="true">background-color: rgb(255, 255, 255);</string>
+                                                <string notr="true">background-color: rgb(255, 255,
+                                                    255);</string>
                                             </property>
                                             <property name="text">
                                                 <string>PushButton</string>
@@ -464,31 +476,34 @@ border:none</string>
                                             </property>
                                             <property name="styleSheet">
                                                 <string notr="true">QPushButton {
-    background-color: #FFFFFF; /* 按钮背景颜色 */
-    color: black; /* 文字颜色 */
-    font-size: 16px; /* 字体大小 */
-    border-radius: 20px; /* 圆角半径 */
-    padding: 10px; /* 内边距 */
-    border:none;
-	border-bottom-color: 2px solid #5B81B2; /* 添加边框 */
-    box-shadow: 0px 6px 12px rgba(173, 216, 230, 1); /* 更强的阴影效果 */
-    margin: 5px; /* 外边距 */
+                                                    background-color: #FFFFFF; /* 按钮背景颜色 */
+                                                    color: black; /* 文字颜色 */
+                                                    font-size: 16px; /* 字体大小 */
+                                                    border-radius: 20px; /* 圆角半径 */
+                                                    padding: 10px; /* 内边距 */
+                                                    border:none;
+                                                    border-bottom-color: 2px solid #5B81B2; /* 添加边框
+                                                    */
+                                                    box-shadow: 0px 6px 12px rgba(173, 216, 230, 1);
+                                                    /* 更强的阴影效果 */
+                                                    margin: 5px; /* 外边距 */
 
 
-}
+                                                    }
 
-QPushButton:hover {
-    background-color: #E7E7E7; /* 鼠标悬停时的背景颜色 */
-    color: white; /* 鼠标悬停时的文字颜色 */
-    border: 2px solid #45a049; /* 鼠标悬停时的边框颜色 */
-}
+                                                    QPushButton:hover {
+                                                    background-color: #E7E7E7; /* 鼠标悬停时的背景颜色 */
+                                                    color: white; /* 鼠标悬停时的文字颜色 */
+                                                    border: 2px solid #45a049; /* 鼠标悬停时的边框颜色 */
+                                                    }
 
-QPushButton:pressed {
-    background-color: #898989; /* 按钮按下时的背景颜色 */
-    color: white; /* 按钮按下时的文字颜色 */
-    border: 2px solid #898989; /* 按钮按下时的边框颜色 */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 1); /* 按下时阴影减弱 */
-}</string>
+                                                    QPushButton:pressed {
+                                                    background-color: #898989; /* 按钮按下时的背景颜色 */
+                                                    color: white; /* 按钮按下时的文字颜色 */
+                                                    border: 2px solid #898989; /* 按钮按下时的边框颜色 */
+                                                    box-shadow: 0px 4px 8px rgba(0, 0, 0, 1); /*
+                                                    按下时阴影减弱 */
+                                                    }</string>
                                             </property>
                                             <property name="text">
                                                 <string>PushButton</string>
@@ -519,7 +534,8 @@ QPushButton:pressed {
                                                 </size>
                                             </property>
                                             <property name="styleSheet">
-                                                <string notr="true">background-color: rgb(255, 255, 255);</string>
+                                                <string notr="true">background-color: rgb(255, 255,
+                                                    255);</string>
                                             </property>
                                             <property name="text">
                                                 <string>PushButton</string>
@@ -541,7 +557,8 @@ QPushButton:pressed {
                                                 </size>
                                             </property>
                                             <property name="styleSheet">
-                                                <string notr="true">background-color: rgb(255, 255, 255);</string>
+                                                <string notr="true">background-color: rgb(255, 255,
+                                                    255);</string>
                                             </property>
                                             <property name="text">
                                                 <string>PushButton</string>
@@ -566,7 +583,8 @@ QPushButton:pressed {
                                                 <bool>false</bool>
                                             </property>
                                             <property name="styleSheet">
-                                                <string notr="true">background-color: rgb(255, 255, 255);</string>
+                                                <string notr="true">background-color: rgb(255, 255,
+                                                    255);</string>
                                             </property>
                                             <property name="text">
                                                 <string>PushButton</string>
@@ -588,7 +606,8 @@ QPushButton:pressed {
                                                 </size>
                                             </property>
                                             <property name="styleSheet">
-                                                <string notr="true">background-color: rgb(255, 255, 255);</string>
+                                                <string notr="true">background-color: rgb(255, 255,
+                                                    255);</string>
                                             </property>
                                             <property name="text">
                                                 <string>PushButton</string>
@@ -603,6 +622,6 @@ QPushButton:pressed {
             </widget>
         </widget>
     </widget>
-    <resources/>
-    <connections/>
+    <resources />
+    <connections />
 </ui>

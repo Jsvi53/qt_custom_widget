@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/navigation/assets">
+        <file>help.png</file>
+    </qresource>
+    <qresource prefix="/navigation/hamburger">
+        <file>hamburger.png</file>
+    </qresource>
+    <qresource prefix="/navigation/setting">
+        <file>setting.png</file>
+    </qresource>
+</RCC>

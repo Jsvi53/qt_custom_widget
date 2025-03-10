@@ -33,6 +33,9 @@ add_subdirectory(TsFile)
 # 生成翻译文件
 # qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 
+# 添加资源文件
+qt5_add_resources(RESOURCES assets/assets.qrc)
+
 
 # 添加可执行文件
 add_executable(qt_custom_widget
@@ -97,6 +100,14 @@ add_executable(qt_custom_widget
     ${SRC_DIR}/fileapp/filetemplatewindow.cpp
     ${SRC_DIR}/fileapp/TemplateConfigPage.cpp
     ${SRC_DIR}/fileapp/filetemplatewindow.ui
+
+    # 添加 basemodule 模块
+    ${INCLUDE_DIR}/basemodule/basewidget.h
+    ${SRC_DIR}/basemodule/basewidget.cpp
+    ${SRC_DIR}/basemodule/basewidget.ui
+
+    # 添加资源文件生成的目标
+    ${RESOURCES}
 )
 
 # 包含头文件目录

@@ -1,8 +1,8 @@
 /*** 
  * @Date: 2025-03-01 10:24:48
  * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-09 01:03:31
- * @FilePath: /qt_custom_widget/src/main.cpp
+ * @LastEditTime: 2025-03-10 22:14:12
+ * @FilePath: \qt_custom_widget\src\main.cpp
  */
 #include <QApplication>
 
@@ -16,6 +16,8 @@
 #include "manager/managerwindow.h"
 #include "fileapp/filetemplatewindow.h"
 #include "mainwindow/mainwindow.h"
+#include "basemodule/basewidget.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -50,8 +52,11 @@ int main(int argc, char *argv[])
     // FileTemplateWindow fileTemplateWindow;
     // fileTemplateWindow.show();
 
-    MainWindow mainWindow;
-    mainWindow.show();
+    // MainWindow mainWindow;
+    // mainWindow.show();
+
+    BaseWidget baseWidget;
+    baseWidget.show();
 
     return a.exec();
 }

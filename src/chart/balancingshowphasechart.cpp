@@ -10,8 +10,8 @@
 
 
 BalancingShowPhaseChart::BalancingShowPhaseChart(QWidget *parent)
-    : QWidget(parent)
-    , ui(new Ui::BalancingShowPhaseChart)
+        : QWidget(parent)
+        , ui(new Ui::BalancingShowPhaseChart)
 {
     ui->setupUi(this);
     phaseChart = new BalancingPhaseChart(this);
