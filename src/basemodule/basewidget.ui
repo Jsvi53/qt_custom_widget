@@ -44,8 +44,9 @@
     <item>
      <widget class="QFrame" name="base_statebar">
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(228, 228, 228);
-</string>
+       <string notr="true">QFrame {
+                                background-color: rgb(228, 228, 228)
+                                }</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
@@ -126,9 +127,9 @@
      <widget class="QFrame" name="base_navigationbar">
       <property name="styleSheet">
        <string notr="true">QFrame {
-    background-color: rgb(228, 228, 228);
-	border-top: 1px solid gray;
-}</string>
+                                background-color: rgb(228, 228, 228);
+                                border-top: 1px solid gray;
+                                }</string>
       </property>
       <widget class="QWidget" name="horizontalLayoutWidget_2">
        <property name="geometry">
@@ -150,15 +151,15 @@
           </property>
           <property name="styleSheet">
            <string notr="true">QPushButton {
-    border: none;
-    background-color: rgb(228, 228, 228);
-    color: black;
-    padding: 5px;
-    font: 18pt &quot;宋体&quot;;
-    font-weight: bold;
-    qproperty-alignment: AlignCenter; /* 设置文本居中对齐 */
-	border-right:1px solid gray
-}</string>
+                                                border: none;
+                                                background-color: rgb(228, 228, 228);
+                                                color: black;
+                                                padding: 5px;
+                                                font: 18pt &quot;宋体&quot;;
+                                                font-weight: bold;
+                                                qproperty-alignment: AlignCenter; /* 设置文本居中对齐 */
+                                                border-right:1px solid gray
+                                                }</string>
           </property>
           <property name="text">
            <string>&lt;</string>
@@ -178,14 +179,30 @@
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout">
             <item>
-             <widget class="QLabel" name="naviLabel_l">
+             <widget class="QPushButton" name="naviBtn_l">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="sizeIncrement">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="styleSheet">
-               <string notr="true">QLabel {
-    font: 14pt &quot;微软雅黑&quot;;
-}</string>
+               <string notr="true">QPushButton {
+	font: 14pt &quot;微软雅黑&quot;;
+	border: none;
+	background-color: rgb(228, 228, 228);
+	qproperty-alignment: AlignCenter; /* 设置文本居中对齐 */
+}
+</string>
               </property>
               <property name="text">
-               <string>帮助</string>
+               <string>主页</string>
               </property>
              </widget>
             </item>
@@ -193,8 +210,8 @@
              <widget class="QLabel" name="naviDirectoryBtn">
               <property name="styleSheet">
                <string notr="true">QLabel {
-    font: 14pt &quot;微软雅黑&quot;;
-}</string>
+                                                                font: 14pt &quot;微软雅黑&quot;;
+                                                                }</string>
               </property>
               <property name="text">
                <string/>
@@ -230,18 +247,20 @@
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    border: none;
-    background-color: rgb(228, 228, 228);
-    color: black;
-    padding: 5px;
-}</string>
+                                                                border: none;
+                                                                background-color: rgb(228, 228,
+                                                                228);
+                                                                color: black;
+                                                                padding: 5px;
+                                                                }</string>
               </property>
               <property name="text">
                <string/>
               </property>
               <property name="icon">
                <iconset>
-                <normalon>:/navigation/assets/help.png</normalon>
+                <normalon>
+                                                                    :/navigation/assets/help.png</normalon>
                </iconset>
               </property>
               <property name="iconSize">
@@ -262,18 +281,20 @@
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    border: none;
-    background-color: rgb(228, 228, 228);
-    color: black;
-    padding: 5px;
-}</string>
+                                                                border: none;
+                                                                background-color: rgb(228, 228,
+                                                                228);
+                                                                color: black;
+                                                                padding: 5px;
+                                                                }</string>
               </property>
               <property name="text">
                <string/>
               </property>
               <property name="icon">
                <iconset>
-                <normalon>:/navigation/setting/setting.png</normalon>
+                <normalon>
+                                                                    :/navigation/setting/setting.png</normalon>
                </iconset>
               </property>
               <property name="iconSize">
@@ -294,18 +315,20 @@
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    border: none;
-    background-color: rgb(228, 228, 228);
-    color: black;
-    padding: 5px;
-}</string>
+                                                                border: none;
+                                                                background-color: rgb(228, 228,
+                                                                228);
+                                                                color: black;
+                                                                padding: 5px;
+                                                                }</string>
               </property>
               <property name="text">
                <string/>
               </property>
               <property name="icon">
                <iconset>
-                <normalon>:/navigation/hamburger/hamburger.png</normalon>
+                <normalon>
+                                                                    :/navigation/hamburger/hamburger.png</normalon>
                </iconset>
               </property>
               <property name="iconSize">
@@ -343,7 +366,7 @@
     <item>
      <widget class="QWidget" name="base_workspace" native="true">
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(120, 120, 109);</string>
+       <string notr="true">background-color: rgb(122, 132, 131);</string>
       </property>
      </widget>
     </item>

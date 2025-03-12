@@ -106,6 +106,17 @@ add_executable(qt_custom_widget
     ${SRC_DIR}/basemodule/basewidget.cpp
     ${SRC_DIR}/basemodule/basewidget.ui
 
+    # 添加 launchscreen 模块
+    ${INCLUDE_DIR}/jp_mainwindow/jp_mainwindow.h
+    ${SRC_DIR}/jp_mainwindow/jp_mainwindow.cpp
+    ${SRC_DIR}/jp_mainwindow/jp_mainwindow.ui
+
+    # 添加 launchscreen 模块
+    # ${INCLUDE_DIR}/launchscreen/launchscreen.h
+    # ${SRC_DIR}/launchscreen/launchscreen.cpp
+    # ${SRC_DIR}/launchscreen/launchscreen.ui
+    
+
     # 添加资源文件生成的目标
     ${RESOURCES}
 )
