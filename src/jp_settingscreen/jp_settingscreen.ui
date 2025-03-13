@@ -421,7 +421,7 @@
            <property name="font">
             <font>
              <family>微软雅黑</family>
-             <pointsize>16</pointsize>
+             <pointsize>14</pointsize>
             </font>
            </property>
            <property name="styleSheet">
@@ -431,7 +431,7 @@
 }</string>
            </property>
            <property name="text">
-            <string>用户</string>
+            <string> 用户</string>
            </property>
            <property name="icon">
             <iconset>
@@ -463,7 +463,7 @@
            <property name="font">
             <font>
              <family>微软雅黑</family>
-             <pointsize>16</pointsize>
+             <pointsize>14</pointsize>
             </font>
            </property>
            <property name="styleSheet">
@@ -473,7 +473,7 @@
 }</string>
            </property>
            <property name="text">
-            <string>日期和时间</string>
+            <string> 日期和时间</string>
            </property>
            <property name="icon">
             <iconset>
@@ -505,7 +505,7 @@
            <property name="font">
             <font>
              <family>微软雅黑</family>
-             <pointsize>16</pointsize>
+             <pointsize>14</pointsize>
             </font>
            </property>
            <property name="styleSheet">
@@ -516,7 +516,7 @@
 </string>
            </property>
            <property name="text">
-            <string>语言和键盘</string>
+            <string> 语言和键盘</string>
            </property>
            <property name="icon">
             <iconset>
@@ -548,7 +548,7 @@
            <property name="font">
             <font>
              <family>微软雅黑</family>
-             <pointsize>16</pointsize>
+             <pointsize>14</pointsize>
             </font>
            </property>
            <property name="styleSheet">
@@ -559,7 +559,7 @@
 </string>
            </property>
            <property name="text">
-            <string>单位</string>
+            <string> 单位</string>
            </property>
            <property name="icon">
             <iconset>
@@ -591,7 +591,7 @@
            <property name="font">
             <font>
              <family>微软雅黑</family>
-             <pointsize>16</pointsize>
+             <pointsize>14</pointsize>
             </font>
            </property>
            <property name="styleSheet">
@@ -602,7 +602,7 @@
 </string>
            </property>
            <property name="text">
-            <string>通道和传感器</string>
+            <string> 通道和传感器</string>
            </property>
            <property name="icon">
             <iconset>
@@ -634,7 +634,7 @@
            <property name="font">
             <font>
              <family>微软雅黑</family>
-             <pointsize>16</pointsize>
+             <pointsize>14</pointsize>
             </font>
            </property>
            <property name="styleSheet">
@@ -645,7 +645,7 @@
 </string>
            </property>
            <property name="text">
-            <string>测量</string>
+            <string> 测量</string>
            </property>
            <property name="icon">
             <iconset>
@@ -677,7 +677,7 @@
            <property name="font">
             <font>
              <family>微软雅黑</family>
-             <pointsize>16</pointsize>
+             <pointsize>14</pointsize>
             </font>
            </property>
            <property name="styleSheet">
@@ -688,7 +688,7 @@
 </string>
            </property>
            <property name="text">
-            <string>结果显示</string>
+            <string> 结果显示</string>
            </property>
            <property name="icon">
             <iconset>
@@ -720,7 +720,7 @@
            <property name="font">
             <font>
              <family>微软雅黑</family>
-             <pointsize>16</pointsize>
+             <pointsize>14</pointsize>
             </font>
            </property>
            <property name="styleSheet">
@@ -731,7 +731,7 @@
 </string>
            </property>
            <property name="text">
-            <string>设备</string>
+            <string> 设备</string>
            </property>
            <property name="icon">
             <iconset>
@@ -763,7 +763,7 @@
            <property name="font">
             <font>
              <family>微软雅黑</family>
-             <pointsize>16</pointsize>
+             <pointsize>14</pointsize>
             </font>
            </property>
            <property name="styleSheet">
@@ -774,7 +774,7 @@
 </string>
            </property>
            <property name="text">
-            <string>关于</string>
+            <string> 关于</string>
            </property>
            <property name="icon">
             <iconset>
@@ -843,7 +843,7 @@
 	border: none;
 }</string>
         </property>
-        <widget class="QWidget" name="widget_2" native="true">
+        <widget class="QWidget" name="setting_workspace" native="true">
          <property name="geometry">
           <rect>
            <x>0</x>
@@ -858,6 +858,21 @@
 	border-radius: 5px;
 }</string>
          </property>
+         <widget class="QWidget" name="verticalLayoutWidget_3">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>991</width>
+            <height>701</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+          </layout>
+         </widget>
         </widget>
        </widget>
       </widget>

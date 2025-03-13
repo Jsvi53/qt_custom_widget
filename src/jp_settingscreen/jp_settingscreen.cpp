@@ -1,3 +1,9 @@
+/*** 
+ * @Date: 2025-03-13 20:09:59
+ * @LastEditors: jsvi53
+ * @LastEditTime: 2025-03-13 21:32:25
+ * @FilePath: \qt_custom_widget\src\jp_settingscreen\jp_settingscreen.cpp
+ */
 #include "jp_settingscreen/jp_settingscreen.h"
 #include "ui_jp_settingscreen.h"
 #include <QGraphicsDropShadowEffect>
@@ -26,4 +32,23 @@ JP_SettingScreen::JP_SettingScreen(QWidget *parent) :
 JP_SettingScreen::~JP_SettingScreen()
 {
     delete ui;
+}
+
+
+SettingItem::SettingItem(QWidget *parent) : QWidget(parent)
+{
+    // 创建控件
+    inputButton = new QPushButton("Button", this);
+    itemName    = new QLabel("Item Name", this);
+    item        = new QLabel("Item Content", this);
+
+    // 创建布局
+    QHBoxLayout *mainLayout  = new QHBoxLayout(this);  // 主布局（水平）
+    QVBoxLayout *rightLayout = new QVBoxLayout();      // 右侧布局（垂直）
+
+    // 将控件添加到布局
+    mainLayout->addWidget(inputButton);  // 左侧按钮
+    rightLayout->addWidget(itemName);    // 右侧上方标签
+    rightLayout->addWidget(item);        // 右侧下方标签
+    mainLayout->addLayout(rightLayout);  // 将右侧布局添加到主布局
 }
