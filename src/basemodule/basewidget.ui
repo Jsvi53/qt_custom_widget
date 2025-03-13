@@ -259,8 +259,7 @@
               </property>
               <property name="icon">
                <iconset>
-                <normalon>
-                                                                    :/navigation/assets/help.png</normalon>
+                <normalon>:/navigation/help/base_assets/help.png</normalon>
                </iconset>
               </property>
               <property name="iconSize">
@@ -293,8 +292,7 @@
               </property>
               <property name="icon">
                <iconset>
-                <normalon>
-                                                                    :/navigation/setting/setting.png</normalon>
+                <normalon>:/navigation/setting/base_assets/setting.png</normalon>
                </iconset>
               </property>
               <property name="iconSize">
@@ -327,8 +325,7 @@
               </property>
               <property name="icon">
                <iconset>
-                <normalon>
-                                                                    :/navigation/hamburger/hamburger.png</normalon>
+                <normalon>:/navigation/hamburger/base_assets/hamburger.png</normalon>
                </iconset>
               </property>
               <property name="iconSize">
@@ -366,7 +363,8 @@
     <item>
      <widget class="QWidget" name="base_workspace" native="true">
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(122, 132, 131);</string>
+       <string notr="true">/* background-color: rgb(122, 132, 131); */
+background-color: rgb(105, 108, 105);</string>
       </property>
      </widget>
     </item>

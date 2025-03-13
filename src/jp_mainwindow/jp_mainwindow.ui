@@ -126,8 +126,82 @@
     <item>
      <widget class="QWidget" name="base_workspace" native="true">
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(122, 132, 131);</string>
+       <string notr="true">QWidget {
+	background-color: rgb(211, 215, 208);
+}
+</string>
       </property>
+      <widget class="QPushButton" name="home_SettingButton">
+       <property name="geometry">
+        <rect>
+         <x>89</x>
+         <y>95</y>
+         <width>150</width>
+         <height>130</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>130</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>150</width>
+         <height>130</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	background-color: white;
+	border-radius: 10px;
+}	
+
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normalon>:/home/settingbtn/home_assets/icon_home_setting_144.png</normalon>
+        </iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="home_SettingButton_text">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>230</y>
+         <width>41</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑</family>
+         <pointsize>18</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>设置</string>
+       </property>
+      </widget>
      </widget>
     </item>
    </layout>

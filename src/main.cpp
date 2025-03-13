@@ -1,7 +1,7 @@
 /*** 
  * @Date: 2025-03-01 10:24:48
  * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-13 09:58:06
+ * @LastEditTime: 2025-03-13 11:58:58
  * @FilePath: \qt_custom_widget\src\main.cpp
  */
 /***
@@ -28,11 +28,13 @@
 #include "qswitchbutton/switchbuttonshowwindow.h"
 #include "schenckmain/schenckmain.h"
 #include "test/test.h"
+#include "jp_mainwindow/jp_mainwindow.h"
+#include "jp_settingscreen/jp_settingscreen.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
+/*
     // SwitchButtonShowWindow swbtn_window;
     // swbtn_window.show();
 
@@ -68,7 +70,8 @@ int main(int argc, char *argv[])
     // 创建主窗口
     // BaseWidget baseWidget;
     // baseWidget.show(); // 显示主窗口
-
+*/
+/*
     // 创建主窗口
     JP_MainWindow jp_main;
 
@@ -93,6 +96,16 @@ int main(int argc, char *argv[])
         splash.close();  // 关闭启动界面
         jp_main.show();  // 显示主窗口
     });
+*/
+
+/*
+    // 创建主窗口
+    JP_MainWindow jp_main;
+    jp_main.show();
+*/
+    // 创建Setting窗口
+    JP_SettingScreen jp_setting;
+    jp_setting.show();
 
     return a.exec();
 }

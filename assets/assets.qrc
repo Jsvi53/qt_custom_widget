@@ -1,11 +1,42 @@
 <RCC>
-    <qresource prefix="/navigation/assets">
-        <file>help.png</file>
+    <qresource prefix="/navigation/help">
+        <file>base_assets/help.png</file>
     </qresource>
     <qresource prefix="/navigation/hamburger">
-        <file>hamburger.png</file>
+        <file>base_assets/hamburger.png</file>
     </qresource>
     <qresource prefix="/navigation/setting">
-        <file>setting.png</file>
+        <file>base_assets/setting.png</file>
+    </qresource>
+    <qresource prefix="/home/settingbtn">
+        <file>home_assets/icon_home_setting_144.png</file>
+    </qresource>
+    <qresource prefix="/setting_assets/user">
+        <file>setting_assets/icon_setting_user_50.png</file>
+        <file>setting_assets/icon_setting_user_100.png</file>
+    </qresource>
+    <qresource prefix="/setting_assets/datetime">
+        <file>setting_assets/icon_setting_datetime_50.png</file>
+    </qresource>
+    <qresource prefix="/setting_assets/language">
+        <file>setting_assets/icon_setting_language_50.png</file>
+    </qresource>
+    <qresource prefix="/setting_assets/uint">
+        <file>setting_assets/icon_setting_unit_50.png</file>
+    </qresource>
+    <qresource prefix="/setting_assets/result">
+        <file>setting_assets/icon_setting_results_50.png</file>
+    </qresource>
+    <qresource prefix="/setting_assets/device">
+        <file>setting_assets/icon_setting_device_50.png</file>
+    </qresource>
+    <qresource prefix="/setting_assets/about">
+        <file>setting_assets/icon_setting_about_50.png</file>
+    </qresource>
+    <qresource prefix="/setting_assets/channel">
+        <file>setting_assets/icon_setting_connection_50.png</file>
+    </qresource>
+    <qresource prefix="/setting_assets/measurement">
+        <file>setting_assets/icon_setting_measurement_50.png</file>
     </qresource>
 </RCC>
