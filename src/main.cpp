@@ -1,7 +1,7 @@
 /*** 
  * @Date: 2025-03-01 10:24:48
  * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-13 01:00:54
+ * @LastEditTime: 2025-03-13 09:58:06
  * @FilePath: \qt_custom_widget\src\main.cpp
  */
 /***
@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
     const QString VERSION = "v1.0.0";
 
     // 加载启动图片
-    QPixmap pixmap("F:/code/projects/29_QT_projects/qt_custom_widget/assets/LaunchScreen.jpg");
+    QPixmap pixmap("D:/shawei/temp/qt_custom_widget/assets/LaunchScreen.jpg");
     if(pixmap.isNull())
     {
         qWarning() << "Failed to load splash screen image!";
