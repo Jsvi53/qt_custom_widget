@@ -805,7 +805,7 @@
         </layout>
        </widget>
       </widget>
-      <widget class="QWidget" name="setting_taskbar_2" native="true">
+      <widget class="QScrollArea" name="scrollArea">
        <property name="geometry">
         <rect>
          <x>280</x>
@@ -814,12 +814,52 @@
          <height>699</height>
         </rect>
        </property>
-       <property name="styleSheet">
-        <string notr="true">QWidget {
+       <property name="minimumSize">
+        <size>
+         <width>989</width>
+         <height>699</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>989</width>
+         <height>699</height>
+        </size>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>987</width>
+          <height>697</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QScrollArea {
+	border: none;
+}</string>
+        </property>
+        <widget class="QWidget" name="widget_2" native="true">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>989</width>
+           <height>699</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QWidget {
 	background-color: rgb(228, 228, 228);
 	border-radius: 5px;
 }</string>
-       </property>
+         </property>
+        </widget>
+       </widget>
       </widget>
      </widget>
     </item>
