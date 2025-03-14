@@ -127,6 +127,11 @@ compile_commands.json
 
 *_qmlcache.qrc
 
-# .vscode/
+.vscode/
 build/
 assets/LaunchScreen.jpg
+--post-rewrite
+git
+read
+show
+with
