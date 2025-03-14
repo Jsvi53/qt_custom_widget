@@ -4,6 +4,7 @@
         "qwidget": "cpp",
         "new": "cpp",
         "qhboxlayout": "cpp",
-        "qspaceritem": "cpp"
+        "qspaceritem": "cpp",
+        "qgraphicsdropshadoweffect": "cpp"
     }
 }

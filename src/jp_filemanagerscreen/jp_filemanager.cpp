@@ -6,6 +6,7 @@
  */
 #include <QHBoxLayout>
 #include <QSpacerItem>
+#include <QGraphicsDropShadowEffect>
 
 #include "jp_filemanagerscreen/jp_filemanager.h"
 #include "ui_jp_filemanager.h"
@@ -14,6 +15,20 @@
 JP_FileManager::JP_FileManager(QWidget *parent) : QWidget(parent), ui(new Ui::JP_FileManager)
 {
     ui->setupUi(this);
+
+    // 设置 filemanager_memeryArea 的阴影效果
+    QGraphicsDropShadowEffect *memoryAreaShadow = new QGraphicsDropShadowEffect(this);
+    memoryAreaShadow->setOffset(5, 5);               // 阴影的偏移量
+    memoryAreaShadow->setColor(QColor(43, 43, 43));  // 阴影的颜色
+    memoryAreaShadow->setBlurRadius(8);              // 阴影模糊半径
+    ui->filemanager_memeryArea->setGraphicsEffect(memoryAreaShadow);
+
+    // 设置 workspaceWidget 的阴影效果
+    QGraphicsDropShadowEffect *workspaceShadow = new QGraphicsDropShadowEffect(this);
+    workspaceShadow->setOffset(5, 5);               // 阴影的偏移量
+    workspaceShadow->setColor(QColor(43, 43, 43));  // 阴影的颜色
+    workspaceShadow->setBlurRadius(8);              // 阴影模糊半径
+    ui->workspaceWidget->setGraphicsEffect(workspaceShadow);
 
     // 设置文件管理界面的布局，使用垂直布局，顶着父窗口的上下左右边界
     if(ui->scrollAreaWidgetContents->layout())
