@@ -31,7 +31,7 @@ JP_FileManager::JP_FileManager(QWidget *parent) : QWidget(parent), ui(new Ui::JP
     for(int i = 0; i < 30; i++)
     {
         FileItem *item = new FileItem(ui->scrollAreaWidgetContents);
-        item->setFileIcon(":/filemanager_assets/icon_filemanager_motor_50.png");
+        item->setFileIcon("::/filemanager_assets/filemanager_assets/icon_filemanager_motor_50.png");
         item->setFileName("文件" + QString::number(i + 1));
         item->setFileDate("2025-03-14");
         item->setFileType("文件夹");
