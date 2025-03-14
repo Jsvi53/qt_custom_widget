@@ -39,4 +39,7 @@
     <qresource prefix="/setting_assets/measurement">
         <file>setting_assets/icon_setting_measurement_50.png</file>
     </qresource>
+    <qresource prefix="/setting_assets/pen">
+        <file>setting_assets/icon_setting_pen_48.png</file>
+    </qresource>
 </RCC>
