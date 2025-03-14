@@ -1,3 +1,9 @@
+/*** 
+ * @Date: 2025-03-14 08:00:14
+ * @LastEditors: jsvi53
+ * @LastEditTime: 2025-03-14 08:16:46
+ * @FilePath: \qt_custom_widget\include\jp_settingscreen\jp_settingscreen.h
+ */
 #pragma once
 #include <QLabel>
 #include <QPushButton>
@@ -33,11 +39,13 @@ private:
 };
 
 // 左侧用户设置项
+// 设置项
 class SettingItem : public QWidget
 {
     Q_OBJECT
 
 public:
+    explicit SettingItem(QWidget *parent = nullptr);
     explicit SettingItem(QWidget *parent = nullptr);
     ~SettingItem();
 
