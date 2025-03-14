@@ -1,7 +1,7 @@
 /*** 
  * @Date: 2025-03-01 10:24:48
  * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-14 08:07:48
+ * @LastEditTime: 2025-03-14 14:38:19
  * @FilePath: \qt_custom_widget\src\main.cpp
  */
 /***
@@ -30,6 +30,7 @@
 #include "test/test.h"
 #include "jp_mainwindow/jp_mainwindow.h"
 #include "jp_settingscreen/jp_settingscreen.h"
+#include "jp_filemanagerscreen/jp_filemanager.h"
 
 int main(int argc, char *argv[])
 {
@@ -98,16 +99,22 @@ int main(int argc, char *argv[])
     });
 */
 
-
+/*
     // 创建主窗口
     JP_MainWindow jp_main;
     jp_main.show();
+*/
 
 /*
     // 创建Setting窗口
     JP_SettingScreen jp_setting;
     jp_setting.show();
 */
+
+    // 创建FileManager窗口
+    JP_FileManager jp_filemanager;
+    jp_filemanager.show();
+
 
     return a.exec();
 }

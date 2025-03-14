@@ -1,6 +1,9 @@
 {
     "files.associations": {
         "*.cpp": "cpp",
-        "qgraphicsdropshadoweffect": "cpp"
+        "qwidget": "cpp",
+        "new": "cpp",
+        "qhboxlayout": "cpp",
+        "qspaceritem": "cpp"
     }
 }
