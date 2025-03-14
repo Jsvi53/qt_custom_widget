@@ -52,3 +52,17 @@ SettingItem::SettingItem(QWidget *parent) : QWidget(parent)
     rightLayout->addWidget(item);        // 右侧下方标签
     mainLayout->addLayout(rightLayout);  // 将右侧布局添加到主布局
 }
+
+
+SettingItem::~SettingItem()
+{
+    delete inputButton;
+    delete itemName;
+    delete item;
+}
+
+
+void SettingItem::on_inputButton_clicked()
+{
+
+}

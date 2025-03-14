@@ -404,6 +404,9 @@
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
+         <property name="spacing">
+          <number>0</number>
+         </property>
          <item>
           <widget class="QPushButton" name="setting_userBtn">
            <property name="minimumSize">

@@ -39,4 +39,10 @@
     <qresource prefix="/setting_assets/measurement">
         <file>setting_assets/icon_setting_measurement_50.png</file>
     </qresource>
+    <qresource prefix="/filemanager_assets">
+        <file>filemanager_assets/icon_filemanager_navi_50.png</file>
+        <file>filemanager_assets/icon_filemanager_motor_50.png</file>
+        <file>filemanager_assets/icon_filemanager_folder_50.png</file>
+        <file>filemanager_assets/icon_filemanager_uncheckall_50.png</file>
+    </qresource>
 </RCC>

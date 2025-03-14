@@ -1,7 +1,7 @@
 /*** 
  * @Date: 2025-03-01 10:24:48
  * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-13 20:49:49
+ * @LastEditTime: 2025-03-14 08:07:48
  * @FilePath: \qt_custom_widget\src\main.cpp
  */
 /***
@@ -98,14 +98,16 @@ int main(int argc, char *argv[])
     });
 */
 
-/*
+
     // 创建主窗口
     JP_MainWindow jp_main;
     jp_main.show();
-*/
+
+/*
     // 创建Setting窗口
     JP_SettingScreen jp_setting;
     jp_setting.show();
+*/
 
     return a.exec();
 }
