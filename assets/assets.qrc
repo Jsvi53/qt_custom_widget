@@ -8,36 +8,22 @@
     <qresource prefix="/navigation/setting">
         <file>base_assets/setting.png</file>
     </qresource>
-    <qresource prefix="/home/settingbtn">
+    <qresource prefix="/home">
         <file>home_assets/icon_home_setting_144.png</file>
+        <file>home_assets/icon_home_folder-94.png</file>
     </qresource>
-    <qresource prefix="/setting_assets/user">
+    <qresource prefix="/setting_assets">
         <file>setting_assets/icon_setting_user_50.png</file>
         <file>setting_assets/icon_setting_user_100.png</file>
-    </qresource>
-    <qresource prefix="/setting_assets/datetime">
         <file>setting_assets/icon_setting_datetime_50.png</file>
-    </qresource>
-    <qresource prefix="/setting_assets/language">
         <file>setting_assets/icon_setting_language_50.png</file>
-    </qresource>
-    <qresource prefix="/setting_assets/uint">
-        <file>setting_assets/icon_setting_unit_50.png</file>
-    </qresource>
-    <qresource prefix="/setting_assets/result">
-        <file>setting_assets/icon_setting_results_50.png</file>
-    </qresource>
-    <qresource prefix="/setting_assets/device">
-        <file>setting_assets/icon_setting_device_50.png</file>
-    </qresource>
-    <qresource prefix="/setting_assets/about">
         <file>setting_assets/icon_setting_about_50.png</file>
-    </qresource>
-    <qresource prefix="/setting_assets/channel">
         <file>setting_assets/icon_setting_connection_50.png</file>
-    </qresource>
-    <qresource prefix="/setting_assets/measurement">
+        <file>setting_assets/icon_setting_device_50.png</file>
         <file>setting_assets/icon_setting_measurement_50.png</file>
+        <file>setting_assets/icon_setting_pen_48.png</file>
+        <file>setting_assets/icon_setting_results_50.png</file>
+        <file>setting_assets/icon_setting_unit_50.png</file>
     </qresource>
     <qresource prefix="/filemanager_assets">
         <file>filemanager_assets/icon_filemanager_navi_50.png</file>
@@ -45,7 +31,29 @@
         <file>filemanager_assets/icon_filemanager_folder_50.png</file>
         <file>filemanager_assets/icon_filemanager_uncheckall_50.png</file>
     </qresource>
-    <qresource prefix="/setting_assets/pen">
-        <file>setting_assets/icon_setting_pen_48.png</file>
+    <qresource prefix="/balancesetup">
+        <file>balancingsetup_assets/icon_balancesetup_camera_64.png</file>
+        <file>balancingsetup_assets/icon_balancesetup_eye_50.svg</file>
+        <file>balancingsetup_assets/icon_balancesetup_eye_100.svg</file>
+        <file>balancingsetup_assets/icon_balancesetup_filleye_50.svg</file>
+        <file>balancingsetup_assets/icon_balancesetup_motor.svg</file>
+        <file>balancingsetup_assets/icon_balancesetup_speed_64.png</file>
+        <file>balancingsetup_assets/icon_balancesetup_triangle.svg</file>
+        <file>balancingsetup_assets/icon_balancesetup_ motor.svg</file>
+        <file>balancingsetup_assets/icon_balancesetup_anticlockwise_blue.svg</file>
+        <file>balancingsetup_assets/icon_balancesetup_anticlockwise_gray.svg</file>
+        <file>balancingsetup_assets/icon_balancesetup_collect_blue.svg</file>
+        <file>balancingsetup_assets/icon_balancesetup_collect_gray.svg</file>
+        <file>balancingsetup_assets/icon_balancesetup_link_blue.svg</file>
+        <file>balancingsetup_assets/icon_balancesetup_link_gray.svg</file>
+        <file>balancingsetup_assets/icon_balancesetup_setting_blue.svg</file>
+        <file>balancingsetup_assets/icon_balancesetup_setting_blue_v.svg</file>
+        <file>balancingsetup_assets/icon_balancesetup_setting_gray.svg</file>
+        <file>balancingsetup_assets/icon_balancesetup_setting_gray_v.svg</file>
+    </qresource>
+    <qresource prefix="/base_assets">
+        <file>base_assets/hamburger.png</file>
+        <file>base_assets/help.png</file>
+        <file>base_assets/setting.png</file>
     </qresource>
 </RCC>

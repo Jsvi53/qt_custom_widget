@@ -13,6 +13,13 @@ JP_SettingScreen::JP_SettingScreen(QWidget *parent) : QWidget(parent), ui(new Ui
 {
     ui->setupUi(this);
 
+    // 设置Setting Button的阴影效果
+    QGraphicsDropShadowEffect *base_navigationbarshadow = new QGraphicsDropShadowEffect(this);
+    base_navigationbarshadow->setOffset(0, 5);               // 阴影的偏移量
+    base_navigationbarshadow->setColor(QColor(43, 43, 43));  // 阴影的颜色
+    base_navigationbarshadow->setBlurRadius(10);             // 阴影圆角的大小
+    ui->base_navigationbar->setGraphicsEffect(base_navigationbarshadow);
+
     // 设置 setting_taskbar 的阴影效果
     QGraphicsDropShadowEffect *taskbarShadow = new QGraphicsDropShadowEffect(this);
     taskbarShadow->setOffset(5, 5);               // 阴影的偏移量
@@ -77,13 +84,21 @@ JP_SettingScreen::~JP_SettingScreen()
 
 SettingItem::SettingItem(QWidget *parent) : QWidget(parent), contentVisible(false)
 {
+    setStyleSheet(
+        "QWidget {"
+        "border-bottom: 1px solid gray;"
+        "border-top: 1px solid gray;"
+        "border-radius: 0;"
+        "padding: 0px;"  // 无内边距
+        "}");
+
     // 创建控件
     inputButton = new QPushButton(this);
     itemName    = new QLabel("Item Name", this);
     item        = new QLabel("Item Content", this);
 
     // 设置按钮图标
-    QIcon icon(":/setting_assets/pen/setting_assets/icon_setting_pen_48.png");
+    QIcon icon(":/setting_assets/setting_assets/icon_setting_pen_48.png");
     if(icon.isNull())
     {
         qDebug() << "图标加载失败！";
@@ -97,44 +112,39 @@ SettingItem::SettingItem(QWidget *parent) : QWidget(parent), contentVisible(fals
     item->setMinimumSize(QSize(800, 20));      // 设置 item 的最小大小
     inputButton->setMinimumSize(QSize(40, 40));
 
+    // 设置字体
+    QFont font("Microsoft YaHei", 14);  // 微软雅黑字体，12px
+    itemName->setFont(font);            // 设置 itemName 的字体
+    font.setPointSize(12);              // 设置字体大小
+    item->setFont(font);                // 设置 item 的字体
+
     // 修改按钮样式表
     inputButton->setStyleSheet(
         "QPushButton {"
-        "    border: none;"                          // 无边框
-        "    padding: 0px;"                          // 无内边距
+        " border: none;"  // 无边框
+        "padding: 0px;"   // 无内边距
         "}");
 
-    QFont font("Microsoft YaHei", 2);  // 字体家族为微软雅黑，字体大小为14
-    item->setFont(font);
-    item->setAlignment(Qt::AlignLeft);    // 设置对齐方式为左对齐
-
-    itemName->setStyleSheet(
-        "QLabel {"
-        "    font-family: 'Microsoft YaHei';"  // 微软雅黑字体
-        "    font-size: 12px;"                 // 字体大小
-        "    color:black;"                     // 字体颜色
-        "    text-align: left;"                // 左对齐
-        "}");
+    setContent("");            // 设置默认内容
+    setContentVisible(false);  // 默认隐藏内容
 
     // 创建布局
     QHBoxLayout *mainLayout  = new QHBoxLayout(this);  // 主布局（水平）
     QVBoxLayout *rightLayout = new QVBoxLayout();      // 右侧布局（垂直）
+    mainLayout->setContentsMargins(0, 0, 0, 0);        // 设置边距为 0
+    mainLayout->setSpacing(0);                         // 设置控件之间的间隙为 0
+    rightLayout->setContentsMargins(0, 0, 0, 0);       // 设置边距为 0
+    rightLayout->setSpacing(0);                        // 设置控件之间的间隙为 0
 
     // 将控件添加到布局
     mainLayout->addWidget(inputButton, 5);   // 左侧按钮
     rightLayout->addWidget(itemName);        // 右侧上方标签
     rightLayout->addWidget(item);            // 右侧下方标签
     mainLayout->addLayout(rightLayout, 93);  // 将右侧布局添加到主布局
+    setLayout(mainLayout);                   // 设置布局
 
-    // 设置布局
-    setLayout(mainLayout);
-
-    // 连接信号槽
+    // 连接按钮的点击事件
     connect(inputButton, &QPushButton::clicked, this, &SettingItem::on_inputButton_clicked);
-
-    // 初始化内容
-    setContent("");            // 设置默认内容
-    setContentVisible(false);  // 默认隐藏内容
 }
 
 SettingItem::~SettingItem()
@@ -177,13 +187,4 @@ void SettingItem::updateContentDisplay()
 // 唤起键盘输入
 void SettingItem::on_inputButton_clicked()
 {
-    // 弹出输入对话框
-    bool    ok;
-    QString text = QInputDialog::getText(this, tr("输入内容"), tr("请输入内容:"), QLineEdit::Normal, realContent, &ok);
-
-    // 如果用户点击了确定按钮
-    if(ok && !text.isEmpty())
-    {
-        setContent(text);  // 更新真实内容
-    }
 }

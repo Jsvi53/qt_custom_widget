@@ -399,7 +399,7 @@
          <rect>
           <x>4</x>
           <y>4</y>
-          <width>251</width>
+          <width>262</width>
           <height>691</height>
          </rect>
         </property>
@@ -437,9 +437,8 @@
             <string> 用户</string>
            </property>
            <property name="icon">
-            <iconset>
-             <normalon>:/setting_assets/user/setting_assets/icon_setting_user_100.png</normalon>
-            </iconset>
+            <iconset resource="../../assets/assets.qrc">
+             <normaloff>:/setting_assets/setting_assets/icon_setting_user_50.png</normaloff>:/setting_assets/setting_assets/icon_setting_user_50.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -479,9 +478,8 @@
             <string> 日期和时间</string>
            </property>
            <property name="icon">
-            <iconset>
-             <normalon>:/setting_assets/datetime/setting_assets/icon_setting_datetime_50.png</normalon>
-            </iconset>
+            <iconset resource="../../assets/assets.qrc">
+             <normaloff>:/setting_assets/setting_assets/icon_setting_datetime_50.png</normaloff>:/setting_assets/setting_assets/icon_setting_datetime_50.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -522,9 +520,8 @@
             <string> 语言和键盘</string>
            </property>
            <property name="icon">
-            <iconset>
-             <normalon>:/setting_assets/language/setting_assets/icon_setting_language_50.png</normalon>
-            </iconset>
+            <iconset resource="../../assets/assets.qrc">
+             <normaloff>:/setting_assets/setting_assets/icon_setting_language_50.png</normaloff>:/setting_assets/setting_assets/icon_setting_language_50.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -565,9 +562,8 @@
             <string> 单位</string>
            </property>
            <property name="icon">
-            <iconset>
-             <normalon>:/setting_assets/uint/setting_assets/icon_setting_unit_50.png</normalon>
-            </iconset>
+            <iconset resource="../../assets/assets.qrc">
+             <normaloff>:/setting_assets/setting_assets/icon_setting_unit_50.png</normaloff>:/setting_assets/setting_assets/icon_setting_unit_50.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -608,9 +604,8 @@
             <string> 通道和传感器</string>
            </property>
            <property name="icon">
-            <iconset>
-             <normalon>:/setting_assets/channel/setting_assets/icon_setting_connection_50.png</normalon>
-            </iconset>
+            <iconset resource="../../assets/assets.qrc">
+             <normaloff>:/setting_assets/setting_assets/icon_setting_connection_50.png</normaloff>:/setting_assets/setting_assets/icon_setting_connection_50.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -651,9 +646,8 @@
             <string> 测量</string>
            </property>
            <property name="icon">
-            <iconset>
-             <normalon>:/setting_assets/measurement/setting_assets/icon_setting_measurement_50.png</normalon>
-            </iconset>
+            <iconset resource="../../assets/assets.qrc">
+             <normaloff>:/setting_assets/setting_assets/icon_setting_measurement_50.png</normaloff>:/setting_assets/setting_assets/icon_setting_measurement_50.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -694,9 +688,8 @@
             <string> 结果显示</string>
            </property>
            <property name="icon">
-            <iconset>
-             <normalon>:/setting_assets/result/setting_assets/icon_setting_results_50.png</normalon>
-            </iconset>
+            <iconset resource="../../assets/assets.qrc">
+             <normaloff>:/setting_assets/setting_assets/icon_setting_results_50.png</normaloff>:/setting_assets/setting_assets/icon_setting_results_50.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -737,9 +730,8 @@
             <string> 设备</string>
            </property>
            <property name="icon">
-            <iconset>
-             <normalon>:/setting_assets/device/setting_assets/icon_setting_device_50.png</normalon>
-            </iconset>
+            <iconset resource="../../assets/assets.qrc">
+             <normaloff>:/setting_assets/setting_assets/icon_setting_device_50.png</normaloff>:/setting_assets/setting_assets/icon_setting_device_50.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -780,9 +772,8 @@
             <string> 关于</string>
            </property>
            <property name="icon">
-            <iconset>
-             <normalon>:/setting_assets/about/setting_assets/icon_setting_about_50.png</normalon>
-            </iconset>
+            <iconset resource="../../assets/assets.qrc">
+             <normaloff>:/setting_assets/setting_assets/icon_setting_about_50.png</normaloff>:/setting_assets/setting_assets/icon_setting_about_50.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -847,21 +838,6 @@
 	border-radius: 5px;
 }</string>
         </property>
-        <widget class="QWidget" name="verticalLayoutWidget_3">
-         <property name="geometry">
-          <rect>
-           <x>5</x>
-           <y>5</y>
-           <width>976</width>
-           <height>686</height>
-          </rect>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-         </layout>
-        </widget>
        </widget>
       </widget>
      </widget>

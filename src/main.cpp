@@ -105,15 +105,15 @@ int main(int argc, char *argv[])
     jp_main.show();
 */
 
-/*
+
     // 创建Setting窗口
     JP_SettingScreen jp_setting;
     jp_setting.show();
-*/
+
 
     // 创建FileManager窗口
-    JP_FileManager jp_filemanager;
-    jp_filemanager.show();
+    // JP_FileManager jp_filemanager;
+    // jp_filemanager.show();
 
 
     return a.exec();
