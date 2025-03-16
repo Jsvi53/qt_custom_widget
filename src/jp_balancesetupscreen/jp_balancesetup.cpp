@@ -5,37 +5,56 @@
  * @FilePath: \qt_custom_widget\src\jp_balancesetupscreen\jp_balancesetup.cpp
  */
 #include <QDebug>
-#include <QSpacerItem>
 #include <QHBoxLayout>
+#include <QSpacerItem>
 #include <QVBoxLayout>
+#include <QGraphicsDropShadowEffect>
+
 #include "jp_balancesetupscreen/jp_balancesetup.h"
 #include "ui_jp_balancesetup.h"
-
 
 JP_BalanceSetup::JP_BalanceSetup(QWidget *parent) : QWidget(parent)
 {
     ui = new Ui::JP_BalanceSetup;
     ui->setupUi(this);
+
+    // 设置 setting_taskbar 的阴影效果
+    QGraphicsDropShadowEffect *navibarShadow = new QGraphicsDropShadowEffect(this);
+    navibarShadow->setOffset(0, 5);               // 阴影的偏移量
+    navibarShadow->setColor(QColor(43, 43, 43));  // 阴影的颜色
+    navibarShadow->setBlurRadius(20);              // 阴影模糊半径
+    ui->base_navigationbar->setGraphicsEffect(navibarShadow);
+
+    QGraphicsDropShadowEffect *workspaceShadow = new QGraphicsDropShadowEffect(this);
+    workspaceShadow->setOffset(5, 5);               // 阴影的偏移量
+    workspaceShadow->setColor(QColor(43, 43, 43));  // 阴影的颜色
+    workspaceShadow->setBlurRadius(8);              // 阴影模糊半径
+    ui->workspaceContainer->setGraphicsEffect(workspaceShadow);
+
+    QGraphicsDropShadowEffect *buttomContainerShadow  = new QGraphicsDropShadowEffect(this);
+    buttomContainerShadow->setOffset(5, 5);               // 阴影的偏移量
+    buttomContainerShadow->setColor(QColor(43, 43, 43));  // 阴影的颜色
+    buttomContainerShadow->setBlurRadius(8);              // 阴影模糊半径
+    ui->buttomContainer->setGraphicsEffect(buttomContainerShadow);
+
     balanceItem = new BalanceSetupItem(ui->scrollAreaWidgetContents);
     balanceItem->set_openChannelButton_Icon(QString(":/balancesetup/balancingsetup_assets/icon_balancesetup_link_gray.svg"));
     balanceItem->set_iconLabel1_Icon(QString(":/balancesetup/balancingsetup_assets/icon_balancesetup_motor.svg"));
     balanceItem->set_iconLabel2_Icon(QString(":/balancesetup/balancingsetup_assets/icon_balancesetup_triangle.svg"));
-    balanceItem->set_balancePlane("Plane A");
+    balanceItem->set_balancePlane("  Plane A");
     balanceItem->set_chLabel("Ch TP1");
     balanceItem->set_sensorLabel("VIB 6.631");
     balanceItem->set_resultParaters("SPEED", "0", "RPM");
 
     // 添加liveSwitchButton
-    // liveSwitchButton = new SwitchButton(ui->workspaceSetBar);
-    // liveSwitchButton->setBackgroundColor(QColor(0xE4, 0xE4, 0xE4));
-
-    // 获取ui->workspaceSetBar 布局
-    QHBoxLayout *workspaceSetBarHLayout = static_cast<QHBoxLayout *>(ui->workspaceSetBar->layout());
-
-
+    liveSwitchButton = new SwitchButton(ui->workspaceSetBar);
+    liveSwitchButton->setBackgroundColor(QColor(0xE4, 0xE4, 0xE4));
+    liveSwitchButton->setDisabledColor(QColor (0x60, 0x5e, 0x5c));
+    QHBoxLayout *switchWidgetLayout = new QHBoxLayout(ui->switchWidget);
+    switchWidgetLayout->addWidget(liveSwitchButton, 3);
 
     // 设置布局
-    QVBoxLayout *vLayout = new QVBoxLayout;
+    QVBoxLayout *vLayout = new QVBoxLayout();
     vLayout->addWidget(balanceItem);
     // 下面添加垂直弹簧，将balanceSetupItem顶到scrollAreaWidgetContents的顶部
     QSpacerItem *spacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);

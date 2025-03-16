@@ -151,15 +151,14 @@
           </property>
           <property name="styleSheet">
            <string notr="true">QPushButton {
-                                                border: none;
-                                                background-color: rgb(228, 228, 228);
-                                                color: black;
-                                                padding: 5px;
-                                                font: 18pt &quot;宋体&quot;;
-                                                font-weight: bold;
-                                                qproperty-alignment: AlignCenter; /* 设置文本居中对齐 */
-                                                border-right:1px solid gray
-                                                }</string>
+    border: none;
+    background-color: rgb(228, 228, 228);
+    color: black;
+    padding: 5px;
+    font: 18pt &quot;宋体&quot;;
+    font-weight: bold;
+    border-right:1px solid gray
+}</string>
           </property>
           <property name="text">
            <string>&lt;</string>
@@ -194,14 +193,11 @@
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-                                                                font: 14pt &quot;微软雅黑&quot;;
-                                                                border: none;
-                                                                background-color: rgb(228, 228,
-                                                                228);
-                                                                qproperty-alignment: AlignCenter; /*
-                                                                设置文本居中对齐 */
-                                                                }
-                                                            </string>
+    font: 14pt &quot;微软雅黑&quot;;
+    border: none;
+    background-color: rgb(228, 228, 228);
+    }
+</string>
               </property>
               <property name="text">
                <string>主页</string>
@@ -732,6 +728,25 @@
               </widget>
              </item>
              <item>
+              <widget class="QWidget" name="switchWidget" native="true">
+               <property name="minimumSize">
+                <size>
+                 <width>60</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>60</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
+              </widget>
+             </item>
+             <item>
               <spacer name="horizontalSpacer_5">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
@@ -915,7 +930,7 @@
         </layout>
        </widget>
       </widget>
-      <widget class="QWidget" name="widget_3" native="true">
+      <widget class="QWidget" name="buttomContainer" native="true">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -1020,6 +1035,7 @@
  </widget>
  <resources>
   <include location="../../assets/assets.qrc"/>
+  <include location="C:/Users/28581_000/assets/assets.qrc"/>
  </resources>
  <connections/>
 </ui>

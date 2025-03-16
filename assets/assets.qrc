@@ -57,4 +57,7 @@
         <file>base_assets/help.png</file>
         <file>base_assets/setting.png</file>
     </qresource>
+    <qresource prefix="/balancerun">
+        <file>balancerun_setup/icon_balancerun_setup_drop.svg</file>
+    </qresource>
 </RCC>
