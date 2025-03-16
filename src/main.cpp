@@ -31,6 +31,7 @@
 #include "jp_mainwindow/jp_mainwindow.h"
 #include "jp_settingscreen/jp_settingscreen.h"
 #include "jp_filemanagerscreen/jp_filemanager.h"
+#include "jp_balancesetupscreen/jp_balancesetup.h"
 
 int main(int argc, char *argv[])
 {
@@ -105,15 +106,20 @@ int main(int argc, char *argv[])
     jp_main.show();
 */
 
-
+/*
     // 创建Setting窗口
     JP_SettingScreen jp_setting;
     jp_setting.show();
+*/
 
-
+/*
     // 创建FileManager窗口
     // JP_FileManager jp_filemanager;
     // jp_filemanager.show();
+*/
+
+    JP_BalanceSetup balancesetup;
+    balancesetup.show();
 
 
     return a.exec();

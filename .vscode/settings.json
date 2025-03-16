@@ -2,6 +2,7 @@
     "files.associations": {
         "*.cpp": "cpp",
         "new": "cpp",
-        "qdebug": "cpp"
+        "qdebug": "cpp",
+        "qspaceritem": "cpp"
     }
 }

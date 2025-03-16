@@ -50,6 +50,7 @@
         <file>balancingsetup_assets/icon_balancesetup_setting_blue_v.svg</file>
         <file>balancingsetup_assets/icon_balancesetup_setting_gray.svg</file>
         <file>balancingsetup_assets/icon_balancesetup_setting_gray_v.svg</file>
+        <file>balancingsetup_assets/icon_balancesetup_list_gray.svg</file>
     </qresource>
     <qresource prefix="/base_assets">
         <file>base_assets/hamburger.png</file>

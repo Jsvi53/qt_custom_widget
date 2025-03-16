@@ -126,6 +126,11 @@ add_executable(qt_custom_widget
     ${SRC_DIR}/jp_filemanagerscreen/jp_filemanager.cpp
     ${SRC_DIR}/jp_filemanagerscreen/jp_filemanager.ui
 
+    # 添加 jp_filemanager 模块
+    ${INCLUDE_DIR}/jp_balancesetupscreen/jp_balancesetup.h
+    ${SRC_DIR}/jp_balancesetupscreen/jp_balancesetup.cpp
+    ${SRC_DIR}/jp_balancesetupscreen/jp_balancesetup.ui
+
     # 添加资源文件生成的目标
     ${RESOURCES}
 )
