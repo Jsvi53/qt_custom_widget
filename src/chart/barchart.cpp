@@ -1,4 +1,10 @@
 /*** 
+ * @Date: 2025-03-17 08:30:52
+ * @LastEditors: jsvi53
+ * @LastEditTime: 2025-03-17 13:26:49
+ * @FilePath: \qt_custom_widget\src\chart\barchart.cpp
+ */
+/***
  * @Date: 2025-03-03 19:39:02
  * @LastEditors: jsvi53
  * @LastEditTime: 2025-03-03 23:24:35

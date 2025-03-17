@@ -1,7 +1,7 @@
 /*** 
  * @Date: 2025-03-01 10:24:48
  * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-14 14:38:19
+ * @LastEditTime: 2025-03-17 08:45:12
  * @FilePath: \qt_custom_widget\src\main.cpp
  */
 /***
@@ -32,6 +32,7 @@
 #include "jp_settingscreen/jp_settingscreen.h"
 #include "jp_filemanagerscreen/jp_filemanager.h"
 #include "jp_balancesetupscreen/jp_balancesetup.h"
+#include "jp_balancerunscreen\jp_balancerun.h"
 
 int main(int argc, char *argv[])
 {
@@ -118,9 +119,12 @@ int main(int argc, char *argv[])
     // jp_filemanager.show();
 */
 
+/*
     JP_BalanceSetup balancesetup;
     balancesetup.show();
+*/
 
-
+    JP_BalanceRun balancerun;
+    balancerun.show();
     return a.exec();
 }

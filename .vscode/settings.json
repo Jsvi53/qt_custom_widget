@@ -3,6 +3,11 @@
         "*.cpp": "cpp",
         "new": "cpp",
         "qdebug": "cpp",
-        "qspaceritem": "cpp"
+        "qspaceritem": "cpp",
+        "qwidget": "cpp",
+        "qchartview": "cpp",
+        "qsplineseries": "cpp",
+        "qlineseries": "cpp",
+        "qvalueaxis": "cpp"
     }
 }

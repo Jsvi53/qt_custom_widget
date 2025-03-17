@@ -126,10 +126,23 @@ add_executable(qt_custom_widget
     ${SRC_DIR}/jp_filemanagerscreen/jp_filemanager.cpp
     ${SRC_DIR}/jp_filemanagerscreen/jp_filemanager.ui
 
-    # 添加 jp_filemanager 模块
+    # 添加 jp_balancese 模块
     ${INCLUDE_DIR}/jp_balancesetupscreen/jp_balancesetup.h
     ${SRC_DIR}/jp_balancesetupscreen/jp_balancesetup.cpp
     ${SRC_DIR}/jp_balancesetupscreen/jp_balancesetup.ui
+
+    # 添加 jp_balancerunscreen 模块
+    ${INCLUDE_DIR}/jp_balancerunscreen/jp_balancerun.h
+    ${SRC_DIR}/jp_balancerunscreen/jp_balancerun.cpp
+    ${SRC_DIR}/jp_balancerunscreen/jp_balancerun.ui
+
+    # 添加 jp_balancerunscreen 模块
+    ${INCLUDE_DIR}/chart/spectrum.h
+    ${SRC_DIR}/chart/spectrum.cpp
+
+    # 添加 qcustomplot 模块
+    # ${INCLUDE_DIR}/chart/qcustomplot.h
+    # ${SRC_DIR}/chart/qcustomplot.cpp
 
     # 添加资源文件生成的目标
     ${RESOURCES}
