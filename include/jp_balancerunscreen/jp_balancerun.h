@@ -1,5 +1,7 @@
 #pragma once
 #include <QWidget>
+
+#include "chart/polardiagram.h"
 #include "chart/spectrum.h"
 #include "qswitchbutton/qswitchbutton.h"
 
@@ -17,7 +19,8 @@ public:
     ~JP_BalanceRun();
 
 private:
-    Ui::JP_BalanceRun   *ui;
-    SwitchButton        *liveSwitchButton;
-    Spectrum            *spectrum;
+    Ui::JP_BalanceRun *ui;
+    SwitchButton      *liveSwitchButton;
+    Spectrum          *spectrum;
+    PolarDiagram      *polardiagram;
 };

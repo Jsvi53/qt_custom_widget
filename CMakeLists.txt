@@ -140,6 +140,10 @@ add_executable(qt_custom_widget
     ${INCLUDE_DIR}/chart/spectrum.h
     ${SRC_DIR}/chart/spectrum.cpp
 
+    # 添加 jp_balancerunscreen 模块
+    ${INCLUDE_DIR}/chart/polardiagram.h
+    ${SRC_DIR}/chart/polardiagram.cpp
+
     # 添加 qcustomplot 模块
     # ${INCLUDE_DIR}/chart/qcustomplot.h
     # ${SRC_DIR}/chart/qcustomplot.cpp

@@ -8,6 +8,7 @@
         "qchartview": "cpp",
         "qsplineseries": "cpp",
         "qlineseries": "cpp",
-        "qvalueaxis": "cpp"
+        "qvalueaxis": "cpp",
+        "qvboxlayout": "cpp"
     }
 }
