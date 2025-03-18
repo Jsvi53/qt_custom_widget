@@ -5,7 +5,6 @@
 #include "chart/spectrum.h"
 #include "qswitchbutton/qswitchbutton.h"
 
-
 namespace Ui {
 class JP_BalanceRun;
 }

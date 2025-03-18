@@ -59,5 +59,8 @@
     </qresource>
     <qresource prefix="/balancerun">
         <file>balancerun_setup/icon_balancerun_setup_drop.svg</file>
+        <file>balancerun/icon_balanceruta_target_blue.png</file>
+        <file>balancerun/icon_balanceruta_target_gray.png</file>
+        <file>balancerun/icon_balanceruta_zoom_gray.png</file>
     </qresource>
 </RCC>
