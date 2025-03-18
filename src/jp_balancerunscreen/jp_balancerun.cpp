@@ -1,7 +1,7 @@
-/***
- * @Date: 2025-03-18 10:18:56
+/*** 
+ * @Date: 2025-03-15 23:18:41
  * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-18 14:28:09
+ * @LastEditTime: 2025-03-18 20:05:31
  * @FilePath: \qt_custom_widget\src\jp_balancerunscreen\jp_balancerun.cpp
  */
 /***
