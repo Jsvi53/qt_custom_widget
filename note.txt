@@ -1,0 +1,1 @@
+1. windeployqt.exe  path/to/xx.exe，会自动copy运行qt所需的dll库到xx.exe目录，以保证xx.exe可以执行；

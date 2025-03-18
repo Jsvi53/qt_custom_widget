@@ -162,4 +162,25 @@ target_link_libraries(qt_custom_widget PRIVATE
     Qt5::Multimedia
 )
 
+# 链接 QCustomPlot 动态库
+set(WIN_CUSTOMPLOT_LIB_DIR ${CMAKE_SOURCE_DIR}/lib/qtcustomplot/windows)
+set(UNIX_CUSTOMPLOT_LIB_DIR ${CMAKE_SOURCE_DIR}/lib/qtcustomplot/unix)
+
+if(UNIX)
+    target_link_libraries(qt_custom_widget PRIVATE ${UNIX_CUSTOMPLOT_LIB_DIR}/libqcustomplot2.so)
+    add_custom_command(TARGET qt_custom_widget POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${UNIX_CUSTOMPLOT_LIB_DIR}/libqcustomplot2.so
+        $<TARGET_FILE_DIR:qt_custom_widget>)
+endif()
+
+if(WIN32)
+    target_link_libraries(qt_custom_widget PRIVATE ${WIN_CUSTOMPLOT_LIB_DIR}/libqcustomplot2.a)
+    add_custom_command(TARGET qt_custom_widget POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${WIN_CUSTOMPLOT_LIB_DIR}/qcustomplot2.dll
+        $<TARGET_FILE_DIR:qt_custom_widget>)
+endif()
+
+# install(TARGETS qt_custom_widget DESTINATION bin) # 安装可执行文件
 # install(FILES ${QM_FILES} DESTINATION share/${PROJECT_NAME}/translations)
