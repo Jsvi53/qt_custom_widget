@@ -76,12 +76,12 @@ Thumbs.db
 *.slo
 *.lo
 *.o
-*.a
+#*.a
 *.la
 *.lai
 *.so
 *.so.*
-*.dll
+#*.dll
 *.dylib
 
 # Qt-es
