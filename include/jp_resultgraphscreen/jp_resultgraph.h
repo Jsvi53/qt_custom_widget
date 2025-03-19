@@ -2,6 +2,7 @@
 
 #include <QWidget>
 #include "chart/bigraph.h"
+#include "utils/signalgenerator.h"
 
 namespace Ui{
     class JP_ResultGraph;
@@ -18,5 +19,7 @@ public:
 private:
     Ui::JP_ResultGraph *ui;
     Bigraph* resultBigraph;
+    SineGenerator *sineGenerator;
+
 
 };

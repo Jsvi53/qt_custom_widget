@@ -27,6 +27,9 @@ public:
     void clearFrontSeries();
     void clearBackSeries();
 
+    // 调整坐标轴范围
+    void adjustAxisRanges();
+
 protected:
     void paintEvent(QPaintEvent *event) override;
 
@@ -54,12 +57,18 @@ private:
     int positionBaseLength = 150;  // 半径
     int positionBaseAngle  = 45;   // 角度（以度为单位）
 
+    QRectF combinedRange;// 存储合并后的坐标范围
+    // 添加以下成员变量
+    QRectF combinedDataRange; // 合并后的实际数据范围（不含边距）
+    QRectF displayRange;      // 显示范围（包含边距）
+
     void         initFrontChart();
     void         initBackChart();
     void         drawConnections();
 
     void         connectAxisTicks(QPainter *painter, QChart *backChart, QLineSeries *backSeries, QChart *frontChart, QLineSeries *frontSeries, bool isXAxis);
     QList<qreal> getTickValues(QValueAxis *axis);
+    QRectF calculateSeriesRange(QLineSeries *series);
 };
 
 #endif  // __Bigraph_H__

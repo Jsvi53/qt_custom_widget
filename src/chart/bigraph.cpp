@@ -6,10 +6,11 @@
  */
 #include <QPainter>
 #include <QtMath>
+#include <limits>
 
 #include "chart/Bigraph.h"
 
-Bigraph::Bigraph(QWidget *parent) : QWidget(parent)
+Bigraph::Bigraph(QWidget* parent) : QWidget(parent)
 {
     setStyleSheet("background-color: transparent;");
     // 初始化图表
@@ -117,62 +118,19 @@ void Bigraph::updateChartPositions(int angle)
     frontChartView->move(frontChartX, frontChartY);
 }
 
-void Bigraph::paintEvent(QPaintEvent *event)
+void Bigraph::paintEvent(QPaintEvent* event)
 {
     QWidget::paintEvent(event);
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
-    painter.setPen(QPen(QColor(Qt::gray), 1, Qt::DotLine));
+    painter.setPen(QPen(QColor(Qt::darkGray), 1, Qt::DotLine));
 
     // 连接X轴和Y轴的刻度线
     connectAxisTicks(&painter, backChart, backSeries, frontChart, frontSeries, true);   // X轴
     connectAxisTicks(&painter, backChart, backSeries, frontChart, frontSeries, false);  // Y轴
 }
 
-void Bigraph::connectAxisTicks(QPainter *painter, QChart *backChart, QLineSeries *backSeries, QChart *frontChart, QLineSeries *frontSeries, bool isXAxis)
-{
-    // 获取前后图表的坐标轴
-    QValueAxis *backAxis  = isXAxis ? qobject_cast<QValueAxis *>(backChart->axes(Qt::Horizontal).first()) : qobject_cast<QValueAxis *>(backChart->axes(Qt::Vertical).first());
-    QValueAxis *frontAxis = isXAxis ? qobject_cast<QValueAxis *>(frontChart->axes(Qt::Horizontal).first()) : qobject_cast<QValueAxis *>(frontChart->axes(Qt::Vertical).first());
-    if(!backAxis || !frontAxis)
-        return;
-    // 获取刻度值列表
-    QList<qreal> backTicks  = getTickValues(backAxis);
-    QList<qreal> frontTicks = getTickValues(frontAxis);
-
-    int minCount = qMin(backTicks.size(), frontTicks.size());
-    for(int i = 0; i < minCount; ++i)
-    {
-        // 转换backChart中的刻度点到全局坐标
-        QPointF backPoint;
-        if(isXAxis)
-        {
-            backPoint = backChart->mapToPosition(QPointF(backTicks[i], backAxis->min()), backSeries);
-        } else
-        {
-            backPoint = backChart->mapToPosition(QPointF(backAxis->min(), backTicks[i]), backSeries);
-        }
-        QPoint backViewPos   = backChartView->mapFromScene(backPoint);
-        QPoint backGlobalPos = backChartView->pos() + backViewPos;
-
-        // 转换frontChart中的刻度点到全局坐标
-        QPointF frontPoint;
-        if(isXAxis)
-        {
-            frontPoint = frontChart->mapToPosition(QPointF(frontTicks[i], frontAxis->min()), frontSeries);
-        } else
-        {
-            frontPoint = frontChart->mapToPosition(QPointF(frontAxis->min(), frontTicks[i]), frontSeries);
-        }
-        QPoint frontViewPos   = frontChartView->mapFromScene(frontPoint);
-        QPoint frontGlobalPos = frontChartView->pos() + frontViewPos;
-
-        // 绘制连接线
-        painter->drawLine(backGlobalPos, frontGlobalPos);
-    }
-}
-
-QList<qreal> Bigraph::getTickValues(QValueAxis *axis)
+QList<qreal> Bigraph::getTickValues(QValueAxis* axis)
 {
     QList<qreal> ticks;
     qreal        min       = axis->min();
@@ -209,4 +167,93 @@ void Bigraph::clearFrontSeries()
 void Bigraph::clearBackSeries()
 {
     backSeries->clear();
+}
+
+QRectF Bigraph::calculateSeriesRange(QLineSeries* series)
+{
+    if(series->count() == 0)
+    {
+        return QRectF(0, 0, 1, 1);  // 默认范围防止空数据崩溃
+    }
+
+    qreal minX = std::numeric_limits<qreal>::max();
+    qreal maxX = std::numeric_limits<qreal>::lowest();
+    qreal minY = minX;
+    qreal maxY = maxX;
+
+    for(const QPointF& point : series->points())
+    {
+        minX = qMin(minX, point.x());
+        maxX = qMax(maxX, point.x());
+        minY = qMin(minY, point.y());
+        maxY = qMax(maxY, point.y());
+    }
+
+    // 处理单点数据情况
+    if(qFuzzyCompare(minX, maxX))
+    {
+        maxX += 0.1;
+        minX -= 0.1;
+    }
+    if(qFuzzyCompare(minY, maxY))
+    {
+        maxY += 0.1;
+        minY -= 0.1;
+    }
+
+    // 添加5%边距使曲线不贴边
+    qreal xMargin = (maxX - minX) * 0.05;
+    qreal yMargin = (maxY - minY) * 0.05;
+
+    return QRectF(minX - xMargin, minY - yMargin, (maxX - minX) + 2 * xMargin, (maxY - minY) + 2 * yMargin);
+}
+void Bigraph::adjustAxisRanges()
+{
+    // 计算合并范围
+    QRectF frontRect = calculateSeriesRange(frontSeries);
+    QRectF backRect  = calculateSeriesRange(backSeries);
+
+    combinedRange = QRectF(qMin(frontRect.left(), backRect.left()), qMin(frontRect.top(), backRect.top()), qMax(frontRect.width(), backRect.width()), qMax(frontRect.height(), backRect.height()));
+
+    // 添加统一边距
+    qreal xMargin = combinedRange.width() * 0.05;
+    qreal yMargin = combinedRange.height() * 0.05;
+
+    // 设置统一范围到两个图表
+    frontAxisX->setRange(combinedRange.left() - xMargin, combinedRange.right() + xMargin);
+    frontAxisY->setRange(combinedRange.top() - yMargin, combinedRange.bottom() + yMargin);
+
+    backAxisX->setRange(combinedRange.left() - xMargin, combinedRange.right() + xMargin);
+    backAxisY->setRange(combinedRange.top() - yMargin, combinedRange.bottom() + yMargin);
+}
+
+void Bigraph::connectAxisTicks(QPainter* painter, QChart* backChart, QLineSeries* backSeries, QChart* frontChart, QLineSeries* frontSeries, bool isXAxis)
+{
+    QValueAxis* backAxis = isXAxis ? qobject_cast<QValueAxis*>(backChart->axes(Qt::Horizontal).first()) : qobject_cast<QValueAxis*>(backChart->axes(Qt::Vertical).first());
+
+    QValueAxis* frontAxis = isXAxis ? qobject_cast<QValueAxis*>(frontChart->axes(Qt::Horizontal).first()) : qobject_cast<QValueAxis*>(frontChart->axes(Qt::Vertical).first());
+
+    if(!backAxis || !frontAxis)
+        return;
+
+    // 使用合并后的范围计算基准点
+    qreal baseValue = isXAxis ? combinedRange.top() : combinedRange.left();
+
+    QList<qreal> backTicks  = getTickValues(backAxis);
+    QList<qreal> frontTicks = getTickValues(frontAxis);
+
+    int minCount = qMin(backTicks.size(), frontTicks.size());
+    for(int i = 0; i < minCount; ++i)
+    {
+        // 转换backChart坐标
+        QPointF backPoint     = isXAxis ? QPointF(backTicks[i], baseValue) : QPointF(baseValue, backTicks[i]);
+        QPoint  backGlobalPos = backChartView->mapToParent(backChartView->mapFromScene(backChart->mapToPosition(backPoint, backSeries)));
+
+        // 转换frontChart坐标
+        QPointF frontPoint     = isXAxis ? QPointF(frontTicks[i], baseValue) : QPointF(baseValue, frontTicks[i]);
+        QPoint  frontGlobalPos = frontChartView->mapToParent(frontChartView->mapFromScene(frontChart->mapToPosition(frontPoint, frontSeries)));
+
+        // 绘制连接线
+        painter->drawLine(backGlobalPos, frontGlobalPos);
+    }
 }
