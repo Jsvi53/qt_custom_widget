@@ -33,6 +33,7 @@
 #include "jp_filemanagerscreen/jp_filemanager.h"
 #include "jp_balancesetupscreen/jp_balancesetup.h"
 #include "jp_balancerunscreen\jp_balancerun.h"
+#include "jp_resultgraphscreen/jp_resultgraph.h"
 
 int main(int argc, char *argv[])
 {
@@ -128,5 +129,9 @@ int main(int argc, char *argv[])
     JP_BalanceRun balancerun;
     balancerun.show();
 */
+
+    JP_ResultGraph resultgraph;
+    resultgraph.show();
+
     return a.exec();
 }
