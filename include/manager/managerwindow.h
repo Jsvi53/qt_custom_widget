@@ -22,7 +22,6 @@ private slots:
 private:
     QStackedWidget *stackedWidget;
     SchenckMain *schenckMain;
-    Test *test;
 };
 
 #endif // MANAGERWINDOW_H

@@ -1,7 +1,7 @@
 /*** 
  * @Date: 2025-03-01 10:24:48
  * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-17 08:45:12
+ * @LastEditTime: 2025-03-18 22:48:01
  * @FilePath: \qt_custom_widget\src\main.cpp
  */
 /***
@@ -57,8 +57,8 @@ int main(int argc, char *argv[])
     // SchenckMain schenck_main;
     // schenck_main.show();
 
-    // Test test;
-    // test.show();
+    Test test;
+    test.show();
 
     // WindowManager windowManager;
     // windowManager.resize(1280, 800);
@@ -124,7 +124,9 @@ int main(int argc, char *argv[])
     balancesetup.show();
 */
 
+/*
     JP_BalanceRun balancerun;
     balancerun.show();
+*/
     return a.exec();
 }

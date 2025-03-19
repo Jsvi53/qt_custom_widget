@@ -1,25 +1,26 @@
-// test.h
 #ifndef TEST_H
 #define TEST_H
 
 #include <QWidget>
+#include "qtcustomplot/qcustomplot.h"  // 包含 QCustomPlot 头文件
 
 namespace Ui {
-class Test;
+class myWidget;
 }
 
-class Test : public QWidget {
+class myWidget : public QWidget {
     Q_OBJECT
 
 public:
-    explicit Test(QWidget *parent = nullptr);
-    ~Test();
-
-signals:
-    void showMainInterface();
+    explicit myWidget(QWidget *parent = nullptr);
+    ~myWidget();
 
 private:
-    Ui::Test *ui;
+    Ui::myWidget *ui;
+    QCustomPlot *customPlot;  // 声明 QCustomPlot 指针
+
+private slots:
+    void configureCustomPlot();  // 声明 configureCustomPlot 函数
 };
 
 #endif // TEST_H
