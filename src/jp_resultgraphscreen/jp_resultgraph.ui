@@ -392,18 +392,19 @@
          <number>10</number>
         </property>
         <item>
-         <widget class="QWidget" name="graphWorkplace" native="true">
+         <widget class="QWidget" name="styleBar" native="true">
           <property name="styleSheet">
-           <string notr="true">QWidget#graphWorkplace{
+           <string notr="true">QWidget#styleBar{
 	background-color: rgb(228, 228, 228);
+	border-radius: 5px;
 }</string>
           </property>
           <widget class="QWidget" name="horizontalLayoutWidget_5">
            <property name="geometry">
             <rect>
-             <x>-1</x>
+             <x>5</x>
              <y>0</y>
-             <width>1261</width>
+             <width>1249</width>
              <height>48</height>
             </rect>
            </property>
@@ -857,11 +858,13 @@ padding: 5px;
          </widget>
         </item>
         <item>
-         <widget class="QWidget" name="styleBar" native="true">
+         <widget class="QWidget" name="graphWorkplace" native="true">
           <property name="styleSheet">
-           <string notr="true">QWidget#styleBar{
+           <string notr="true">QWidget#graphWorkplace{
 	background-color: rgb(228, 228, 228);
-}</string>
+	border-radius: 5px;
+}
+</string>
           </property>
           <widget class="QWidget" name="horizontalLayoutWidget_4">
            <property name="geometry">
@@ -891,8 +894,18 @@ padding: 5px;
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_2">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
                 <item>
-                 <widget class="QWidget" name="upGraph" native="true"/>
+                 <widget class="QWidget" name="upGraph" native="true">
+                  <property name="styleSheet">
+                   <string notr="true">QWidget#upGraph{
+	border-bottom: 1px solid rgb(70, 70, 70);
+	
+}</string>
+                  </property>
+                 </widget>
                 </item>
                 <item>
                  <widget class="QWidget" name="downGraph" native="true">

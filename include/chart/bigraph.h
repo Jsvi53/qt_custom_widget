@@ -1,3 +1,9 @@
+/*** 
+ * @Date: 2025-03-19 19:05:25
+ * @LastEditors: jsvi53
+ * @LastEditTime: 2025-03-20 23:02:16
+ * @FilePath: \qt_custom_widget\include\chart\bigraph.h
+ */
 #ifndef __Bigraph_H__
 #define __Bigraph_H__
 
@@ -15,6 +21,13 @@ class Bigraph : public QWidget
 public:
     explicit Bigraph(QWidget *parent = nullptr);
     ~Bigraph();
+
+    QChart      *frontChart;
+    QChart      *backChart;
+    QValueAxis  *frontAxisX;
+    QValueAxis  *frontAxisY;
+    QValueAxis  *backAxisX;
+    QValueAxis  *backAxisY;
 
     // 更新图表位置的槽函数
     void updateChartPositions(int angle);
@@ -34,27 +47,22 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 
 private:
-    QChart      *frontChart;
-    QChart      *backChart;
     QChartView  *frontChartView;
     QChartView  *backChartView;
     QLineSeries *frontSeries;
     QLineSeries *backSeries;
-    QValueAxis  *frontAxisX;
-    QValueAxis  *frontAxisY;
-    QValueAxis  *backAxisX;
-    QValueAxis  *backAxisY;
+
 
     // 图表大小
     int chartWidth  = 700;
-    int chartHeight = 212;
+    int chartHeight = 190;
 
     // 图表位置
     int frontChartX = 0;    // 表视口原点在左上，相对0,0的位置
-    int frontChartY = 107;  // 319-212
+    int frontChartY = 129;  // 319-212
     int backChartX;
     int backChartY;
-    int positionBaseLength = 150;  // 半径
+    int positionBaseLength = 170;  // 半径
     int positionBaseAngle  = 45;   // 角度（以度为单位）
 
     QRectF combinedRange;// 存储合并后的坐标范围

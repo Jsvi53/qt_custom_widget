@@ -4,12 +4,7 @@
  * @LastEditTime: 2025-03-18 15:04:58
  * @FilePath: \qt_custom_widget\src\chart\polardiagram.cpp
  */
-/***
- * @Date: 2025-03-18 08:36:17
- * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-18 10:59:23
- * @FilePath: \qt_custom_widget\src\chart\polardiagram.cpp
- */
+
 #include "chart/polardiagram.h"
 
 PolarDiagram::PolarDiagram(QWidget *parent) : QWidget(parent)

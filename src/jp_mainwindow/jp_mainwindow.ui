@@ -165,7 +165,7 @@
        </property>
        <property name="icon">
         <iconset resource="../../assets/assets.qrc">
-         <normaloff>:/home/home_assets/icon_home_setting_144.png</normaloff>:/home/home_assets/icon_home_setting_144.png</iconset>
+         <normaloff>:/home/home_assets/icon_home_template_144.png</normaloff>:/home/home_assets/icon_home_template_144.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -278,13 +278,246 @@
 }</string>
        </property>
        <property name="text">
+        <string>文件管理</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="home_MachineTemplateButton">
+       <property name="geometry">
+        <rect>
+         <x>565</x>
+         <y>95</y>
+         <width>150</width>
+         <height>130</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>130</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>150</width>
+         <height>130</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	background-color: white;
+	border-radius: 10px;
+}	
+
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normalon>:/home/home_assets/icon_home_template_144.svg</normalon>
+        </iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>90</width>
+         <height>90</height>
+        </size>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="home_Filemanager_text_2">
+       <property name="geometry">
+        <rect>
+         <x>576</x>
+         <y>230</y>
+         <width>136</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑</family>
+         <pointsize>18</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+	qproperty-alignment: AlignCenter;
+}</string>
+       </property>
+       <property name="text">
+        <string>机器模板</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="home_BalanceButton">
+       <property name="geometry">
+        <rect>
+         <x>803</x>
+         <y>95</y>
+         <width>150</width>
+         <height>130</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>130</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>150</width>
+         <height>130</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	background-color: white;
+	border-radius: 10px;
+}	
+
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../../assets/assets.qrc">
+         <normaloff>:/home/home_assets/icon_home_balance_144.svg</normaloff>:/home/home_assets/icon_home_balance_144.svg</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>120</width>
+         <height>120</height>
+        </size>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="home_Filemanager_text_3">
+       <property name="geometry">
+        <rect>
+         <x>814</x>
+         <y>230</y>
+         <width>136</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑</family>
+         <pointsize>18</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+	qproperty-alignment: AlignCenter;
+}</string>
+       </property>
+       <property name="text">
+        <string>平衡</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="home_Filemanager_text_7">
+       <property name="geometry">
+        <rect>
+         <x>1055</x>
+         <y>230</y>
+         <width>136</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑</family>
+         <pointsize>18</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+	qproperty-alignment: AlignCenter;
+}</string>
+       </property>
+       <property name="text">
         <string>设置</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="home_HelpButton">
+       <property name="geometry">
+        <rect>
+         <x>1041</x>
+         <y>95</y>
+         <width>150</width>
+         <height>130</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>130</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>150</width>
+         <height>130</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	background-color: white;
+	border-radius: 10px;
+}	
+
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normalon>:/home/home_assets/icon_home_help_144.svg</normalon>
+        </iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
        </property>
       </widget>
       <zorder>home_SettingButton_text</zorder>
       <zorder>home_SettingButton</zorder>
       <zorder>home_FilemanagerButton</zorder>
       <zorder>home_Filemanager_text</zorder>
+      <zorder>home_MachineTemplateButton</zorder>
+      <zorder>home_Filemanager_text_2</zorder>
+      <zorder>home_BalanceButton</zorder>
+      <zorder>home_Filemanager_text_3</zorder>
+      <zorder>home_Filemanager_text_7</zorder>
+      <zorder>home_HelpButton</zorder>
      </widget>
     </item>
    </layout>

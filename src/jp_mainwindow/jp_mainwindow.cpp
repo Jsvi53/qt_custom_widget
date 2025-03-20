@@ -27,6 +27,27 @@ JP_MainWindow::JP_MainWindow(QWidget *parent) : QWidget(parent), ui(new Ui::JP_M
     filemanagershadow->setBlurRadius(8); // 阴影圆角的大小
     ui->home_FilemanagerButton->setGraphicsEffect(filemanagershadow);
 
+    // 设置Setting Button的阴影效果
+    QGraphicsDropShadowEffect *machineshadow = new QGraphicsDropShadowEffect(this);
+    machineshadow->setOffset(5, 5);//阴影的偏移量
+    machineshadow->setColor(QColor(43, 43, 43));//阴影的颜色
+    machineshadow->setBlurRadius(8); // 阴影圆角的大小
+    ui->home_MachineTemplateButton->setGraphicsEffect(machineshadow);
+
+    // 设置Setting Button的阴影效果
+    QGraphicsDropShadowEffect *balanceshadow = new QGraphicsDropShadowEffect(this);
+    balanceshadow->setOffset(5, 5);//阴影的偏移量
+    balanceshadow->setColor(QColor(43, 43, 43));//阴影的颜色
+    balanceshadow->setBlurRadius(8); // 阴影圆角的大小
+    ui->home_BalanceButton->setGraphicsEffect(balanceshadow);
+
+    // 设置Setting Button的阴影效果
+    QGraphicsDropShadowEffect *helpshadow = new QGraphicsDropShadowEffect(this);
+    helpshadow->setOffset(5, 5);//阴影的偏移量
+    helpshadow->setColor(QColor(43, 43, 43));//阴影的颜色
+    helpshadow->setBlurRadius(8); // 阴影圆角的大小
+    ui->home_HelpButton->setGraphicsEffect(helpshadow);
+
 }
 
 JP_MainWindow::~JP_MainWindow()

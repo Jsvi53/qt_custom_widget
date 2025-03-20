@@ -28,7 +28,6 @@
 #include "qswitchbutton/switchbuttonshowwindow.h"
 #include "schenckmain/schenckmain.h"
 #include "test/test.h"
-#include "jp_mainwindow/jp_mainwindow.h"
 #include "jp_settingscreen/jp_settingscreen.h"
 #include "jp_filemanagerscreen/jp_filemanager.h"
 #include "jp_balancesetupscreen/jp_balancesetup.h"
@@ -103,10 +102,10 @@ int main(int argc, char *argv[])
 */
 
 /*
-    // 创建主窗口
     JP_MainWindow jp_main;
     jp_main.show();
 */
+    // 创建主窗口
 
 /*
     // 创建Setting窗口
@@ -129,9 +128,10 @@ int main(int argc, char *argv[])
     JP_BalanceRun balancerun;
     balancerun.show();
 */
+JP_ResultGraph resultgraph;
+resultgraph.show();
+/*
 
-    JP_ResultGraph resultgraph;
-    resultgraph.show();
-
+*/
     return a.exec();
 }

@@ -9,8 +9,11 @@
         <file>base_assets/setting.png</file>
     </qresource>
     <qresource prefix="/home">
-        <file>home_assets/icon_home_setting_144.png</file>
         <file>home_assets/icon_home_folder-94.png</file>
+        <file>home_assets/icon_home_template_144.svg</file>
+        <file>home_assets/icon_home_template_144.png</file>
+        <file>home_assets/icon_home_balance_144.svg</file>
+        <file>home_assets/icon_home_help_144.svg</file>
     </qresource>
     <qresource prefix="/setting_assets">
         <file>setting_assets/icon_setting_user_50.png</file>

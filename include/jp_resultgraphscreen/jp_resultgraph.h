@@ -1,7 +1,7 @@
 /*** 
  * @Date: 2025-03-20 08:13:59
  * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-20 16:53:57
+ * @LastEditTime: 2025-03-20 22:20:18
  * @FilePath: \qt_custom_widget\include\jp_resultgraphscreen\jp_resultgraph.h
  */
 #pragma once
@@ -10,6 +10,7 @@
 #include <QProgressBar>
 #include "chart/bigraph.h"
 #include "utils/signalgenerator.h"
+#include "utils/signalgenerator2.h"
 
 namespace Ui{
     class JP_ResultGraph;
@@ -28,7 +29,9 @@ public:
 private:
     Ui::JP_ResultGraph *ui;
     Bigraph* resultBigraph;
+    Bigraph* resultDownBigraph;
     SineGenerator *sineGenerator;
+    UnbalanceVibrationGenerator *unbalanceVibrationGenerator;
     overallValuesPrograssBar *prograssBar_V_OP;
     overallValuesPrograssBar *prograssBar_V_RMS;
     overallValuesPrograssBar *prograssBar_A_OP;

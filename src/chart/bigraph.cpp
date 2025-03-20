@@ -42,12 +42,17 @@ void Bigraph::initFrontChart()
     frontSeries->attachAxis(frontAxisX);
     frontSeries->attachAxis(frontAxisY);
 
+    // 添加坐标标题
+    frontAxisX->setTitleText("Time");
+    frontAxisY->setTitleText("Voltage");
+
+
     // 图表设置
     frontChart->legend()->hide();
     frontChart->setMargins(QMargins(20, 20, 20, 20));
     frontChart->setBackgroundVisible(false);
     frontChartView->setParent(this);
-    frontChartView->setFixedSize(chartWidth, chartHeight);
+    frontChartView->setFixedSize(700, 190);
     frontChartView->setAttribute(Qt::WA_TranslucentBackground);  // 打开设置透明度属性
     frontChartView->setRenderHint(QPainter::Antialiasing);
 
@@ -86,13 +91,19 @@ void Bigraph::initBackChart()
     backChart->setMargins(QMargins(20, 20, 20, 20));
     backChart->setBackgroundVisible(false);
     backChartView->setParent(this);
-    backChartView->setFixedSize(chartWidth, chartHeight);
+    backChartView->setFixedSize(700, 170);
     backChartView->setAttribute(Qt::WA_TranslucentBackground);  // 打开设置透明度属性
     backChartView->setRenderHint(QPainter::Antialiasing);
 
     // 坐标轴设置
     backAxisX->setTickCount(9);
     backAxisY->setTickCount(4);
+
+    // 添加坐标标题
+
+    // 隐藏标题
+    backAxisX->setTitleVisible(false);
+    backAxisY->setTitleVisible(false);
 
     // 去掉网格线
     backAxisX->setGridLineVisible(true);
@@ -169,44 +180,57 @@ void Bigraph::clearBackSeries()
     backSeries->clear();
 }
 
+
 QRectF Bigraph::calculateSeriesRange(QLineSeries* series)
 {
+    // 如果数据系列中没有点，返回一个默认范围，防止后续操作因为空数据而崩溃
     if(series->count() == 0)
     {
-        return QRectF(0, 0, 1, 1);  // 默认范围防止空数据崩溃
+        return QRectF(0, 0, 1, 1);  // 默认范围
     }
 
-    qreal minX = std::numeric_limits<qreal>::max();
-    qreal maxX = std::numeric_limits<qreal>::lowest();
-    qreal minY = minX;
-    qreal maxY = maxX;
+    // 初始化最小和最大值为极端值，用于后续比较
+    qreal minX = std::numeric_limits<qreal>::max();  // 最小X值初始化为最大可能值
+    qreal maxX = std::numeric_limits<qreal>::lowest();  // 最大X值初始化为最小可能值
+    qreal minY = minX;  // 最小Y值初始化为最大可能值
+    qreal maxY = maxX;  // 最大Y值初始化为最小可能值
 
+    // 遍历数据系列中的所有点，更新最小和最大值
     for(const QPointF& point : series->points())
     {
-        minX = qMin(minX, point.x());
-        maxX = qMax(maxX, point.x());
-        minY = qMin(minY, point.y());
-        maxY = qMax(maxY, point.y());
+        minX = qMin(minX, point.x());  // 更新最小X值
+        maxX = qMax(maxX, point.x());  // 更新最大X值
+        minY = qMin(minY, point.y());  // 更新最小Y值
+        maxY = qMax(maxY, point.y());  // 更新最大Y值
     }
 
-    // 处理单点数据情况
-    if(qFuzzyCompare(minX, maxX))
+    // 处理单点数据情况，避免范围为零导致绘图问题
+    // 如果最小X值和最大X值几乎相等（即只有一个点或数据非常接近）
+    if(qFuzzyCompare(minX, maxX))   // 用于比较两个浮点数是否“足够接近”，从而可以认为它们是相等的。
     {
-        maxX += 0.1;
-        minX -= 0.1;
+        maxX += 0.1;  // 增加范围
+        minX -= 0.1;  // 减少范围
     }
+    // 如果最小Y值和最大Y值几乎相等
     if(qFuzzyCompare(minY, maxY))
     {
-        maxY += 0.1;
-        minY -= 0.1;
+        maxY += 0.1;  // 增加范围
+        minY -= 0.1;  // 减少范围
     }
 
-    // 添加5%边距使曲线不贴边
-    qreal xMargin = (maxX - minX) * 0.05;
-    qreal yMargin = (maxY - minY) * 0.05;
+    // 添加5%的边距，使曲线在图表中不贴边，增强视觉效果
+    qreal xMargin = (maxX - minX) * 0.001;  // 计算X方向的边距
+    qreal yMargin = (maxY - minY) * 0.001;  // 计算Y方向的边距
 
-    return QRectF(minX - xMargin, minY - yMargin, (maxX - minX) + 2 * xMargin, (maxY - minY) + 2 * yMargin);
+    // 返回最终的范围矩形
+    // 左上角坐标为(minX - xMargin, minY - yMargin)
+    // 宽度为(maxX - minX) + 2 * xMargin
+    // 高度为(maxY - minY) + 2 * yMargin
+    return QRectF(minX - xMargin, minY - yMargin, 
+                  (maxX - minX) + 2 * xMargin, 
+                  (maxY - minY) + 2 * yMargin);
 }
+
 void Bigraph::adjustAxisRanges()
 {
     // 计算合并范围
@@ -216,13 +240,12 @@ void Bigraph::adjustAxisRanges()
     combinedRange = QRectF(qMin(frontRect.left(), backRect.left()), qMin(frontRect.top(), backRect.top()), qMax(frontRect.width(), backRect.width()), qMax(frontRect.height(), backRect.height()));
 
     // 添加统一边距
-    qreal xMargin = combinedRange.width() * 0.05;
-    qreal yMargin = combinedRange.height() * 0.05;
+    qreal xMargin = combinedRange.width() * 0.001;
+    qreal yMargin = combinedRange.height() * 0.001;
 
     // 设置统一范围到两个图表
     frontAxisX->setRange(combinedRange.left() - xMargin, combinedRange.right() + xMargin);
     frontAxisY->setRange(combinedRange.top() - yMargin, combinedRange.bottom() + yMargin);
-
     backAxisX->setRange(combinedRange.left() - xMargin, combinedRange.right() + xMargin);
     backAxisY->setRange(combinedRange.top() - yMargin, combinedRange.bottom() + yMargin);
 }
@@ -230,7 +253,6 @@ void Bigraph::adjustAxisRanges()
 void Bigraph::connectAxisTicks(QPainter* painter, QChart* backChart, QLineSeries* backSeries, QChart* frontChart, QLineSeries* frontSeries, bool isXAxis)
 {
     QValueAxis* backAxis = isXAxis ? qobject_cast<QValueAxis*>(backChart->axes(Qt::Horizontal).first()) : qobject_cast<QValueAxis*>(backChart->axes(Qt::Vertical).first());
-
     QValueAxis* frontAxis = isXAxis ? qobject_cast<QValueAxis*>(frontChart->axes(Qt::Horizontal).first()) : qobject_cast<QValueAxis*>(frontChart->axes(Qt::Vertical).first());
 
     if(!backAxis || !frontAxis)
