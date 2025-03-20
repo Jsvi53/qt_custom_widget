@@ -1,3 +1,10 @@
+
+/***
+ * @Date: 2025-03-20 08:13:59
+ * @LastEditors: jsvi53
+ * @LastEditTime: 2025-03-20 16:17:14
+ * @FilePath: \qt_custom_widget\src\jp_resultgraphscreen\jp_resultgraph.cpp
+ */
 #include "jp_resultgraphscreen/jp_resultgraph.h"
 #include "ui_jp_resultgraph.h"
 
@@ -6,6 +13,27 @@
 JP_ResultGraph::JP_ResultGraph(QWidget *parent) : QWidget(parent), ui(new Ui::JP_ResultGraph)
 {
     ui->setupUi(this);
+    prograssBar_V_OP = new overallValuesPrograssBar(this);
+    prograssBar_V_RMS = new  overallValuesPrograssBar(this);
+    prograssBar_A_OP = new  overallValuesPrograssBar(this);
+    prograssBar_A_RMS = new  overallValuesPrograssBar(this);
+    prograssBar_V_OP->setRange(0, 100);
+    prograssBar_V_OP->setValue(15);
+    ui->gridLayout->addWidget(prograssBar_V_OP, 1, 0);      // 添加进度条到布局, 位置在第二行第一列
+
+    prograssBar_V_RMS->setRange(0, 100);
+    prograssBar_V_RMS->setValue(20);
+    ui->gridLayout_4->addWidget(prograssBar_V_RMS, 1, 0);
+
+    prograssBar_A_OP->setRange(0, 100);
+    prograssBar_A_OP->setValue(12);
+    ui->gridLayout_5->addWidget(prograssBar_A_OP, 1, 0);
+
+    prograssBar_A_RMS->setRange(0, 100);
+    prograssBar_A_RMS->setValue(8);
+    ui->gridLayout_6->addWidget(prograssBar_A_RMS, 1, 0);
+
+
     resultBigraph = new Bigraph(ui->upGraph);
     sineGenerator = new SineGenerator(this);
     sineGenerator->configure(1000, 1, 44100);
@@ -32,3 +60,45 @@ JP_ResultGraph::~JP_ResultGraph()
     delete ui;
 }
 
+
+overallValuesPrograssBar::overallValuesPrograssBar(QWidget *parent) : QProgressBar(parent)
+{
+    // 隐藏进度条的文本值
+    setTextVisible(false);
+
+    // 设置样式表，清除默认的绿色背景
+    setStyleSheet("QProgressBar { background-color: transparent; border: none; }");
+}
+
+overallValuesPrograssBar::~overallValuesPrograssBar()
+{
+
+}
+
+// 一条竖线在一条横线上滑动, 隐藏进度条的值
+void overallValuesPrograssBar::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event); // 忽略事件参数
+
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+
+    // 获取进度条的矩形区域
+    QRect rect = this->rect();
+
+    // 计算当前进度对应的竖线位置
+    int progressWidth = rect.width() * value() / maximum();
+
+    // 绘制横线
+    // 竖线左侧为黑色
+    painter.setPen(Qt::black);
+    painter.drawLine(rect.left(), rect.height() / 2, progressWidth, rect.height() / 2);
+
+    // 竖线右侧为灰色
+    painter.setPen(Qt::gray);
+    painter.drawLine(progressWidth, rect.height() / 2, rect.right(), rect.height() / 2);
+
+    // 绘制黑色竖线
+    painter.setPen(Qt::black);
+    painter.drawLine(progressWidth, rect.top(), progressWidth, rect.bottom());
+}

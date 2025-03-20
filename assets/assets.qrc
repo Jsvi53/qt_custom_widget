@@ -63,4 +63,27 @@
         <file>balancerun/icon_balanceruta_target_gray.png</file>
         <file>balancerun/icon_balanceruta_zoom_gray.png</file>
     </qresource>
+    <qresource prefix="/balancegraph_assets">
+        <file>balancegraph_assets/icon_balance_cursor_1_blue.png</file>
+        <file>balancegraph_assets/icon_balance_cursor_1_gray.png</file>
+        <file>balancegraph_assets/icon_balance_cursor_2_blue.png</file>
+        <file>balancegraph_assets/icon_balance_cursor_2_gray.png</file>
+        <file>balancegraph_assets/icon_balance_cursor_3_blue.png</file>
+        <file>balancegraph_assets/icon_balance_cursor_3_gray.png</file>
+        <file>balancegraph_assets/icon_balance_cursor_4_blue.png</file>
+        <file>balancegraph_assets/icon_balance_cursor_4_gray.png</file>
+        <file>balancegraph_assets/icon_balance_cursor_5_blue.png</file>
+        <file>balancegraph_assets/icon_balance_cursor_5_gray.png</file>
+        <file>balancegraph_assets/icon_balance_hide_sidepanel_64.png</file>
+        <file>balancegraph_assets/icon_balance_layout_1_blue.png</file>
+        <file>balancegraph_assets/icon_balance_layout_1_gray.png</file>
+        <file>balancegraph_assets/icon_balance_layout_2_blue.png</file>
+        <file>balancegraph_assets/icon_balance_layout_2_gray.png</file>
+        <file>balancegraph_assets/icon_balance_layout_3_blue.png</file>
+        <file>balancegraph_assets/icon_balance_layout_3_gray.png</file>
+        <file>balancegraph_assets/icon_balance_layout_4_blue.png</file>
+        <file>balancegraph_assets/icon_balance_layout_4_gray.png</file>
+        <file>balancegraph_assets/icon_balance_place_marker_50.png</file>
+        <file>balancegraph_assets/icon_balance_descending_sorting_50.png</file>
+    </qresource>
 </RCC>
