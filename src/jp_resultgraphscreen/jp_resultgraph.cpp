@@ -90,7 +90,7 @@ JP_ResultGraph::JP_ResultGraph(QWidget *parent) : QWidget(parent), ui(new Ui::JP
 
     resultDownBigraph->frontAxisX->setTitleText("t[s]");
     resultDownBigraph->frontAxisY->setTitleText("v[mm/s]");
-    resultDownBigraph->backChart->setTitle("PlaneB Speed");
+    resultDownBigraph->backChart->setTitle("PlaneA Speed");
 
     QVBoxLayout *downGraphLayout = new QVBoxLayout(ui->downGraph);
     downGraphLayout->addWidget(resultDownBigraph);

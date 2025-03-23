@@ -95,6 +95,10 @@
         "string_view": "cpp",
         "cinttypes": "cpp",
         "qgraphicsdropshadoweffect": "cpp",
-        "qgraphicslineitem": "cpp"
+        "qgraphicslineitem": "cpp",
+        "qpushbutton": "cpp",
+        "qeasingcurve": "cpp",
+        "qpropertyanimation": "cpp",
+        "qinputdialog": "cpp"
     }
 }

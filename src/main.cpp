@@ -1,7 +1,7 @@
-/*** 
+/***
  * @Date: 2025-03-01 10:24:48
  * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-18 22:48:01
+ * @LastEditTime: 2025-03-23 18:26:17
  * @FilePath: \qt_custom_widget\src\main.cpp
  */
 /***
@@ -15,6 +15,7 @@
 #include <QScreen>
 #include <QSplashScreen>
 #include <QTimer>
+#include <QSurfaceFormat>
 
 #include "basemodule/basewidget.h"
 #include "chart/balancingshowphasechart.h"
@@ -22,116 +23,130 @@
 #include "chart/polarchartshowwindow.h"
 #include "chart/wavechartshowwindow.h"
 #include "fileapp/filetemplatewindow.h"
+#include "jp_balancerunscreen\jp_balancerun.h"
+#include "jp_balancesetupscreen/jp_balancesetup.h"
+#include "jp_filemanagerscreen/jp_filemanager.h"
 #include "jp_mainwindow/jp_mainwindow.h"
+#include "jp_resultgraphscreen/jp_resultgraph.h"
+#include "jp_settingscreen/jp_settingscreen.h"
 #include "mainwindow/mainwindow.h"
 #include "manager/managerwindow.h"
+#include "onsitebalancer/home.h"
+#include "onsitebalancer/onsitebalancer.h"
 #include "qswitchbutton/switchbuttonshowwindow.h"
 #include "schenckmain/schenckmain.h"
 #include "test/test.h"
-#include "jp_settingscreen/jp_settingscreen.h"
-#include "jp_filemanagerscreen/jp_filemanager.h"
-#include "jp_balancesetupscreen/jp_balancesetup.h"
-#include "jp_balancerunscreen\jp_balancerun.h"
-#include "jp_resultgraphscreen/jp_resultgraph.h"
+
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-/*
-    // SwitchButtonShowWindow swbtn_window;
-    // swbtn_window.show();
+    /*
+        // SwitchButtonShowWindow swbtn_window;
+        // swbtn_window.show();
 
-    // PolarChartShowWindow chart_window;
-    // chart_window.show();
+        // PolarChartShowWindow chart_window;
+        // chart_window.show();
 
-    // BarChartShowWindow bar_window;
-    // bar_window.show();
+        // BarChartShowWindow bar_window;
+        // bar_window.show();
 
-    // WaveChartShowWindow wave_window;
-    // wave_window.show();
+        // WaveChartShowWindow wave_window;
+        // wave_window.show();
 
-    // BalancingShowPhaseChart phase_window;
-    // phase_window.resize(640, 480);
-    // phase_window.show();
+        // BalancingShowPhaseChart phase_window;
+        // phase_window.resize(640, 480);
+        // phase_window.show();
 
-    // SchenckMain schenck_main;
-    // schenck_main.show();
+        // SchenckMain schenck_main;
+        // schenck_main.show();
 
-    Test test;
-    test.show();
+        Test test;
+        test.show();
 
-    // WindowManager windowManager;
-    // windowManager.resize(1280, 800);
-    // windowManager.show();
+        // WindowManager windowManager;
+        // windowManager.resize(1280, 800);
+        // windowManager.show();
 
-    // FileTemplateWindow fileTemplateWindow;
-    // fileTemplateWindow.show();
+        // FileTemplateWindow fileTemplateWindow;
+        // fileTemplateWindow.show();
 
-    // MainWindow mainWindow;
-    // mainWindow.show();
+        // MainWindow mainWindow;
+        // mainWindow.show();
 
+        // 创建主窗口
+        // BaseWidget baseWidget;
+        // baseWidget.show(); // 显示主窗口
+    */
+    /*
+        // 创建主窗口
+        JP_MainWindow jp_main;
+
+        // 定义版本号
+        const QString VERSION = "v1.0.0";
+
+        // 加载启动图片
+        QPixmap pixmap("D:/shawei/temp/qt_custom_widget/assets/LaunchScreen.jpg");
+        if(pixmap.isNull())
+        {
+            qWarning() << "Failed to load splash screen image!";
+            return -1;
+        }
+
+        // 创建启动界面
+        QSplashScreen splash(pixmap);
+        splash.show();
+        splash.showMessage(VERSION, Qt::AlignRight | Qt::AlignBottom, Qt::white);
+
+        // 使用单个定时器：10秒后关闭启动界面并显示主窗口
+        QTimer::singleShot(10000, [&]() {
+            splash.close();  // 关闭启动界面
+            jp_main.show();  // 显示主窗口
+        });
+    */
+
+    /*
+        JP_MainWindow jp_main;
+        jp_main.show();
+    */
     // 创建主窗口
-    // BaseWidget baseWidget;
-    // baseWidget.show(); // 显示主窗口
-*/
-/*
-    // 创建主窗口
-    JP_MainWindow jp_main;
 
-    // 定义版本号
-    const QString VERSION = "v1.0.0";
+    /*
+        // 创建Setting窗口
+        JP_SettingScreen jp_setting;
+        jp_setting.show();
+    */
 
-    // 加载启动图片
-    QPixmap pixmap("D:/shawei/temp/qt_custom_widget/assets/LaunchScreen.jpg");
-    if(pixmap.isNull())
-    {
-        qWarning() << "Failed to load splash screen image!";
-        return -1;
-    }
+    /*
+        // 创建FileManager窗口
+        // JP_FileManager jp_filemanager;
+        // jp_filemanager.show();
+    */
 
-    // 创建启动界面
-    QSplashScreen splash(pixmap);
-    splash.show();
-    splash.showMessage(VERSION, Qt::AlignRight | Qt::AlignBottom, Qt::white);
+    /*
+        JP_BalanceSetup balancesetup;
+        balancesetup.show();
+    */
 
-    // 使用单个定时器：10秒后关闭启动界面并显示主窗口
-    QTimer::singleShot(10000, [&]() {
-        splash.close();  // 关闭启动界面
-        jp_main.show();  // 显示主窗口
-    });
-*/
+    /*
+        JP_BalanceRun balancerun;
+        balancerun.show();
+    */
 
-/*
-    JP_MainWindow jp_main;
-    jp_main.show();
-*/
-    // 创建主窗口
+    /*
+    JP_ResultGraph resultgraph;
+    resultgraph.show();
+    */
 
-/*
-    // 创建Setting窗口
-    JP_SettingScreen jp_setting;
-    jp_setting.show();
-*/
+    /*
+    HomeScreen home;
+    home.show();
+    */
+    // 全局渲染设置
 
-/*
-    // 创建FileManager窗口
-    // JP_FileManager jp_filemanager;
-    // jp_filemanager.show();
-*/
 
-/*
-    JP_BalanceSetup balancesetup;
-    balancesetup.show();
-*/
+    OnSiteBalancer onsitebalancer;
+    onsitebalancer.show();
 
-/*
-    JP_BalanceRun balancerun;
-    balancerun.show();
-*/
-JP_ResultGraph resultgraph;
-resultgraph.show();
-/*
-
-*/
     return a.exec();
 }

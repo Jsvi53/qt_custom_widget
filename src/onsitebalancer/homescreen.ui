@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>HomeScreen</class>
+ <widget class="QWidget" name="HomeScreen">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1280</width>
+    <height>800</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1280</width>
+    <height>800</height>
+   </size>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <property name="BaseWidget" stdset="0">
+   <string>HomeScreen</string>
+  </property>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>-1</x>
+     <y>-1</y>
+     <width>1281</width>
+     <height>801</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="vbaseLayout" stretch="3,77">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QFrame" name="base_statebar">
+      <property name="styleSheet">
+       <string notr="true">QFrame {
+                                background-color: rgb(228, 228, 228)
+                                }</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <widget class="QWidget" name="horizontalLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>-1</x>
+         <y>0</y>
+         <width>1281</width>
+         <height>33</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="hstateLayout">
+        <item>
+         <widget class="QLabel" name="stateLabel_l">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="hstatespace_l">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="stateLabel_datetime">
+          <property name="font">
+           <font>
+            <family>微软雅黑</family>
+            <pointsize>11</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>00:00 01/01</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="hstatespace_r">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="stateLabel_r">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="base_workspace" native="true">
+      <property name="styleSheet">
+       <string notr="true">QWidget {
+	background-color: rgb(211, 215, 208);
+}
+</string>
+      </property>
+      <widget class="QPushButton" name="home_SettingButton">
+       <property name="geometry">
+        <rect>
+         <x>89</x>
+         <y>95</y>
+         <width>150</width>
+         <height>130</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>130</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>150</width>
+         <height>130</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	background-color: white;
+	border-radius: 10px;
+}	
+
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../../assets/assets.qrc">
+         <normaloff>:/home/home_assets/icon_home_template_144.png</normaloff>:/home/home_assets/icon_home_template_144.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="home_SettingButton_text">
+       <property name="geometry">
+        <rect>
+         <x>95</x>
+         <y>230</y>
+         <width>136</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑</family>
+         <pointsize>18</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+	qproperty-alignment: AlignCenter;
+}</string>
+       </property>
+       <property name="text">
+        <string>设置</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="home_FilemanagerButton">
+       <property name="geometry">
+        <rect>
+         <x>327</x>
+         <y>95</y>
+         <width>150</width>
+         <height>130</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>130</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>150</width>
+         <height>130</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	background-color: white;
+	border-radius: 10px;
+}	
+
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../../assets/assets.qrc">
+         <normaloff>:/home/home_assets/icon_home_folder-94.png</normaloff>:/home/home_assets/icon_home_folder-94.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="home_Filemanager_text">
+       <property name="geometry">
+        <rect>
+         <x>338</x>
+         <y>230</y>
+         <width>136</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑</family>
+         <pointsize>18</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+	qproperty-alignment: AlignCenter;
+}</string>
+       </property>
+       <property name="text">
+        <string>文件管理</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="home_MachineTemplateButton">
+       <property name="geometry">
+        <rect>
+         <x>565</x>
+         <y>95</y>
+         <width>150</width>
+         <height>130</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>130</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>150</width>
+         <height>130</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	background-color: white;
+	border-radius: 10px;
+}	
+
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normalon>:/home/home_assets/icon_home_template_144.svg</normalon>
+        </iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>90</width>
+         <height>90</height>
+        </size>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="home_Filemanager_text_2">
+       <property name="geometry">
+        <rect>
+         <x>576</x>
+         <y>230</y>
+         <width>136</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑</family>
+         <pointsize>18</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+	qproperty-alignment: AlignCenter;
+}</string>
+       </property>
+       <property name="text">
+        <string>机器模板</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="home_BalanceButton">
+       <property name="geometry">
+        <rect>
+         <x>803</x>
+         <y>95</y>
+         <width>150</width>
+         <height>130</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>130</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>150</width>
+         <height>130</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	background-color: white;
+	border-radius: 10px;
+}	
+
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../../assets/assets.qrc">
+         <normaloff>:/home/home_assets/icon_home_balance_144.svg</normaloff>:/home/home_assets/icon_home_balance_144.svg</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>120</width>
+         <height>120</height>
+        </size>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="home_Filemanager_text_3">
+       <property name="geometry">
+        <rect>
+         <x>814</x>
+         <y>230</y>
+         <width>136</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑</family>
+         <pointsize>18</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+	qproperty-alignment: AlignCenter;
+}</string>
+       </property>
+       <property name="text">
+        <string>平衡</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="home_Filemanager_text_7">
+       <property name="geometry">
+        <rect>
+         <x>1055</x>
+         <y>230</y>
+         <width>136</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑</family>
+         <pointsize>18</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+	qproperty-alignment: AlignCenter;
+}</string>
+       </property>
+       <property name="text">
+        <string>帮助</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="home_HelpButton">
+       <property name="geometry">
+        <rect>
+         <x>1041</x>
+         <y>95</y>
+         <width>150</width>
+         <height>130</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>130</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>150</width>
+         <height>130</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	background-color: white;
+	border-radius: 10px;
+}	
+
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normalon>:/home/home_assets/icon_home_help_144.svg</normalon>
+        </iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <zorder>home_SettingButton_text</zorder>
+      <zorder>home_SettingButton</zorder>
+      <zorder>home_FilemanagerButton</zorder>
+      <zorder>home_Filemanager_text</zorder>
+      <zorder>home_MachineTemplateButton</zorder>
+      <zorder>home_Filemanager_text_2</zorder>
+      <zorder>home_BalanceButton</zorder>
+      <zorder>home_Filemanager_text_3</zorder>
+      <zorder>home_Filemanager_text_7</zorder>
+      <zorder>home_HelpButton</zorder>
+     </widget>
+    </item>
+   </layout>
+   <zorder>base_workspace</zorder>
+   <zorder>base_statebar</zorder>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../../assets/assets.qrc"/>
+ </resources>
+ <connections/>
+</ui>

@@ -1,9 +1,3 @@
-/*** 
- * @Date: 2025-03-13 20:09:59
- * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-14 21:47:23
- * @FilePath: \qt_custom_widget\include\jp_settingscreen\jp_settingscreen.h
- */
 /***
  * @Date: 2025-03-13 20:09:59
  * @LastEditors: jsvi53

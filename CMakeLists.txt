@@ -147,17 +147,26 @@ add_executable(qt_custom_widget
     # ${INCLUDE_DIR}/qtcustomplot/qcustomplot.h
 
     # 添加 JP_ResultGraph 模块
-    ${INCLUDE_DIR}/jp_resultgraphscreen/jp_resultgraph.h
-    ${SRC_DIR}/jp_resultgraphscreen/jp_resultgraph.cpp
-    ${SRC_DIR}/jp_resultgraphscreen/jp_resultgraph.ui
-    ${INCLUDE_DIR}/chart/bigraph.h
-    ${SRC_DIR}/chart/bigraph.cpp
+    # ${INCLUDE_DIR}/jp_resultgraphscreen/jp_resultgraph.h
+    # ${SRC_DIR}/jp_resultgraphscreen/jp_resultgraph.cpp
+    # ${SRC_DIR}/jp_resultgraphscreen/jp_resultgraph.ui
+    # ${INCLUDE_DIR}/chart/bigraph.h
+    # ${SRC_DIR}/chart/bigraph.cpp
 
     # 添加 信号发生器 模块
-    ${INCLUDE_DIR}/utils/signalgenerator.h
-    ${SRC_DIR}/utils/signalgenerator.cpp
-    ${INCLUDE_DIR}/utils/signalgenerator2.h
-    ${SRC_DIR}/utils/signalgenerator2.cpp
+    # ${INCLUDE_DIR}/utils/signalgenerator.h
+    # ${SRC_DIR}/utils/signalgenerator.cpp
+    # ${INCLUDE_DIR}/utils/signalgenerator2.h
+    # ${SRC_DIR}/utils/signalgenerator2.cpp
+
+    ${INCLUDE_DIR}/onsitebalancer/onsitebalancer.h
+    ${SRC_DIR}/onsitebalancer/onsitebalancer.cpp
+    ${INCLUDE_DIR}/onsitebalancer/home.h
+    ${SRC_DIR}/onsitebalancer/home.cpp
+    ${SRC_DIR}/onsitebalancer/homescreen.ui
+    ${INCLUDE_DIR}/onsitebalancer/settingscreen.h
+    ${SRC_DIR}/onsitebalancer/settingscreen.cpp
+    ${SRC_DIR}/onsitebalancer/settingscreen.ui
 
 
     # 添加资源文件生成的目标
