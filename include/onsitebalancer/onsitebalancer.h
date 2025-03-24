@@ -1,9 +1,3 @@
-/*** 
- * @Date: 2025-03-23 18:43:09
- * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-25 00:20:46
- * @FilePath: \qt_custom_widget\include\onsitebalancer\onsitebalancer.h
- */
 #pragma once
 #include <QMainWindow>
 #include <QPropertyAnimation>
@@ -41,6 +35,5 @@ private:
     QPropertyAnimation* scaleAnim = nullptr;
     QVariantAnimation* fadeAnim = nullptr;
     QGraphicsBlurEffect* blurEffect = nullptr;
-
-    QHash<QRect, QRegion> maskCache;
+    
 };

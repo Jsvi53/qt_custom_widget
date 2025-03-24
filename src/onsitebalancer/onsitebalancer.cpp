@@ -22,6 +22,7 @@ OnSiteBalancer::OnSiteBalancer(QWidget *parent) : QMainWindow(parent), homeScree
 
     // 连接信号
     connect(homeScreen->getButton("home_SettingButton"), &QPushButton::clicked, [=]() { triggerTransition(settingScreen, homeScreen->getButton("home_SettingButton")); });
+
     connect(settingScreen->getButton("naviBtn_l"), &QPushButton::clicked, [=]() { reverseTransition(homeScreen, settingScreen->getButton("naviBtn_l")); });
 }
 
@@ -74,17 +75,16 @@ void OnSiteBalancer::triggerTransition(QWidget *newPage, QPushButton *triggerBtn
 
     // 动画更新
     connect(scaleAnim, &QPropertyAnimation::valueChanged, [=](const QVariant &value) mutable {
-        QRect rect = value.toRect();
-        // 检查是否已有缓存
-        if(!maskCache.contains(rect))
+        QRect          rect = value.toRect();
+        static QRegion cachedRegion;
+        if(cachedRegion.rectCount() == 0 || rect != cachedRegion.boundingRect())
         {
             QPainterPath path;
             path.addRoundedRect(rect, 12, 12);
-            maskCache[rect] = QRegion(path.toFillPolygon().toPolygon());
+            cachedRegion = QRegion(path.toFillPolygon().toPolygon());
         }
-        newPage->setMask(maskCache[rect]);
-
-        // 模糊效果优化（后续处理）
+        newPage->setMask(cachedRegion);
+        // 模糊效果更新（见后续优化）
         qreal progress = rect.width() / static_cast<qreal>(width());
         blurEffect->setBlurRadius(static_cast<int>(8 * (1 - progress)));
     });
