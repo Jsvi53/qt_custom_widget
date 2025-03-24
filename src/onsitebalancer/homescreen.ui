@@ -44,9 +44,11 @@
     <item>
      <widget class="QFrame" name="base_statebar">
       <property name="styleSheet">
-       <string notr="true">QFrame {
-                                background-color: rgb(228, 228, 228)
-                                }</string>
+       <string notr="true">QFrame#base_statebar{
+	background-color: rgb(228, 228, 228);
+	border-bottom: 1px solid lightgray;
+
+}</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
@@ -126,398 +128,733 @@
     <item>
      <widget class="QWidget" name="base_workspace" native="true">
       <property name="styleSheet">
-       <string notr="true">QWidget {
-	background-color: rgb(211, 215, 208);
+       <string notr="true">QWidget#base_workspace {
+	
+	background-color: rgb(228, 228, 228);
 }
 </string>
       </property>
-      <widget class="QPushButton" name="home_SettingButton">
+      <widget class="QWidget" name="gridLayoutWidget">
        <property name="geometry">
         <rect>
-         <x>89</x>
-         <y>95</y>
-         <width>150</width>
-         <height>130</height>
+         <x>134</x>
+         <y>58</y>
+         <width>1025</width>
+         <height>583</height>
         </rect>
        </property>
-       <property name="minimumSize">
-        <size>
-         <width>150</width>
-         <height>130</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>150</width>
-         <height>130</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="1">
+         <widget class="QWidget" name="widget_2" native="true">
+          <widget class="QWidget" name="verticalLayoutWidget_3">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>20</y>
+             <width>213</width>
+             <height>241</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="home_FilemanagerButton">
+              <property name="minimumSize">
+               <size>
+                <width>210</width>
+                <height>182</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>210</width>
+                <height>182</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
 	background-color: white;
 	border-radius: 10px;
 }	
 
-</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../../assets/assets.qrc">
-         <normaloff>:/home/home_assets/icon_home_template_144.png</normaloff>:/home/home_assets/icon_home_template_144.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>100</width>
-         <height>100</height>
-        </size>
-       </property>
-       <property name="autoDefault">
-        <bool>false</bool>
-       </property>
-       <property name="flat">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QLabel" name="home_SettingButton_text">
-       <property name="geometry">
-        <rect>
-         <x>95</x>
-         <y>230</y>
-         <width>136</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>微软雅黑</family>
-         <pointsize>18</pointsize>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QLabel {
+QPushButton:pressed {
+    background-color: #e0e0e0;
+    padding-top: 2px;  /* 内容下移 */
+    padding-left: 2px; /* 内容右移 */
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="../../assets/assets.qrc">
+                <normaloff>:/home/home_assets/icon_home_folder-94.png</normaloff>:/home/home_assets/icon_home_folder-94.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="autoDefault">
+               <bool>false</bool>
+              </property>
+              <property name="flat">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="home_Filemanager_text">
+              <property name="font">
+               <font>
+                <family>微软雅黑</family>
+                <pointsize>18</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
 	qproperty-alignment: AlignCenter;
 }</string>
-       </property>
-       <property name="text">
-        <string>设置</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="home_FilemanagerButton">
-       <property name="geometry">
-        <rect>
-         <x>327</x>
-         <y>95</y>
-         <width>150</width>
-         <height>130</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>150</width>
-         <height>130</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>150</width>
-         <height>130</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
+              </property>
+              <property name="text">
+               <string>文件管理</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QWidget" name="widget_3" native="true">
+          <widget class="QWidget" name="verticalLayoutWidget_4">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>20</y>
+             <width>214</width>
+             <height>240</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="home_MachineTemplateButton">
+              <property name="minimumSize">
+               <size>
+                <width>210</width>
+                <height>182</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>210</width>
+                <height>182</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
 	background-color: white;
 	border-radius: 10px;
 }	
 
-</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../../assets/assets.qrc">
-         <normaloff>:/home/home_assets/icon_home_folder-94.png</normaloff>:/home/home_assets/icon_home_folder-94.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>100</width>
-         <height>100</height>
-        </size>
-       </property>
-       <property name="autoDefault">
-        <bool>false</bool>
-       </property>
-       <property name="flat">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QLabel" name="home_Filemanager_text">
-       <property name="geometry">
-        <rect>
-         <x>338</x>
-         <y>230</y>
-         <width>136</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>微软雅黑</family>
-         <pointsize>18</pointsize>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QLabel {
+QPushButton:pressed {
+    background-color: #e0e0e0;
+    padding-top: 2px;  /* 内容下移 */
+    padding-left: 2px; /* 内容右移 */
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/home/home_assets/icon_home_template_144.svg</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>90</width>
+                <height>90</height>
+               </size>
+              </property>
+              <property name="autoDefault">
+               <bool>false</bool>
+              </property>
+              <property name="flat">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="home_MachineTemplateButton_text">
+              <property name="font">
+               <font>
+                <family>微软雅黑</family>
+                <pointsize>18</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
 	qproperty-alignment: AlignCenter;
 }</string>
-       </property>
-       <property name="text">
-        <string>文件管理</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="home_MachineTemplateButton">
-       <property name="geometry">
-        <rect>
-         <x>565</x>
-         <y>95</y>
-         <width>150</width>
-         <height>130</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>150</width>
-         <height>130</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>150</width>
-         <height>130</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
+              </property>
+              <property name="text">
+               <string>机器模板</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QWidget" name="widget_4" native="true">
+          <widget class="QWidget" name="verticalLayoutWidget_5">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>20</y>
+             <width>214</width>
+             <height>240</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,0">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="home_HelpButton">
+              <property name="minimumSize">
+               <size>
+                <width>210</width>
+                <height>185</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>210</width>
+                <height>185</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
 	background-color: white;
 	border-radius: 10px;
 }	
 
-</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normalon>:/home/home_assets/icon_home_template_144.svg</normalon>
-        </iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>90</width>
-         <height>90</height>
-        </size>
-       </property>
-       <property name="autoDefault">
-        <bool>false</bool>
-       </property>
-       <property name="flat">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QLabel" name="home_Filemanager_text_2">
-       <property name="geometry">
-        <rect>
-         <x>576</x>
-         <y>230</y>
-         <width>136</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>微软雅黑</family>
-         <pointsize>18</pointsize>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QLabel {
+QPushButton:pressed {
+    background-color: #e0e0e0;
+    padding-top: 2px;  /* 内容下移 */
+    padding-left: 2px; /* 内容右移 */
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/home/home_assets/icon_home_help_144.svg</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="autoDefault">
+               <bool>false</bool>
+              </property>
+              <property name="flat">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="home_Help_text">
+              <property name="font">
+               <font>
+                <family>微软雅黑</family>
+                <pointsize>18</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
 	qproperty-alignment: AlignCenter;
 }</string>
-       </property>
-       <property name="text">
-        <string>机器模板</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="home_BalanceButton">
-       <property name="geometry">
-        <rect>
-         <x>803</x>
-         <y>95</y>
-         <width>150</width>
-         <height>130</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>150</width>
-         <height>130</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>150</width>
-         <height>130</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
+              </property>
+              <property name="text">
+               <string>帮助界面</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QWidget" name="widget" native="true">
+          <widget class="QWidget" name="verticalLayoutWidget_2">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>20</y>
+             <width>213</width>
+             <height>241</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="home_SettingButton">
+              <property name="minimumSize">
+               <size>
+                <width>210</width>
+                <height>182</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>210</width>
+                <height>182</height>
+               </size>
+              </property>
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
 	background-color: white;
 	border-radius: 10px;
 }	
 
-</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../../assets/assets.qrc">
-         <normaloff>:/home/home_assets/icon_home_balance_144.svg</normaloff>:/home/home_assets/icon_home_balance_144.svg</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>120</width>
-         <height>120</height>
-        </size>
-       </property>
-       <property name="autoDefault">
-        <bool>false</bool>
-       </property>
-       <property name="flat">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QLabel" name="home_Filemanager_text_3">
-       <property name="geometry">
-        <rect>
-         <x>814</x>
-         <y>230</y>
-         <width>136</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>微软雅黑</family>
-         <pointsize>18</pointsize>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QLabel {
+QPushButton:pressed {
+    background-color: #e0e0e0;
+    padding-top: 2px;  /* 内容下移 */
+    padding-left: 2px; /* 内容右移 */
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="../../assets/assets.qrc">
+                <normaloff>:/home/home_assets/icon_home_template_144.png</normaloff>:/home/home_assets/icon_home_template_144.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="autoDefault">
+               <bool>false</bool>
+              </property>
+              <property name="flat">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="home_SettingButton_text">
+              <property name="font">
+               <font>
+                <family>微软雅黑</family>
+                <pointsize>18</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
 	qproperty-alignment: AlignCenter;
 }</string>
-       </property>
-       <property name="text">
-        <string>平衡</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="home_Filemanager_text_7">
-       <property name="geometry">
-        <rect>
-         <x>1055</x>
-         <y>230</y>
-         <width>136</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>微软雅黑</family>
-         <pointsize>18</pointsize>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QLabel {
-	qproperty-alignment: AlignCenter;
-}</string>
-       </property>
-       <property name="text">
-        <string>帮助</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="home_HelpButton">
-       <property name="geometry">
-        <rect>
-         <x>1041</x>
-         <y>95</y>
-         <width>150</width>
-         <height>130</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>150</width>
-         <height>130</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>150</width>
-         <height>130</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
+              </property>
+              <property name="text">
+               <string>设置</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QWidget" name="widget_5" native="true">
+          <widget class="QWidget" name="verticalLayoutWidget_6">
+           <property name="geometry">
+            <rect>
+             <x>18</x>
+             <y>18</y>
+             <width>213</width>
+             <height>241</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,0">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="home_SpeedMeasure_button">
+              <property name="minimumSize">
+               <size>
+                <width>210</width>
+                <height>182</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>210</width>
+                <height>182</height>
+               </size>
+              </property>
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
 	background-color: white;
 	border-radius: 10px;
 }	
 
-</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normalon>:/home/home_assets/icon_home_help_144.svg</normalon>
-        </iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>100</width>
-         <height>100</height>
-        </size>
-       </property>
-       <property name="autoDefault">
-        <bool>false</bool>
-       </property>
-       <property name="flat">
-        <bool>false</bool>
-       </property>
+QPushButton:pressed {
+    background-color: #e0e0e0;
+    padding-top: 2px;  /* 内容下移 */
+    padding-left: 2px; /* 内容右移 */
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/home/home_assets/icon_speed_template.svg</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="autoDefault">
+               <bool>false</bool>
+              </property>
+              <property name="flat">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="home_SpeedMeasure_text">
+              <property name="font">
+               <font>
+                <family>微软雅黑</family>
+                <pointsize>18</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	qproperty-alignment: AlignCenter;
+}</string>
+              </property>
+              <property name="text">
+               <string>速度测量</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QWidget" name="widget_6" native="true">
+          <widget class="QWidget" name="verticalLayoutWidget_7">
+           <property name="geometry">
+            <rect>
+             <x>18</x>
+             <y>20</y>
+             <width>213</width>
+             <height>241</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_6" stretch="0,0">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="home_Balance_button">
+              <property name="minimumSize">
+               <size>
+                <width>210</width>
+                <height>182</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>210</width>
+                <height>182</height>
+               </size>
+              </property>
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+	background-color: white;
+	border-radius: 10px;
+}	
+
+QPushButton:pressed {
+    background-color: #e0e0e0;
+    padding-top: 2px;  /* 内容下移 */
+    padding-left: 2px; /* 内容右移 */
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/home/home_assets/icon_home_balance_144.svg</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>150</width>
+                <height>150</height>
+               </size>
+              </property>
+              <property name="autoDefault">
+               <bool>false</bool>
+              </property>
+              <property name="flat">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="home_Balance_text">
+              <property name="font">
+               <font>
+                <family>微软雅黑</family>
+                <pointsize>18</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	qproperty-alignment: AlignCenter;
+}</string>
+              </property>
+              <property name="text">
+               <string>平衡</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QWidget" name="widget_7" native="true">
+          <widget class="QWidget" name="verticalLayoutWidget_8">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>20</y>
+             <width>220</width>
+             <height>241</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_7" stretch="0,0">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="home_OneBalance_button">
+              <property name="minimumSize">
+               <size>
+                <width>210</width>
+                <height>182</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>210</width>
+                <height>182</height>
+               </size>
+              </property>
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+	background-color: white;
+	border-radius: 10px;
+}	
+
+QPushButton:pressed {
+    background-color: #e0e0e0;
+    padding-top: 2px;  /* 内容下移 */
+    padding-left: 2px; /* 内容右移 */
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/home/home_assets/icon_one_template.svg</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="autoDefault">
+               <bool>false</bool>
+              </property>
+              <property name="flat">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="home_OneBalance_text">
+              <property name="font">
+               <font>
+                <family>微软雅黑</family>
+                <pointsize>18</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	qproperty-alignment: AlignCenter;
+}</string>
+              </property>
+              <property name="text">
+               <string>1-PLANE BALANCE</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QWidget" name="widget_8" native="true">
+          <widget class="QWidget" name="verticalLayoutWidget_9">
+           <property name="geometry">
+            <rect>
+             <x>18</x>
+             <y>20</y>
+             <width>220</width>
+             <height>241</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_8" stretch="0,0">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="home_TwoBalance_button">
+              <property name="minimumSize">
+               <size>
+                <width>210</width>
+                <height>182</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>210</width>
+                <height>182</height>
+               </size>
+              </property>
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+	background-color: white;
+	border-radius: 10px;
+}	
+
+QPushButton:pressed {
+    background-color: #e0e0e0;
+    padding-top: 2px;  /* 内容下移 */
+    padding-left: 2px; /* 内容右移 */
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/home/home_assets/icon_one_template.svg</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="autoDefault">
+               <bool>false</bool>
+              </property>
+              <property name="flat">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="home_TwoBalance_text">
+              <property name="font">
+               <font>
+                <family>微软雅黑</family>
+                <pointsize>18</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	qproperty-alignment: AlignCenter;
+}</string>
+              </property>
+              <property name="text">
+               <string>2-PLANE BALANCE</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
       </widget>
-      <zorder>home_SettingButton_text</zorder>
-      <zorder>home_SettingButton</zorder>
-      <zorder>home_FilemanagerButton</zorder>
-      <zorder>home_Filemanager_text</zorder>
-      <zorder>home_MachineTemplateButton</zorder>
-      <zorder>home_Filemanager_text_2</zorder>
-      <zorder>home_BalanceButton</zorder>
-      <zorder>home_Filemanager_text_3</zorder>
-      <zorder>home_Filemanager_text_7</zorder>
-      <zorder>home_HelpButton</zorder>
      </widget>
     </item>
    </layout>

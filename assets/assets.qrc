@@ -14,6 +14,11 @@
         <file>home_assets/icon_home_template_144.png</file>
         <file>home_assets/icon_home_balance_144.svg</file>
         <file>home_assets/icon_home_help_144.svg</file>
+        <file>home_assets/icon_balance_template.svg</file>
+        <file>home_assets/icon_balancefull_template.svg</file>
+        <file>home_assets/icon_home_setting_96.png</file>
+        <file>home_assets/icon_one_template.svg</file>
+        <file>home_assets/icon_speed_template.svg</file>
     </qresource>
     <qresource prefix="/setting_assets">
         <file>setting_assets/icon_setting_user_50.png</file>

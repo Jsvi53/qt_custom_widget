@@ -144,7 +144,8 @@ int main(int argc, char *argv[])
     */
     // 全局渲染设置
 
-
+    QApplication::setAttribute(Qt::AA_UseOpenGLES);
+    QApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
     OnSiteBalancer onsitebalancer;
     onsitebalancer.show();
 
