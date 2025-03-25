@@ -35,4 +35,5 @@ private:
     QPropertyAnimation* scaleAnim = nullptr;
     QVariantAnimation* fadeAnim = nullptr;
     QGraphicsBlurEffect* blurEffect = nullptr;
+    
 };

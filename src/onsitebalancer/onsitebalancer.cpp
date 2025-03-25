@@ -1,13 +1,11 @@
-#include "onsitebalancer/onsitebalancer.h"
 #include <QDebug>
 #include <QEasingCurve>
 #include <QPainter>
 #include <QPainterPath>
 
-OnSiteBalancer::OnSiteBalancer(QWidget *parent)
-    : QMainWindow(parent),
-      homeScreen(new Hs::HomeScreen(this)),
-      settingScreen(new Ss::SettingScreen(this))
+#include "onsitebalancer/onsitebalancer.h"
+
+OnSiteBalancer::OnSiteBalancer(QWidget *parent) : QMainWindow(parent), homeScreen(new Hs::HomeScreen(this)), settingScreen(new Ss::SettingScreen(this))
 {
     // 基础设置
     setAttribute(Qt::WA_TranslucentBackground);
@@ -22,31 +20,10 @@ OnSiteBalancer::OnSiteBalancer(QWidget *parent)
     settingScreen->hide();
     currentPage = homeScreen;
 
-    // 样式设置
-    homeScreen->setStyleSheet(R"(
-        Hs--HomeScreen {
-            background: #FFFFFF;
-            border-radius: 12px;
-            border: 1px solid #E0E0E0;
-        }
-    )");
-
-    settingScreen->setStyleSheet(R"(
-        Ss--SettingScreen {
-            background: #FAFAFA;
-            border-radius: 12px;
-            border: 1px solid #E0E0E0;
-        }
-    )");
-
     // 连接信号
-    connect(homeScreen->getButton("home_SettingButton"), &QPushButton::clicked, [=]() {
-        triggerTransition(settingScreen, homeScreen->getButton("home_SettingButton"));
-    });
+    connect(homeScreen->getButton("home_SettingButton"), &QPushButton::clicked, [=]() { triggerTransition(settingScreen, homeScreen->getButton("home_SettingButton")); });
 
-    connect(settingScreen->getButton("naviBtn_l"), &QPushButton::clicked, [=]() {
-        reverseTransition(homeScreen, settingScreen->getButton("naviBtn_l"));
-    });
+    connect(settingScreen->getButton("naviBtn_l"), &QPushButton::clicked, [=]() { reverseTransition(homeScreen, settingScreen->getButton("naviBtn_l")); });
 }
 
 OnSiteBalancer::~OnSiteBalancer()
@@ -56,18 +33,22 @@ OnSiteBalancer::~OnSiteBalancer()
     delete blurEffect;
 }
 
-void OnSiteBalancer::triggerTransition(QWidget* newPage, QPushButton* triggerBtn)
+void OnSiteBalancer::triggerTransition(QWidget *newPage, QPushButton *triggerBtn)
 {
-    if (newPage == currentPage) return;
+    if(newPage == currentPage)
+        return;
 
     // 清理旧动画
-    if(scaleAnim) scaleAnim->deleteLater();
-    if(fadeAnim) fadeAnim->deleteLater();
-    if(blurEffect) blurEffect->deleteLater();
+    if(scaleAnim)
+        scaleAnim->deleteLater();
+    if(fadeAnim)
+        fadeAnim->deleteLater();
+    if(blurEffect)
+        blurEffect->deleteLater();
 
     // 计算动画起点
     const QPoint globalPos = triggerBtn->mapToGlobal(triggerBtn->rect().center());
-    const QPoint startPos = mapFromGlobal(globalPos);
+    const QPoint startPos  = mapFromGlobal(globalPos);
 
     // 设置旧页面模糊效果
     blurEffect = new QGraphicsBlurEffect(currentPage);
@@ -75,16 +56,16 @@ void OnSiteBalancer::triggerTransition(QWidget* newPage, QPushButton* triggerBtn
     currentPage->setGraphicsEffect(blurEffect);
 
     // 准备新页面
-    newPage->setGeometry(QRect(startPos, QSize(1, 1)));
+    newPage->setGeometry(QRect(startPos, QSize(1, 1)));  // 设置初始位置
     newPage->show();
-    newPage->raise();
+    newPage->raise();  // 确保新页面在最上层
 
     // 几何动画
-    scaleAnim = new QPropertyAnimation(newPage, "geometry");
-    scaleAnim->setDuration(600);
-    scaleAnim->setStartValue(QRect(startPos, QSize(1, 1)));
-    scaleAnim->setEndValue(rect());
-    scaleAnim->setEasingCurve(QEasingCurve::OutBack);
+    scaleAnim = new QPropertyAnimation(newPage, "geometry");  // 设置动画目标属性
+    scaleAnim->setDuration(600);                              // 设置动画时长
+    scaleAnim->setStartValue(QRect(startPos, QSize(1, 1)));   // 设置动画起始位置
+    scaleAnim->setEndValue(rect());                           // 设置动画结束位置
+    scaleAnim->setEasingCurve(QEasingCurve::OutCubic);        // 设置动画缓动曲线
 
     // 颜色渐变
     fadeAnim = new QVariantAnimation;
@@ -94,22 +75,27 @@ void OnSiteBalancer::triggerTransition(QWidget* newPage, QPushButton* triggerBtn
 
     // 动画更新
     connect(scaleAnim, &QPropertyAnimation::valueChanged, [=](const QVariant &value) mutable {
-        QRect rect = value.toRect();
-        QPainterPath maskPath;
-        maskPath.addRoundedRect(rect, 12, 12);
-        newPage->setMask(QRegion(maskPath.toFillPolygon().toPolygon()));
-
+        QRect          rect = value.toRect();
+        static QRegion cachedRegion;
+        if(cachedRegion.rectCount() == 0 || rect != cachedRegion.boundingRect())
+        {
+            QPainterPath path;
+            path.addRoundedRect(rect, 12, 12);
+            cachedRegion = QRegion(path.toFillPolygon().toPolygon());
+        }
+        newPage->setMask(cachedRegion);
+        // 模糊效果更新（见后续优化）
         qreal progress = rect.width() / static_cast<qreal>(width());
-        blurEffect->setBlurRadius(static_cast<int>(12 * (1 - progress)));
+        blurEffect->setBlurRadius(static_cast<int>(8 * (1 - progress)));
     });
 
     connect(fadeAnim, &QVariantAnimation::valueChanged, [=](const QVariant &value) {
-        newPage->setStyleSheet(QString(R"(
-            Ss--SettingScreen {
-                background: %1;
-                border-radius: 12px;
-            }
-        )").arg(value.value<QColor>().name(QColor::HexArgb)));
+        QColor   color   = value.value<QColor>();
+        QPalette palette = newPage->palette();
+        palette.setColor(QPalette::Window, color);
+        newPage->setPalette(palette);
+        newPage->setAttribute(Qt::WA_OpaquePaintEvent, false);  // 允许透明
+        newPage->update();                                      // 手动触发重绘
     });
 
     // 动画完成
@@ -125,18 +111,22 @@ void OnSiteBalancer::triggerTransition(QWidget* newPage, QPushButton* triggerBtn
     fadeAnim->start();
 }
 
-void OnSiteBalancer::reverseTransition(QWidget* targetPage, QPushButton* triggerBtn)
+void OnSiteBalancer::reverseTransition(QWidget *targetPage, QPushButton *triggerBtn)
 {
-    if (currentPage == targetPage) return;
+    if(currentPage == targetPage)
+        return;
 
     // 清理旧动画
-    if(scaleAnim) scaleAnim->deleteLater();
-    if(fadeAnim) fadeAnim->deleteLater();
-    if(blurEffect) blurEffect->deleteLater();
+    if(scaleAnim)
+        scaleAnim->deleteLater();
+    if(fadeAnim)
+        fadeAnim->deleteLater();
+    if(blurEffect)
+        blurEffect->deleteLater();
 
     // 计算动画终点
     const QPoint globalPos = triggerBtn->mapToGlobal(triggerBtn->rect().center());
-    const QPoint endPos = mapFromGlobal(globalPos);
+    const QPoint endPos    = mapFromGlobal(globalPos);
 
     // 显示目标页面
     targetPage->show();
@@ -157,19 +147,19 @@ void OnSiteBalancer::reverseTransition(QWidget* targetPage, QPushButton* trigger
 
     // 动画更新
     connect(scaleAnim, &QPropertyAnimation::valueChanged, [=](const QVariant &value) mutable {
-        QRect rect = value.toRect();
+        QRect        rect = value.toRect();
         QPainterPath maskPath;
         maskPath.addRoundedRect(rect, 12, 12);
         currentPage->setMask(QRegion(maskPath.toFillPolygon().toPolygon()));
     });
 
     connect(fadeAnim, &QVariantAnimation::valueChanged, [=](const QVariant &value) {
-        currentPage->setStyleSheet(QString(R"(
-            Ss--SettingScreen {
-                background: %1;
-                border-radius: 12px;
-            }
-        )").arg(value.value<QColor>().name(QColor::HexArgb)));
+        QColor   color   = value.value<QColor>();
+        QPalette palette = currentPage->palette();
+        palette.setColor(QPalette::Window, color);
+        currentPage->setPalette(palette);
+        currentPage->setAttribute(Qt::WA_OpaquePaintEvent, false);  // 允许透明
+        currentPage->update();                                      // 手动触发重绘
     });
 
     // 动画完成
