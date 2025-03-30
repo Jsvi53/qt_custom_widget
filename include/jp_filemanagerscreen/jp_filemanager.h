@@ -1,3 +1,9 @@
+/*** 
+ * @Date: 2025-03-14 21:24:18
+ * @LastEditors: jsvi53
+ * @LastEditTime: 2025-03-30 16:01:39
+ * @FilePath: \custom_widget\include\jp_filemanagerscreen\jp_filemanager.h
+ */
 #pragma once
 #include <QLabel>
 #include <QPushButton>
@@ -36,6 +42,7 @@ public:
     void setFileDate(const QString &date);
     void setFileType(const QString &type);
     void setFileSize(const QString &size);
+
 
 private:
     QLabel *fileIcon;
