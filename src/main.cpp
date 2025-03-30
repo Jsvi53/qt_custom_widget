@@ -35,6 +35,7 @@
 #include "qswitchbutton/switchbuttonshowwindow.h"
 #include "schenckmain/schenckmain.h"
 #include "test/test.h"
+#include "test_qmlmerge/test_qmlmerge.h"
 
 int main(int argc, char *argv[])
 {
@@ -166,9 +167,11 @@ int main(int argc, char *argv[])
         // MultSpectrumChart3D spetrumchart3d;
         // spetrumchart3d.show();
     */
-
-    JP_RoutesScreen routesscreen;
-    routesscreen.show();
-
+    /*
+        JP_RoutesScreen routesscreen;
+        routesscreen.show();
+    */
+    Test_qmlMerge qmlwindow;
+    qmlwindow.show();
     return a.exec();
 }

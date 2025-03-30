@@ -27,10 +27,16 @@
             "qgraphicsdropshadoweffect": "cpp",
             "qsurfaceformat": "cpp",
             "qpainter": "cpp",
-            "qtimer": "cpp"
+            "qtimer": "cpp",
+            "qquickpainteditem": "cpp",
+            "qquickwidget": "cpp",
+            "qquickview": "cpp"
         },
         "editor.formatOnSave": false,
-        "editor.defaultFormatter": "ms-vscode.cpptools"
+        "editor.defaultFormatter": "ms-vscode.cpptools",
+        "[qml]": {
+            "editor.defaultFormatter": "theqtcompany.qt-qml"
+        }
     },
     "launch": {
         "version": "0.2.0",

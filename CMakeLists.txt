@@ -188,10 +188,13 @@ add_executable(qt_custom_widget
     # ${SRC_DIR}/chart/3dchart.cpp
 
     # 路径列表界面
-    ${INCLUDE_DIR}/jp_routesscreen/jp_routes.h
-    ${SRC_DIR}/jp_routesscreen/jp_routes.cpp
-    ${SRC_DIR}/jp_routesscreen/jp_routesscreen.ui
+    # ${INCLUDE_DIR}/jp_routesscreen/jp_routes.h
+    # ${SRC_DIR}/jp_routesscreen/jp_routes.cpp
+    # ${SRC_DIR}/jp_routesscreen/jp_routesscreen.ui
 
+    # test_qmlmerge
+    ${INCLUDE_DIR}/test_qmlmerge/test_qmlmerge.h
+    ${SRC_DIR}/test_qmlmerge/test_qmlmerge.cpp
 
     # 添加资源文件生成的目标
     ${RESOURCES}
