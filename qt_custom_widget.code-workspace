@@ -24,10 +24,19 @@
             "qcategoryaxis": "cpp",
             "qstackedwidget": "cpp",
             "qhboxlayout": "cpp",
-            "qgraphicsdropshadoweffect": "cpp"
+            "qgraphicsdropshadoweffect": "cpp",
+            "qsurfaceformat": "cpp",
+            "qpainter": "cpp",
+            "qtimer": "cpp",
+            "qquickpainteditem": "cpp",
+            "qquickwidget": "cpp",
+            "qquickview": "cpp"
         },
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "ms-vscode.cpptools"
+        "editor.formatOnSave": false,
+        "editor.defaultFormatter": "ms-vscode.cpptools",
+        "[qml]": {
+            "editor.defaultFormatter": "theqtcompany.qt-qml"
+        }
     },
     "launch": {
         "version": "0.2.0",
@@ -56,7 +65,7 @@
                         "ignoreFailures": true
                     }
                 ],
-                "visualizerFile": "c:\\Users\\28581_000\\AppData\\Roaming\\Code\\User\\workspaceStorage\\1b2fb78e1466b7a3f0483c23a26ad3fd\\tonka3000.qtvsctools\\qt.natvis.xml"
+                "visualizerFile": "c:\\Users\\28581_000\\AppData\\Roaming\\Code\\User\\workspaceStorage\\7a57929323f26fcb4c1ccb4f1e5dcf0f\\tonka3000.qtvsctools\\qt.natvis.xml"
             }
         ]
     }

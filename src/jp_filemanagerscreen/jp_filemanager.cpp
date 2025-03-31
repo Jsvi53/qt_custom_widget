@@ -1,3 +1,9 @@
+/*** 
+ * @Date: 2025-03-14 21:24:18
+ * @LastEditors: jsvi53
+ * @LastEditTime: 2025-03-30 15:41:38
+ * @FilePath: \custom_widget\src\jp_filemanagerscreen\jp_filemanager.cpp
+ */
 /***
  * @Date: 2025-03-14 09:07:33
  * @LastEditors: jsvi53

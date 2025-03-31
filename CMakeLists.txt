@@ -10,11 +10,22 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# 构建类型设置
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Debug")
+endif()
+message(STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")     # 打印 CMAKE_BUILD_TYPE
+
 # 查找 Qt 库
 find_package(Qt5 REQUIRED COMPONENTS
     Widgets
     Charts
     Multimedia
+    Sql
+    Core
+    PrintSupport
+    Quick
+    QuickWidgets
 )
 
 # 设置源文件和头文件路径
@@ -32,6 +43,9 @@ add_subdirectory(TsFile)
 
 # 添加资源文件
 qt5_add_resources(RESOURCES assets/assets.qrc)
+
+# 添加子模块
+add_subdirectory(src/databasetest)
 
 # 添加可执行文件
 add_executable(qt_custom_widget
@@ -159,34 +173,72 @@ add_executable(qt_custom_widget
     # ${INCLUDE_DIR}/utils/signalgenerator2.h
     # ${SRC_DIR}/utils/signalgenerator2.cpp
 
-    ${INCLUDE_DIR}/onsitebalancer/onsitebalancer.h
-    ${SRC_DIR}/onsitebalancer/onsitebalancer.cpp
-    ${INCLUDE_DIR}/onsitebalancer/home.h
-    ${SRC_DIR}/onsitebalancer/home.cpp
-    ${SRC_DIR}/onsitebalancer/homescreen.ui
-    ${INCLUDE_DIR}/onsitebalancer/settingscreen.h
-    ${SRC_DIR}/onsitebalancer/settingscreen.cpp
-    ${SRC_DIR}/onsitebalancer/settingscreen.ui
+    # 界面融合
+    # ${INCLUDE_DIR}/onsitebalancer/onsitebalancer.h
+    # ${SRC_DIR}/onsitebalancer/onsitebalancer.cpp
+    # ${INCLUDE_DIR}/onsitebalancer/home.h
+    # ${SRC_DIR}/onsitebalancer/home.cpp
+    # ${SRC_DIR}/onsitebalancer/homescreen.ui
+    # ${INCLUDE_DIR}/onsitebalancer/settingscreen.h
+    # ${SRC_DIR}/onsitebalancer/settingscreen.cpp
+    # ${SRC_DIR}/onsitebalancer/settingscreen.ui
 
+    # 3dchart
+    # ${INCLUDE_DIR}/chart/3dchart.h
+    # ${SRC_DIR}/chart/3dchart.cpp
+
+    # 路径列表界面
+    # ${INCLUDE_DIR}/jp_routesscreen/jp_routes.h
+    # ${SRC_DIR}/jp_routesscreen/jp_routes.cpp
+    # ${SRC_DIR}/jp_routesscreen/jp_routesscreen.ui
+
+    # test_qmlmerge
+    ${INCLUDE_DIR}/test_qmlmerge/test_qmlmerge.h
+    ${SRC_DIR}/test_qmlmerge/test_qmlmerge.cpp
 
     # 添加资源文件生成的目标
     ${RESOURCES}
 )
 
+
 # 包含头文件目录
 target_include_directories(qt_custom_widget PRIVATE ${INCLUDE_DIR})
 
-# 设置 QCustomPlot2 的路径
-set(WIN_CUSTOMPLOT_LIB_DIR ${CMAKE_SOURCE_DIR}/lib/qtcustomplot/windows)
-set(UNIX_CUSTOMPLOT_LIB_DIR ${CMAKE_SOURCE_DIR}/lib/qtcustomplot/unix)
+
+# 设置 QCustomPlot 库的名称
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  if(WIN32)
+    set(CUSTOMPLOT_LIB_DIR "${CMAKE_SOURCE_DIR}/lib/qtcustomplot/windows/debug")
+    set(CUSTOMPLOT_LIB_NAME "libqcustomplotd2")
+  elseif(UNIX)
+    set(CUSTOMPLOT_LIB_DIR "${CMAKE_SOURCE_DIR}/lib/qtcustomplot/linux/debug")
+    set(CUSTOMPLOT_LIB_NAME "libqcustomplotd2")
+  endif()
+else()
+  if(WIN32)
+    set(CUSTOMPLOT_LIB_DIR "${CMAKE_SOURCE_DIR}/lib/qtcustomplot/windows/release")
+    set(CUSTOMPLOT_LIB_NAME "libqcustomplot2")
+  elseif(UNIX)
+    set(CUSTOMPLOT_LIB_DIR "${CMAKE_SOURCE_DIR}/lib/qtcustomplot/linux/release")
+    set(CUSTOMPLOT_LIB_NAME "libqcustomplot2")
+  endif()
+endif()
+
 
 # 链接 Qt 模块
 target_link_libraries(qt_custom_widget PRIVATE
     Qt5::Widgets
     Qt5::Charts
     Qt5::Multimedia
-    # F:/code/projects/29_QT_projects/qt_custom_widget/lib/qtcustomplot/windows/libqcustomplot2.a
+    Qt5::Sql
+    Qt5::Core
+    Qt5::PrintSupport
+    Qt5::Quick
+    Qt5::QuickWidgets
+    basemodule_lib
+    ${CUSTOMPLOT_LIB_DIR}/${CUSTOMPLOT_LIB_NAME}.a
 )
+
 
 # # 链接 QCustomPlot 动态库
 # if(UNIX)

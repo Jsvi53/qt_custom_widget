@@ -4,30 +4,29 @@
  * @LastEditTime: 2025-03-23 18:26:17
  * @FilePath: \qt_custom_widget\src\main.cpp
  */
-/***
- * @Date: 2025-03-01 10:24:48
- * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-13 00:53:36
- * @FilePath: \qt_custom_widget\src\main.cpp
- */
+
 #include <QApplication>
 #include <QDebug>
+#include <QQmlApplicationEngine>
 #include <QScreen>
 #include <QSplashScreen>
-#include <QTimer>
 #include <QSurfaceFormat>
+#include <QTimer>
 
 #include "basemodule/basewidget.h"
+#include "chart/3dchart.h"
 #include "chart/balancingshowphasechart.h"
 #include "chart/barchartshowwindow.h"
 #include "chart/polarchartshowwindow.h"
 #include "chart/wavechartshowwindow.h"
+#include "databasetest/databasetest.h"
 #include "fileapp/filetemplatewindow.h"
 #include "jp_balancerunscreen\jp_balancerun.h"
 #include "jp_balancesetupscreen/jp_balancesetup.h"
 #include "jp_filemanagerscreen/jp_filemanager.h"
 #include "jp_mainwindow/jp_mainwindow.h"
 #include "jp_resultgraphscreen/jp_resultgraph.h"
+#include "jp_routesscreen/jp_routes.h"
 #include "jp_settingscreen/jp_settingscreen.h"
 #include "mainwindow/mainwindow.h"
 #include "manager/managerwindow.h"
@@ -36,11 +35,24 @@
 #include "qswitchbutton/switchbuttonshowwindow.h"
 #include "schenckmain/schenckmain.h"
 #include "test/test.h"
-
+#include "test_qmlmerge/test_qmlmerge.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    /*
+        // 使用 QML 方式显示主窗口
+        QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);   // 开启高DPI缩放
+        QQmlApplicationEngine engine;
+        const QUrl url(QStringLiteral("qrc:qmlwidget/qmlmain.qml"));
+        QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
+                         &a, [url](QObject *obj, const QUrl &objUrl) {
+            if (!obj && url == objUrl)
+                QCoreApplication::exit(-1);
+        }, Qt::QueuedConnection);   // 队列连接
+        engine.load(url);   // 加载 QML 文件
+    */
+
     /*
         // SwitchButtonShowWindow swbtn_window;
         // swbtn_window.show();
@@ -144,10 +156,22 @@ int main(int argc, char *argv[])
     */
     // 全局渲染设置
 
-    QApplication::setAttribute(Qt::AA_UseOpenGLES);
-    QApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
-    OnSiteBalancer onsitebalancer;
-    onsitebalancer.show();
+    /*
+        // QApplication::setAttribute(Qt::AA_UseOpenGLES);
+        // QApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
+        // OnSiteBalancer onsitebalancer;
+        // onsitebalancer.show();
+    */
 
+    /*
+        // MultSpectrumChart3D spetrumchart3d;
+        // spetrumchart3d.show();
+    */
+    /*
+        JP_RoutesScreen routesscreen;
+        routesscreen.show();
+    */
+    Test_qmlMerge qmlwindow;
+    qmlwindow.show();
     return a.exec();
 }
