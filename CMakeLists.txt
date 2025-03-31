@@ -26,6 +26,7 @@ find_package(Qt5 REQUIRED COMPONENTS
     PrintSupport
     Quick
     QuickWidgets
+    DataVisualization
 )
 
 # 设置源文件和头文件路径
@@ -184,8 +185,8 @@ add_executable(qt_custom_widget
     # ${SRC_DIR}/onsitebalancer/settingscreen.ui
 
     # 3dchart
-    # ${INCLUDE_DIR}/chart/3dchart.h
-    # ${SRC_DIR}/chart/3dchart.cpp
+    ${INCLUDE_DIR}/chart/3dchart.h
+    ${SRC_DIR}/chart/3dchart.cpp
 
     # 路径列表界面
     # ${INCLUDE_DIR}/jp_routesscreen/jp_routes.h
@@ -193,8 +194,10 @@ add_executable(qt_custom_widget
     # ${SRC_DIR}/jp_routesscreen/jp_routesscreen.ui
 
     # test_qmlmerge
-    ${INCLUDE_DIR}/test_qmlmerge/test_qmlmerge.h
-    ${SRC_DIR}/test_qmlmerge/test_qmlmerge.cpp
+    # ${INCLUDE_DIR}/test_qmlmerge/test_qmlmerge.h
+    # ${SRC_DIR}/test_qmlmerge/test_qmlmerge.cpp
+
+
 
     # 添加资源文件生成的目标
     ${RESOURCES}
@@ -235,6 +238,7 @@ target_link_libraries(qt_custom_widget PRIVATE
     Qt5::PrintSupport
     Qt5::Quick
     Qt5::QuickWidgets
+    Qt5::DataVisualization
     basemodule_lib
     ${CUSTOMPLOT_LIB_DIR}/${CUSTOMPLOT_LIB_NAME}.a
 )

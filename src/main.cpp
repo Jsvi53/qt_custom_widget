@@ -167,9 +167,13 @@ int main(int argc, char *argv[])
     */
 
     /*
-        // MultSpectrumChart3D spetrumchart3d;
-        // spetrumchart3d.show();
+        MultSpectrumChart3D spetrumchart3d;
+        spetrumchart3d.show();
     */
+
+   MultSpectrumChart3D spetrumchart3d;
+   spetrumchart3d.show();
+
     /*
         JP_RoutesScreen routesscreen;
         routesscreen.show();
@@ -179,8 +183,7 @@ int main(int argc, char *argv[])
     Test_qmlMerge qmlwindow;
     qmlwindow.show();
 */
-    Test_qmlMerge qmlwindow;
-    qmlwindow.show();
+
 
     return a.exec();
 }
