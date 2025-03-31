@@ -8,10 +8,10 @@
 #include "onsitebalancer/settingscreen.h"
 
 namespace Hs {
-class HomeScreen;
+    class HomeScreen;
 }
 namespace Ss {
-class SettingScreen;
+    class SettingScreen;
 }
 
 class OnSiteBalancer : public QMainWindow
@@ -35,5 +35,5 @@ private:
     QPropertyAnimation* scaleAnim = nullptr;
     QVariantAnimation* fadeAnim = nullptr;
     QGraphicsBlurEffect* blurEffect = nullptr;
-    
+
 };

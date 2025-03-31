@@ -154,6 +154,9 @@ int main(int argc, char *argv[])
     HomeScreen home;
     home.show();
     */
+
+
+
     // 全局渲染设置
 
     /*
@@ -171,7 +174,13 @@ int main(int argc, char *argv[])
         JP_RoutesScreen routesscreen;
         routesscreen.show();
     */
+
+/*
     Test_qmlMerge qmlwindow;
     qmlwindow.show();
+*/
+    Test_qmlMerge qmlwindow;
+    qmlwindow.show();
+
     return a.exec();
 }
