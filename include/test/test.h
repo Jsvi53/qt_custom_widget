@@ -6,7 +6,7 @@
 #include "qtcustomplot/qcustomplot.h"
 #include "utils/signalgenerator2.h"
 
-#define SAMPLENUM 10000;
+#define SAMPLENUM 10000
 
 class vibrationWaveGraph : public QWidget
 {
@@ -14,14 +14,15 @@ class vibrationWaveGraph : public QWidget
 
 public:
     explicit vibrationWaveGraph(QWidget *parent = nullptr);
+    ~vibrationWaveGraph() ;
     void vibgraphShow();
 
 private:
-    QCustomPlot        *vibgraph;
-    std::vector<double> generatedValue;
-    std::vector<double> timeValue;
-    double              speed                    = 3000.0;
-    void               *unbalanceSignalGenerator = nullptr;
+    QCustomPlot                 *vibgraph;
+    std::vector<double>          generatedValue;
+    std::vector<double>          timeValue;
+    double                       speed                    = 3000.0;
+    UnbalanceVibrationGenerator *unbalanceSignalGenerator = nullptr;
 };
 
 #endif  // TEST_H

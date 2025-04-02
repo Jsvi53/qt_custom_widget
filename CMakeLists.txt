@@ -146,12 +146,6 @@ add_executable(qt_custom_widget
     # ${INCLUDE_DIR}/chart/bigraph.h
     # ${SRC_DIR}/chart/bigraph.cpp
 
-    # 添加 信号发生器 模块
-    ${INCLUDE_DIR}/utils/signalgenerator.h
-    ${SRC_DIR}/utils/signalgenerator.cpp
-    ${INCLUDE_DIR}/utils/signalgenerator2.h
-    ${SRC_DIR}/utils/signalgenerator2.cpp
-
     # 界面融合
     # ${INCLUDE_DIR}/onsitebalancer/onsitebalancer.h
     # ${SRC_DIR}/onsitebalancer/onsitebalancer.cpp
@@ -175,9 +169,15 @@ add_executable(qt_custom_widget
     # ${INCLUDE_DIR}/test_qmlmerge/test_qmlmerge.h
     # ${SRC_DIR}/test_qmlmerge/test_qmlmerge.cpp
 
+    # 添加 信号发生器 模块
+    ${INCLUDE_DIR}/utils/signalgenerator.h
+    ${SRC_DIR}/utils/signalgenerator.cpp
+    ${INCLUDE_DIR}/utils/signalgenerator2.h
+    ${SRC_DIR}/utils/signalgenerator2.cpp
+
     # 用动态库方式引入 QCustomPlot
     ${INCLUDE_DIR}/qtcustomplot/qcustomplot.h
-
+    ${SRC_DIR}/qtcustomplot/qcustomplot.cpp
     # 添加波形图
     ${INCLUDE_DIR}/test/test.h
     ${SRC_DIR}/test/test.cpp
@@ -189,7 +189,6 @@ add_executable(qt_custom_widget
 
 # 包含头文件目录
 target_include_directories(qt_custom_widget PRIVATE ${INCLUDE_DIR})
-
 
 # 设置 QCustomPlot 库的名称
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -222,12 +221,12 @@ target_link_libraries(qt_custom_widget PRIVATE
     Qt5::Quick
     Qt5::QuickWidgets
     basemodule_lib
-    ${CUSTOMPLOT_LIB_DIR}/${CUSTOMPLOT_LIB_NAME}.a
+    # ${CUSTOMPLOT_LIB_DIR}/${CUSTOMPLOT_LIB_NAME}.a
 )
 
 # 设置后处理
-add_custom_command(TARGET qt_custom_widget POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_SOURCE_DIR}/config/configs.json
-        $<TARGET_FILE_DIR:qt_custom_widget>
-)   
+# add_custom_command(TARGET qt_custom_widget POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E copy_directory
+#         ${CMAKE_SOURCE_DIR}/config/configs.json
+#         $<TARGET_FILE_DIR:qt_custom_widget>
+# )

@@ -1,15 +1,43 @@
+/*** 
+ * @Date: 2025-04-02 09:59:35
+ * @LastEditors: jsvi53
+ * @LastEditTime: 2025-04-02 16:14:24
+ * @FilePath: \qt_custom_widget\src\test\test.cpp
+ */
 #include "test/test.h"
+#include <QDebug>
 
-vibrationWaveGraph::vibrationWaveGraph(QWidget *parent) : QWidget(parent), vibgraph(new QCustomPlot)
+vibrationWaveGraph::vibrationWaveGraph(QWidget *parent) : QWidget(parent), vibgraph(new QCustomPlot(this)), unbalanceSignalGenerator(new UnbalanceVibrationGenerator())
 {
-    unbalanceSignalGenerator = SignalFactory::create(UNBALANCE_VIBRATION);
+    vibgraph->setObjectName(QStringLiteral("vibgraph"));
+    vibgraph->setGeometry(QRect(0, 0, 800, 600));
+    vibgraph->setMinimumSize(QSize(800, 600));
+    vibgraph->setMaximumSize(QSize(800, 600));
+    vibgraph->setAutoFillBackground(false);
+    vibgraph->xAxis->setLabel("Time (s)");
+    vibgraph->yAxis->setLabel("Amplitude (g)");
+    vibgraph->xAxis2->setLabel("Frequency (Hz)");
+    vibgraph->yAxis2->setLabel("Phase (rad)");
+    // 设置采样率
+    double samplingRate = 10000.0; // 10kHz
+    unbalanceSignalGenerator->setSampleRate(samplingRate);
     unbalanceSignalGenerator->setRotationSpeed(3000);
     generatedValue           = unbalanceSignalGenerator->generate(SAMPLENUM);
     for(int i = 0; i < generatedValue.size(); i++)
     {
         double t = static_cast<double>(60 * i / samplingRate);
-        timeValue.append(t);
+        // t 添加到 timeValue 向量中
+        timeValue.push_back(t);
     }
+
+    vibgraphShow();
+}
+
+
+vibrationWaveGraph::~vibrationWaveGraph()
+{
+    delete vibgraph;
+    delete unbalanceSignalGenerator;
 }
 
 void vibrationWaveGraph::vibgraphShow()
@@ -30,13 +58,12 @@ void vibrationWaveGraph::vibgraphShow()
     connect(vibgraph->xAxis, SIGNAL(rangeChanged(QCPRange)), vibgraph->xAxis2, SLOT(setRange(QCPRange)));
     connect(vibgraph->yAxis, SIGNAL(rangeChanged(QCPRange)), vibgraph->yAxis2, SLOT(setRange(QCPRange)));
 
-    // 将 std::vector 转换为 QVector
-    QVector<double> qTimeValue(timeValue.begin(), timeValue.end());
-    QVector<double> qGeneratedValue(generatedValue.begin(), generatedValue.end());
-
-    // 将数据点传递给图形：
-    vibgraph->graph(0)->setData(qTimeValue, qGeneratedValue);  // 使用 qTimeValue 和 qGeneratedValue 填充第一个图形
-    vibgraph->graph(1)->setData(qTimeValue, qGeneratedValue);  // 使用相同的 data 填充第二个图形（可以根据需要修改）
+    // 添加数据
+    for(int i = 0; i < generatedValue.size(); i++)
+    {
+        vibgraph->graph(0)->addData(timeValue[i], generatedValue[i]);
+        qDebug() << "timeValue:" << timeValue[i] << "generatedValue:" << generatedValue[i];
+    }
 
     // 让范围自动调整，使第一个图形完美地适应可见区域：
     vibgraph->graph(0)->rescaleAxes();
