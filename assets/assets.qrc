@@ -94,11 +94,14 @@
         <file>balancegraph_assets/icon_balance_place_marker_50.png</file>
         <file>balancegraph_assets/icon_balance_descending_sorting_50.png</file>
     </qresource>
-        <qresource prefix="/balancetask_assets">
+    <qresource prefix="/balancetask_assets">
         <file>balance_task_assets/icon_balance_task1_red.svg</file>
     </qresource>
-    <qresource prefix="/">     <!-- 文件在资源系统中的路径路径前缀-->
-        <file>qmlwidget/qmlmain.qml</file>  <!-- 这是相对qrc文件的物理路径，在程序中引用时就为"qrc:前缀/相对物理路径"-->
+    <qresource prefix="/">
+        <file>qmlwidget/qmlmain.qml</file>
         <file>qmlwidget/test.qml</file>
+    </qresource>
+    <qresource prefix="/balanceroute_assets">
+        <file>balance_route_assets/icon_balance_route1_gray.png</file>
     </qresource>
 </RCC>

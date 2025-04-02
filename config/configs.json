@@ -1,0 +1,23 @@
+{
+    "SystemConfigs": {
+        "measurementItem": {
+            "accelerationRMS": false,
+            "acceleration0P": false,
+            "accelerationPP": false,
+            "speedRMS": false,
+            "speed0P": false,
+            "speedPP": false,
+            "speedCrest": false,
+            "speedPhase": false,
+            "speedPhaseAplitude": false,
+            "displacementRMS": false,
+            "displacement0P": false,
+            "displacementPP": false,
+            "displacementCrest": false,
+            "displacementPhase": false,
+            "displacementPhaseAplitude": false,
+            "showRouteSummary": false,
+            "detailRouteGuidance": false
+        }
+    }
+}

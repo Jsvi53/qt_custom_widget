@@ -7,7 +7,6 @@
     "settings": {
         "files.associations": {
             "*.cpp": "cpp",
-            "*.qml": "qml",
             "qwidget": "cpp",
             "qmainwindow": "cpp",
             "qframe": "cpp",
@@ -31,8 +30,7 @@
             "qtimer": "cpp",
             "qquickpainteditem": "cpp",
             "qquickwidget": "cpp",
-            "qquickview": "cpp",
-            "qscatterdataitem": "cpp"
+            "qquickview": "cpp"
         },
         "editor.formatOnSave": false,
         "editor.defaultFormatter": "ms-vscode.cpptools",

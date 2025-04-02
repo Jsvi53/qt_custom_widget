@@ -2,25 +2,26 @@
 #define TEST_H
 
 #include <QWidget>
-#include "qtcustomplot/qcustomplot.h"  // 包含 QCustomPlot 头文件
 
-namespace Ui {
-class myWidget;
-}
+#include "qtcustomplot/qcustomplot.h"
+#include "utils/signalgenerator2.h"
 
-class myWidget : public QWidget {
+#define SAMPLENUM 10000;
+
+class vibrationWaveGraph : public QWidget
+{
     Q_OBJECT
 
 public:
-    explicit myWidget(QWidget *parent = nullptr);
-    ~myWidget();
+    explicit vibrationWaveGraph(QWidget *parent = nullptr);
+    void vibgraphShow();
 
 private:
-    Ui::myWidget *ui;
-    QCustomPlot *customPlot;  // 声明 QCustomPlot 指针
-
-private slots:
-    void configureCustomPlot();  // 声明 configureCustomPlot 函数
+    QCustomPlot        *vibgraph;
+    std::vector<double> generatedValue;
+    std::vector<double> timeValue;
+    double              speed                    = 3000.0;
+    void               *unbalanceSignalGenerator = nullptr;
 };
 
-#endif // TEST_H
+#endif  // TEST_H

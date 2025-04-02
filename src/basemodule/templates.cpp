@@ -1,0 +1,1 @@
+#include "basemodule/machinetemplate.h"

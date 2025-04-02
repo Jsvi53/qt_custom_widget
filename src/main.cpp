@@ -29,11 +29,9 @@
 #include "jp_routesscreen/jp_routes.h"
 #include "jp_settingscreen/jp_settingscreen.h"
 #include "mainwindow/mainwindow.h"
-#include "manager/managerwindow.h"
 #include "onsitebalancer/home.h"
 #include "onsitebalancer/onsitebalancer.h"
 #include "qswitchbutton/switchbuttonshowwindow.h"
-#include "schenckmain/schenckmain.h"
 #include "test/test.h"
 #include "test_qmlmerge/test_qmlmerge.h"
 
@@ -70,26 +68,19 @@ int main(int argc, char *argv[])
         // phase_window.resize(640, 480);
         // phase_window.show();
 
-        // SchenckMain schenck_main;
-        // schenck_main.show();
-
-        Test test;
-        test.show();
-
-        // WindowManager windowManager;
-        // windowManager.resize(1280, 800);
-        // windowManager.show();
-
         // FileTemplateWindow fileTemplateWindow;
         // fileTemplateWindow.show();
-
-        // MainWindow mainWindow;
-        // mainWindow.show();
 
         // 创建主窗口
         // BaseWidget baseWidget;
         // baseWidget.show(); // 显示主窗口
     */
+
+    /*      // 模板切换
+            MainWindow mainWindow;
+            mainWindow.show();
+    */
+
     /*
         // 创建主窗口
         JP_MainWindow jp_main;
@@ -155,11 +146,8 @@ int main(int argc, char *argv[])
     home.show();
     */
 
-
-
-    // 全局渲染设置
-
     /*
+        // 全局渲染设置
         // QApplication::setAttribute(Qt::AA_UseOpenGLES);
         // QApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
         // OnSiteBalancer onsitebalancer;
@@ -167,23 +155,21 @@ int main(int argc, char *argv[])
     */
 
     /*
-        MultSpectrumChart3D spetrumchart3d;
-        spetrumchart3d.show();
+        // MultSpectrumChart3D spetrumchart3d;
+        // spetrumchart3d.show();
     */
-
-   MultSpectrumChart3D spetrumchart3d;
-   spetrumchart3d.show();
-
     /*
         JP_RoutesScreen routesscreen;
         routesscreen.show();
     */
 
-/*
-    Test_qmlMerge qmlwindow;
-    qmlwindow.show();
-*/
+    /*
+        Test_qmlMerge qmlwindow;
+        qmlwindow.show();
+    */
 
+    vibrationWaveGraph vibgraph;
+    vibgraph.show();
 
     return a.exec();
 }

@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.cpp": "cpp",
+        "new": "cpp",
+        "qfile": "cpp",
+        "qwidget": "cpp",
+        "*.tcc": "cpp",
+        "string": "cpp"
+    }
+}

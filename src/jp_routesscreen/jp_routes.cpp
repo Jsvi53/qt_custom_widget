@@ -33,18 +33,18 @@ JP_RoutesScreen::JP_RoutesScreen(QWidget *parent) : QWidget(parent), ui(new Ui::
     ui->scrollAreaWidgetContents->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);  // 设置 scrollAreaWidgetContents 的大小策略
 
     TaskItem *item = new TaskItem(ui->scrollAreaWidgetContents);
-    item->setFileIcon(":/balancetask_assets/balance_task_assets/icon_balance_task1_red.svg");
-    item->setFileName("任务1");
+    item->setFileIcon(":/balanceroute_assets/balance_route_assets/icon_balance_route1_gray.png");
+    item->setFileName("路径1");
     item->setFileDate("2025-03-14");
-    item->setFileType("文件夹");
+    item->setFileType("RT");
     item->setFileSize("1.2M");
     item->select();
     layout->addWidget(item);
     TaskItem *item2 = new TaskItem(ui->scrollAreaWidgetContents);
-    item2->setFileIcon(":/balancetask_assets/balance_task_assets/icon_balance_task1_red.svg");
-    item2->setFileName("任务2");
+    item2->setFileIcon(":/balanceroute_assets/balance_route_assets/icon_balance_route1_gray.png");
+    item2->setFileName("路径2");
     item2->setFileDate("2025-03-14");
-    item2->setFileType("文件夹");
+    item2->setFileType("RT");
     item2->setFileSize("1.2M");
     layout->addWidget(item2);
 
@@ -100,12 +100,24 @@ TaskItem::TaskItem(QWidget *parent) : QPushButton(parent)
     fileType->setAlignment(Qt::AlignLeft);  // 左对齐
     fileSize->setAlignment(Qt::AlignLeft);  // 左对齐
 
+    // 添加spacerItem
+    QSpacerItem *spacer1 = new QSpacerItem(10, 50, QSizePolicy::Fixed, QSizePolicy::Fixed);
+    QSpacerItem *spacer2 = new QSpacerItem(0, 50, QSizePolicy::Expanding, QSizePolicy::Expanding);
+    QSpacerItem *spacer3 = new QSpacerItem(300, 50, QSizePolicy::Fixed, QSizePolicy::Fixed);
+    QSpacerItem *spacer4 = new QSpacerItem(200, 50, QSizePolicy::Fixed, QSizePolicy::Fixed);
+    QSpacerItem *spacer5 = new QSpacerItem(20, 50, QSizePolicy::Fixed, QSizePolicy::Fixed);
+
     QHBoxLayout *layout = new QHBoxLayout(this);
+    layout->addItem(spacer1);
     layout->addWidget(fileIcon);
     layout->addWidget(fileName);
+    layout->addItem(spacer2);
     layout->addWidget(fileDate);
+    layout->addItem(spacer3);
     layout->addWidget(fileType);
+    layout->addItem(spacer4);
     layout->addWidget(fileSize);
+    layout->addItem(spacer5);
     setLayout(layout);
 }
 

@@ -1,5 +1,5 @@
 #include <cmath>
-
+#include <vector>
 #include "utils/SignalGenerator2.h"
 
 // 设置频率

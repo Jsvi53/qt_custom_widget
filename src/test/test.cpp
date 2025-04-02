@@ -1,64 +1,49 @@
-/*** 
- * @Date: 2025-03-10 19:25:39
- * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-18 23:53:39
- * @FilePath: \qt_custom_widget\src\test\test.cpp
- */
-/*** 
- * @Date: 2025-03-10 19:25:39
- * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-18 23:49:45
- * @FilePath: \qt_custom_widget\src\test\test.cpp
- */
 #include "test/test.h"
-#include "ui_myWidget.h"
-#include <QVBoxLayout>
 
-myWidget::myWidget(QWidget *parent) : QWidget(parent), ui(new Ui::myWidget) {
-    ui->setupUi(this);
-
-    // 初始化 customPlot
-    customPlot = new QCustomPlot(this);
-    QVBoxLayout *verticalLayout = new QVBoxLayout(this);
-    verticalLayout->addWidget(customPlot);  // 将 customPlot 添加到布局中
-
-    // 配置 customPlot
-    configureCustomPlot();
-}
-
-myWidget::~myWidget() {
-    delete ui;
-}
-
-void myWidget::configureCustomPlot() {
-    // 创建一个新的图形
-    QCPGraph *graph = customPlot->addGraph();
-
-    // 生成正弦波数据
-    QVector<double> x(1001), y(1001);  // 1001 个数据点
-    for (int i = 0; i < 1001; ++i) {
-        x[i] = i / 100.0 - 5;  // x 范围从 -5 到 5
-        y[i] = qSin(x[i]);     // y = sin(x)
+vibrationWaveGraph::vibrationWaveGraph(QWidget *parent) : QWidget(parent), vibgraph(new QCustomPlot)
+{
+    unbalanceSignalGenerator = SignalFactory::create(UNBALANCE_VIBRATION);
+    unbalanceSignalGenerator->setRotationSpeed(3000);
+    generatedValue           = unbalanceSignalGenerator->generate(SAMPLENUM);
+    for(int i = 0; i < generatedValue.size(); i++)
+    {
+        double t = static_cast<double>(60 * i / samplingRate);
+        timeValue.append(t);
     }
+}
 
-    // 将数据添加到图形
-    graph->setData(x, y);
+void vibrationWaveGraph::vibgraphShow()
+{
+    // 添加两个新的图形并设置它们的外观：
+    vibgraph->addGraph();
+    vibgraph->graph(0)->setPen(QPen(Qt::blue)); // 第一个图形的线条颜色为蓝色
+    vibgraph->graph(0)->setBrush(QBrush(QColor(0, 0, 255, 20))); // 第一个图形将用半透明蓝色填充
+    vibgraph->addGraph();
+    vibgraph->graph(1)->setPen(QPen(Qt::red)); // 第二个图形的线条颜色为红色
 
-    // 设置图形样式
-    graph->setPen(QPen(Qt::blue));  // 设置线条颜色为蓝色
-    graph->setLineStyle(QCPGraph::lsLine);  // 设置为线条样式
-    graph->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 3));  // 设置数据点样式
+    // 配置右轴和上轴显示刻度但不显示标签：
+    vibgraph->xAxis2->setVisible(true);
+    vibgraph->xAxis2->setTickLabels(false);
+    vibgraph->yAxis2->setVisible(true);
+    vibgraph->yAxis2->setTickLabels(false);
+    // 让左轴和底轴始终将它们的范围传递给右轴和上轴：
+    connect(vibgraph->xAxis, SIGNAL(rangeChanged(QCPRange)), vibgraph->xAxis2, SLOT(setRange(QCPRange)));
+    connect(vibgraph->yAxis, SIGNAL(rangeChanged(QCPRange)), vibgraph->yAxis2, SLOT(setRange(QCPRange)));
 
-    // 配置坐标轴
-    customPlot->xAxis->setLabel("x");
-    customPlot->yAxis->setLabel("sin(x)");
-    customPlot->xAxis->setRange(-5, 5);  // 设置 x 轴范围
-    customPlot->yAxis->setRange(-1.5, 1.5);  // 设置 y 轴范围
+    // 将 std::vector 转换为 QVector
+    QVector<double> qTimeValue(timeValue.begin(), timeValue.end());
+    QVector<double> qGeneratedValue(generatedValue.begin(), generatedValue.end());
 
-    // 显示网格
-    customPlot->xAxis->grid()->setVisible(true);
-    customPlot->yAxis->grid()->setVisible(true);
+    // 将数据点传递给图形：
+    vibgraph->graph(0)->setData(qTimeValue, qGeneratedValue);  // 使用 qTimeValue 和 qGeneratedValue 填充第一个图形
+    vibgraph->graph(1)->setData(qTimeValue, qGeneratedValue);  // 使用相同的 data 填充第二个图形（可以根据需要修改）
 
-    // 重新生成图表
-    customPlot->replot();
+    // 让范围自动调整，使第一个图形完美地适应可见区域：
+    vibgraph->graph(0)->rescaleAxes();
+    // 对于第二个图形，也调整范围，但只放大范围（如果第二个图形比第一个图形小）：
+    vibgraph->graph(1)->rescaleAxes(true);
+    // 注意：我们也可以直接调用 vibgraph->rescaleAxes(); 来实现
+
+    // 允许用户通过鼠标拖动轴范围，通过鼠标滚轮缩放，并通过点击选择图形：
+    vibgraph->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }

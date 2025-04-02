@@ -26,7 +26,6 @@ find_package(Qt5 REQUIRED COMPONENTS
     PrintSupport
     Quick
     QuickWidgets
-    DataVisualization
 )
 
 # 设置源文件和头文件路径
@@ -90,21 +89,7 @@ add_executable(qt_custom_widget
     # ${SRC_DIR}/chart/balancingshowphasechart.cpp
     # ${SRC_DIR}/chart/balancingshowphasechart.ui
 
-    # # 添加 schenckmain 模块
-    # ${INCLUDE_DIR}/schenckmain/schenckmain.h
-    # ${SRC_DIR}/schenckmain/schenckmain.cpp
-    # ${SRC_DIR}/schenckmain/schenckmain.ui
-
-    # # 添加 test 模块
-    # ${INCLUDE_DIR}/test/test.h
-    # ${SRC_DIR}/test/test.cpp
-    # ${SRC_DIR}/test/mywidget.ui
-
-    # # 添加 manager 模块
-    # ${INCLUDE_DIR}/manager/managerwindow.h
-    # ${SRC_DIR}/manager/managerwindow.cpp
-
-    # # 添加 login 模块
+    # # 添加 模板跳转 模块
     # ${INCLUDE_DIR}/fileapp/filetemplatewindow.h
     # ${INCLUDE_DIR}/fileapp/TemplateParams.h
     # ${INCLUDE_DIR}/fileapp/TemplateConfigPage.h
@@ -154,13 +139,6 @@ add_executable(qt_custom_widget
     # ${INCLUDE_DIR}/chart/polardiagram.h
     # ${SRC_DIR}/chart/polardiagram.cpp
 
-    # # 添加 qcustomplot 模块
-    # # ${INCLUDE_DIR}/chart/qcustomplot.h
-    # # ${SRC_DIR}/chart/qcustomplot.cpp
-
-    # # 用动态库方式引入 QCustomPlot
-    # ${INCLUDE_DIR}/qtcustomplot/qcustomplot.h
-
     # 添加 JP_ResultGraph 模块
     # ${INCLUDE_DIR}/jp_resultgraphscreen/jp_resultgraph.h
     # ${SRC_DIR}/jp_resultgraphscreen/jp_resultgraph.cpp
@@ -169,10 +147,10 @@ add_executable(qt_custom_widget
     # ${SRC_DIR}/chart/bigraph.cpp
 
     # 添加 信号发生器 模块
-    # ${INCLUDE_DIR}/utils/signalgenerator.h
-    # ${SRC_DIR}/utils/signalgenerator.cpp
-    # ${INCLUDE_DIR}/utils/signalgenerator2.h
-    # ${SRC_DIR}/utils/signalgenerator2.cpp
+    ${INCLUDE_DIR}/utils/signalgenerator.h
+    ${SRC_DIR}/utils/signalgenerator.cpp
+    ${INCLUDE_DIR}/utils/signalgenerator2.h
+    ${SRC_DIR}/utils/signalgenerator2.cpp
 
     # 界面融合
     # ${INCLUDE_DIR}/onsitebalancer/onsitebalancer.h
@@ -185,8 +163,8 @@ add_executable(qt_custom_widget
     # ${SRC_DIR}/onsitebalancer/settingscreen.ui
 
     # 3dchart
-    ${INCLUDE_DIR}/chart/3dchart.h
-    ${SRC_DIR}/chart/3dchart.cpp
+    # ${INCLUDE_DIR}/chart/3dchart.h
+    # ${SRC_DIR}/chart/3dchart.cpp
 
     # 路径列表界面
     # ${INCLUDE_DIR}/jp_routesscreen/jp_routes.h
@@ -197,7 +175,12 @@ add_executable(qt_custom_widget
     # ${INCLUDE_DIR}/test_qmlmerge/test_qmlmerge.h
     # ${SRC_DIR}/test_qmlmerge/test_qmlmerge.cpp
 
+    # 用动态库方式引入 QCustomPlot
+    ${INCLUDE_DIR}/qtcustomplot/qcustomplot.h
 
+    # 添加波形图
+    ${INCLUDE_DIR}/test/test.h
+    ${SRC_DIR}/test/test.cpp
 
     # 添加资源文件生成的目标
     ${RESOURCES}
@@ -238,25 +221,13 @@ target_link_libraries(qt_custom_widget PRIVATE
     Qt5::PrintSupport
     Qt5::Quick
     Qt5::QuickWidgets
-    Qt5::DataVisualization
     basemodule_lib
     ${CUSTOMPLOT_LIB_DIR}/${CUSTOMPLOT_LIB_NAME}.a
 )
 
-
-# # 链接 QCustomPlot 动态库
-# if(UNIX)
-#     target_link_libraries(qt_custom_widget PRIVATE ${UNIX_CUSTOMPLOT_LIB_DIR}/libqcustomplot2.so)
-#     add_custom_command(TARGET qt_custom_widget POST_BUILD
-#         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-#         ${UNIX_CUSTOMPLOT_LIB_DIR}/libqcustomplot2.so
-#         $<TARGET_FILE_DIR:qt_custom_widget>)
-# endif()
-
-# if(WIN32)
-#     # 不需要链接 libqcustomplot2.a，因为使用的是动态库
-#     add_custom_command(TARGET qt_custom_widget POST_BUILD
-#         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-#         ${WIN_CUSTOMPLOT_LIB_DIR}/qcustomplot2.dll
-#         $<TARGET_FILE_DIR:qt_custom_widget>)
-# endif()
+# 设置后处理
+add_custom_command(TARGET qt_custom_widget POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/config/configs.json
+        $<TARGET_FILE_DIR:qt_custom_widget>
+)   
