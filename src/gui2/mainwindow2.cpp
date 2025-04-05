@@ -1,11 +1,11 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "mainwindow2.h"
+#include "ui_mainwindow2.h"
 #include <QDebug>
 #include <QStackedWidget>
 #include "TemplateParams.h"
 #include "filetemplatewindow.h"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
+MainWindow2::MainWindow2(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow2)
 {
     ui->setupUi(this);
 
@@ -18,18 +18,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     // 连接信号和槽
     connect(fileTemplateWindow, &FileTemplateWindow::templateFileSelected,
-            this, &MainWindow::onTemplateSelected);
+            this, &MainWindow2::onTemplateSelected);
 }
 
 
-MainWindow::~MainWindow()
+MainWindow2::~MainWindow2()
 {
     delete ui;
     delete fileTemplateWindow;
     delete templateConfigPage;
 }
 
-void MainWindow::onTemplateSelected(const TemplateParams &params) {
+void MainWindow2::onTemplateSelected(const TemplateParams &params) {
     // 处理接收到的模板参数
     qDebug() << "Template selected with parameters:";
     qDebug() << "Sensor ID:" << params.sensorId;

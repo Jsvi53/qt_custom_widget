@@ -56,4 +56,8 @@ clear;
 csv_file_path = '../database\CRWU\12k Drive End Bearing Fault Data\Outer Race\Orthogonal\0007\144.csv';
 
 % 打开 CSV 文件
-open(csv_file_path);
+% open(csv_file_path);
+data = readmatrix(csv_file_path);
+
+% 显示矩阵的前几行
+disp(data(1:5, :))

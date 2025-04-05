@@ -1,11 +1,5 @@
-/*** 
- * @Date: 2025-03-08 19:58:06
- * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-09 00:46:03
- * @FilePath: /qt_custom_widget/include/mainwindow/mainwindow.h
- */
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef MAINWINDOW2_H
+#define MAINWINDOW2_H
 
 #include <QMainWindow>
 #include "filetemplatewindow.h"
@@ -13,22 +7,23 @@
 
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui { class MainWindow2; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
+
+class MainWindow2 : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    MainWindow2(QWidget *parent = nullptr);
+    ~MainWindow2();
 
 private slots:
     void onTemplateSelected(const TemplateParams &params); // 槽函数，用于处理信号
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow2 *ui;
     FileTemplateWindow *fileTemplateWindow; // 文件模板窗口
     TemplateConfigPage *templateConfigPage; // 模板配置界面
 };

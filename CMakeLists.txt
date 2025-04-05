@@ -39,6 +39,11 @@ set(INCLUDE_DIR
     include/gui2
     include/utils
     include/utils2
+    include/databasemodule
+    include/test
+    include/test2
+    include/fileapp
+    include/test_qmlmerge
     ${QCustomPlot_INCLUDE_DIRS}
 )
 
@@ -58,12 +63,30 @@ file(GLOB_RECURSE GUISOURCES
     "include/utils/*.h"
     "include/gui/*.h"
     "include/gui2/*.h"
+    "include/utils2/*.h"
+    "include/databasemodule/*.h"
+    "include/test/*.h"
+    "include/test2/*.h"
+    "include/fileapp/*.h"
+    "include/test_qmlmerge/*.h"
     "src/*.cpp"
     "src/base/*.cpp"
     "src/utils/*.cpp"
     "src/utils2/*.cpp"
     "src/gui/*.cpp"
     "src/gui2/*.cpp"
+    "src/base2/*.cpp"
+    "src/databasemodule/*.cpp"
+    "src/test/*.cpp"
+    "src/test2/*.cpp"
+    "src/fileapp/*.cpp"
+    "src/test_qmlmerge/*.cpp"
+    "src/*.qrc"
+    "src/*.ui"
+    "src/base/*.ui"
+    "src/base2/*.ui"
+    "src/utils/*.ui"
+    "src/utils2/*.ui"
     "src/gui/*.ui"
     "src/gui2/*.ui"
 )
