@@ -32,12 +32,62 @@
             "qquickpainteditem": "cpp",
             "qquickwidget": "cpp",
             "qquickview": "cpp",
-            "qscatterdataitem": "cpp"
+            "algorithm": "cpp",
+            "array": "cpp",
+            "atomic": "cpp",
+            "chrono": "cpp",
+            "functional": "cpp",
+            "iterator": "cpp",
+            "list": "cpp",
+            "map": "cpp",
+            "memory": "cpp",
+            "utility": "cpp",
+            "vector": "cpp",
+            "xtree": "cpp",
+            "xutility": "cpp",
+            "compare": "cpp",
+            "exception": "cpp",
+            "format": "cpp",
+            "forward_list": "cpp",
+            "initializer_list": "cpp",
+            "ios": "cpp",
+            "iosfwd": "cpp",
+            "istream": "cpp",
+            "limits": "cpp",
+            "numeric": "cpp",
+            "optional": "cpp",
+            "ostream": "cpp",
+            "sstream": "cpp",
+            "stdexcept": "cpp",
+            "streambuf": "cpp",
+            "system_error": "cpp",
+            "tuple": "cpp",
+            "type_traits": "cpp",
+            "typeinfo": "cpp",
+            "unordered_map": "cpp",
+            "variant": "cpp",
+            "xloctime": "cpp",
+            "xmemory": "cpp",
+            "xstring": "cpp",
+            "memory_resource": "cpp",
+            "qlabel": "cpp",
+            "qpushbutton": "cpp",
+            "qspaceritem": "cpp",
+            "qstring": "cpp",
+            "qpainterpath": "cpp",
+            "qvector": "cpp",
+            "qapplication": "cpp"
         },
         "editor.formatOnSave": false,
         "editor.defaultFormatter": "ms-vscode.cpptools",
         "[qml]": {
             "editor.defaultFormatter": "theqtcompany.qt-qml"
+        },
+        "[cmake]": {
+            "editor.defaultFormatter": "josetr.cmake-language-support-vscode"
+        },
+        "[jsonc]": {
+            "editor.defaultFormatter": "vscode.json-language-features"
         }
     },
     "launch": {
@@ -47,7 +97,7 @@
                 "name": "Debug Qt Application",
                 "type": "cppdbg",
                 "request": "launch",
-                "program": "${workspaceFolder}/build/qt_custom_widget.exe",
+                "program": "${workspaceFolder}/build/custom_widget.exe",
                 "args": [],
                 "stopAtEntry": false,
                 "cwd": "${workspaceFolder}/build",
@@ -70,5 +120,5 @@
                 "visualizerFile": "c:\\Users\\28581_000\\AppData\\Roaming\\Code\\User\\workspaceStorage\\7a57929323f26fcb4c1ccb4f1e5dcf0f\\tonka3000.qtvsctools\\qt.natvis.xml"
             }
         ]
-    }
+    },
 }

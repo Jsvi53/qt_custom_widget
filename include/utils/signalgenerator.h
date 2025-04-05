@@ -1,9 +1,3 @@
-/***
- * @Date: 2025-03-19 22:48:56
- * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-19 23:00:53
- * @FilePath: \qt_custom_widget\include\utils\signalgenerator.h
- */
 #ifndef SIGNALGENERATOR_H
 #define SIGNALGENERATOR_H
 
@@ -17,7 +11,6 @@ class SignalGenerator : public QObject
     Q_OBJECT
 public:
     explicit SignalGenerator(QObject *parent = nullptr);
-
     // 公共参数配置接口
     Q_INVOKABLE virtual void           configure(qreal frequency, qreal amplitude, qreal sampleRate);
     Q_INVOKABLE virtual QVector<qreal> generate(int numSamples) = 0;
@@ -41,7 +34,6 @@ class SineGenerator : public SignalGenerator
     Q_OBJECT
 public:
     explicit SineGenerator(QObject *parent = nullptr);
-
     QVector<qreal> generate(int numSamples) Q_DECL_OVERRIDE;
     QString        waveformName() const Q_DECL_OVERRIDE
     {
@@ -62,7 +54,6 @@ class SquareGenerator : public SignalGenerator
     Q_OBJECT
 public:
     explicit SquareGenerator(QObject *parent = nullptr);
-
     QVector<qreal> generate(int numSamples) Q_DECL_OVERRIDE;
     QString        waveformName() const Q_DECL_OVERRIDE
     {

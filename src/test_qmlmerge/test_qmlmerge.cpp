@@ -1,4 +1,4 @@
-#include "test_qmlmerge/test_qmlmerge.h"
+#include "test_qmlmerge.h"
 
 Test_qmlMerge::Test_qmlMerge(QWidget *parent) : QWidget(parent)
 {

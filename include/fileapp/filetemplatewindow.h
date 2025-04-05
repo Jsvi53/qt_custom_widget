@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QFileSystemModel>
-#include "fileapp/TemplateParams.h"
+#include "TemplateParams.h"
 
 namespace Ui {
     class FileTemplateWindow;

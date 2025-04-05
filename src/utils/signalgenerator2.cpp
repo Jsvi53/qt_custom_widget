@@ -1,6 +1,6 @@
 #include <cmath>
-
-#include "utils/SignalGenerator2.h"
+#include <vector>
+#include "signalgenerator2.h"
 
 // 设置频率
 void SignalGenerator2::setFrequency(double hz)

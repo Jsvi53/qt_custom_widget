@@ -1,4 +1,4 @@
-#include "fileapp/TemplateConfigPage.h"
+#include "TemplateConfigPage.h"
 #include "ui_TemplateConfigPage.h"
 
 TemplateConfigPage::TemplateConfigPage(QWidget *parent) : QWidget(parent), ui(new Ui::TemplateConfigPage)

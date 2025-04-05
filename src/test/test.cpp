@@ -1,64 +1,42 @@
-/*** 
+/***
  * @Date: 2025-03-10 19:25:39
  * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-18 23:53:39
- * @FilePath: \qt_custom_widget\src\test\test.cpp
+ * @LastEditTime: 2025-04-01 21:24:08
+ * @FilePath: \custom_widget\src\test\test.cpp
  */
-/*** 
- * @Date: 2025-03-10 19:25:39
- * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-18 23:49:45
- * @FilePath: \qt_custom_widget\src\test\test.cpp
- */
-#include "test/test.h"
-#include "ui_myWidget.h"
-#include <QVBoxLayout>
+#include "test.h"
 
-myWidget::myWidget(QWidget *parent) : QWidget(parent), ui(new Ui::myWidget) {
-    ui->setupUi(this);
+VibrationGraph ::VibrationGraph(QWidget* parent) : QWidget(parent), vibrationGraph(new QCustomPlot(this)), vibrationGenerator(new UnbalanceVibrationGenerator())
+{
+    // 设置窗口大小
+    this->resize(1280, 800);
+    this->setWindowTitle("Vibration Graph");
 
-    // 初始化 customPlot
-    customPlot = new QCustomPlot(this);
-    QVBoxLayout *verticalLayout = new QVBoxLayout(this);
-    verticalLayout->addWidget(customPlot);  // 将 customPlot 添加到布局中
+    vibrationGraph->addGraph();
+    vibrationGraph->graph(0)->setPen(QPen(Qt::blue));
+    vibrationGraph->graph(0)->setBrush(QBrush(QColor(0, 0, 255, 20)));
 
-    // 配置 customPlot
-    configureCustomPlot();
-}
+    vibrationGraph->xAxis2->setVisible(true);
+    vibrationGraph->yAxis2->setVisible(true);
+    vibrationGraph->xAxis2->setTickLabels(false);
+    vibrationGraph->yAxis2->setTickLabels(false);
 
-myWidget::~myWidget() {
-    delete ui;
-}
-
-void myWidget::configureCustomPlot() {
-    // 创建一个新的图形
-    QCPGraph *graph = customPlot->addGraph();
-
-    // 生成正弦波数据
-    QVector<double> x(1001), y(1001);  // 1001 个数据点
-    for (int i = 0; i < 1001; ++i) {
-        x[i] = i / 100.0 - 5;  // x 范围从 -5 到 5
-        y[i] = qSin(x[i]);     // y = sin(x)
+    connect(vibrationGraph->xAxis, SIGNAL(rangeChanged(QCPRange)), vibrationGraph->xAxis2, SLOT(setRange(QCPRange)));
+    connect(vibrationGraph->yAxis, SIGNAL(rangeChanged(QCPRange)), vibrationGraph->yAxis2, SLOT(setRange(QCPRange)));
+    vibrationGenerator->setRotationSpeed(3000);
+    std::vector<double> std_vibValue = vibrationGenerator->generate(10000);
+    vibValue.resize(std_vibValue.size());
+    std::copy(std_vibValue.begin(), std_vibValue.end(), vibValue.begin());
+    vibTime.resize(vibValue.size());
+    for (int i = 0; i < vibValue.size(); ++i)
+    {
+        vibTime[i] = 60.0 * i / speed;
     }
+    vibrationGraph->graph(0)->setData(vibTime, vibValue);
+    vibrationGraph->graph(0)->rescaleAxes();
+    vibrationGraph->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+}
 
-    // 将数据添加到图形
-    graph->setData(x, y);
-
-    // 设置图形样式
-    graph->setPen(QPen(Qt::blue));  // 设置线条颜色为蓝色
-    graph->setLineStyle(QCPGraph::lsLine);  // 设置为线条样式
-    graph->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 3));  // 设置数据点样式
-
-    // 配置坐标轴
-    customPlot->xAxis->setLabel("x");
-    customPlot->yAxis->setLabel("sin(x)");
-    customPlot->xAxis->setRange(-5, 5);  // 设置 x 轴范围
-    customPlot->yAxis->setRange(-1.5, 1.5);  // 设置 y 轴范围
-
-    // 显示网格
-    customPlot->xAxis->grid()->setVisible(true);
-    customPlot->yAxis->grid()->setVisible(true);
-
-    // 重新生成图表
-    customPlot->replot();
+VibrationGraph::~VibrationGraph()
+{
 }

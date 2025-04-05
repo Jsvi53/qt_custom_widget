@@ -1,6 +1,6 @@
-#include "fileapp/filetemplatewindow.h"
+#include "filetemplatewindow.h"
 #include "ui_filetemplatewindow.h"
-#include "fileapp/TemplateParams.h"
+#include "TemplateParams.h"
 #include <QListView>
 #include <QFile>
 #include <QJsonDocument>

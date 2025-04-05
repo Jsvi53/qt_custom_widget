@@ -8,7 +8,7 @@
 #define TEMPLATECONFIGPAGE_H
 
 #include <QWidget>
-#include "fileapp/TemplateParams.h"
+#include "TemplateParams.h"
 
 namespace Ui {
     class TemplateConfigPage;

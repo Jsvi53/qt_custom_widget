@@ -1,0 +1,1414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ResultGraphScreen</class>
+ <widget class="QWidget" name="ResultGraphScreen">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1280</width>
+    <height>800</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1280</width>
+    <height>800</height>
+   </size>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <property name="ResultGraphScreen" stdset="0">
+   <string>Form</string>
+  </property>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>-1</x>
+     <y>-1</y>
+     <width>1281</width>
+     <height>801</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="vbaseLayout" stretch="3,5,72">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QFrame" name="base_statebar">
+      <property name="styleSheet">
+       <string notr="true">QFrame {
+                                background-color: rgb(228, 228, 228)
+                                }</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <widget class="QWidget" name="horizontalLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>-1</x>
+         <y>0</y>
+         <width>1281</width>
+         <height>33</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="hstateLayout">
+        <item>
+         <widget class="QLabel" name="stateLabel_l">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="hstatespace_l">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="stateLabel_datetime">
+          <property name="font">
+           <font>
+            <family>微软雅黑</family>
+            <pointsize>11</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>00:00 01/01</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="hstatespace_r">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="stateLabel_r">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="base_navigationbar">
+      <property name="styleSheet">
+       <string notr="true">QFrame {
+                                background-color: rgb(228, 228, 228);
+                                border-top: 1px solid gray;
+                                }</string>
+      </property>
+      <widget class="QWidget" name="horizontalLayoutWidget_2">
+       <property name="geometry">
+        <rect>
+         <x>-1</x>
+         <y>0</y>
+         <width>1281</width>
+         <height>52</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="hnavigationLayout" stretch="0,121">
+        <item>
+         <widget class="QPushButton" name="naviBackBtn">
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+                                                border: none;
+                                                background-color: rgb(228, 228, 228);
+                                                color: black;
+                                                padding: 5px;
+                                                font: 18pt &quot;宋体&quot;;
+                                                font-weight: bold;
+                                                border-right:1px solid gray
+                                                }</string>
+          </property>
+          <property name="text">
+           <string>&lt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="widget" native="true">
+          <widget class="QWidget" name="horizontalLayoutWidget_3">
+           <property name="geometry">
+            <rect>
+             <x>-1</x>
+             <y>0</y>
+             <width>1211</width>
+             <height>52</height>
+            </rect>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QPushButton" name="naviBtn_l">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="sizeIncrement">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+                                                                font: 14pt &quot;微软雅黑&quot;;
+                                                                border: none;
+                                                                background-color: rgb(228, 228,
+                                                                228);
+                                                                }
+                                                            </string>
+              </property>
+              <property name="text">
+               <string>主页</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="naviDirectoryBtn">
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+                                                                font: 14pt &quot;微软雅黑&quot;;
+                                                                }</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="hNavilSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="naviHelpBtn">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="baseSize">
+               <size>
+                <width>40</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+                                                                border: none;
+                                                                background-color: rgb(228, 228,
+                                                                228);
+                                                                color: black;
+                                                                padding: 5px;
+                                                                }</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/base_assets/base_assets/help.png</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>40</width>
+                <height>40</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="naviSettingBtn">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+                                                                border: none;
+                                                                background-color: rgb(228, 228,
+                                                                228);
+                                                                color: black;
+                                                                padding: 5px;
+                                                                }</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/base_assets/base_assets/setting.png</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>40</width>
+                <height>40</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="naviHamburgerBtn">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+                                                                border: none;
+                                                                background-color: rgb(228, 228,
+                                                                228);
+                                                                color: black;
+                                                                padding: 5px;
+                                                                }</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/base_assets/base_assets/hamburger.png</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>40</width>
+                <height>40</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="hNavilMarginSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="base_workspace" native="true">
+      <property name="styleSheet">
+       <string notr="true">QWidget#base_workspace{
+	background-color: rgb(105, 108, 105);
+}</string>
+      </property>
+      <widget class="QWidget" name="verticalLayoutWidget_2">
+       <property name="geometry">
+        <rect>
+         <x>1</x>
+         <y>1</y>
+         <width>1279</width>
+         <height>719</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout" stretch="2,28">
+        <property name="spacing">
+         <number>10</number>
+        </property>
+        <property name="leftMargin">
+         <number>10</number>
+        </property>
+        <property name="topMargin">
+         <number>10</number>
+        </property>
+        <property name="rightMargin">
+         <number>10</number>
+        </property>
+        <property name="bottomMargin">
+         <number>10</number>
+        </property>
+        <item>
+         <widget class="QWidget" name="styleBar" native="true">
+          <property name="styleSheet">
+           <string notr="true">QWidget#styleBar{
+	background-color: rgb(228, 228, 228);
+	border-radius: 5px;
+}</string>
+          </property>
+          <widget class="QWidget" name="horizontalLayoutWidget_5">
+           <property name="geometry">
+            <rect>
+             <x>5</x>
+             <y>0</y>
+             <width>1249</width>
+             <height>48</height>
+            </rect>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QPushButton" name="measureSpotButton">
+              <property name="minimumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+border: none;
+background-color: rgb(228, 228,228);
+color: black;
+padding: 5px;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/balancegraph_assets/balancegraph_assets/icon_balance_place_marker_50.png</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>25</width>
+                <height>25</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="mainCursor">
+              <property name="minimumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+border: none;
+background-color: rgb(228, 228,228);
+color: black;
+padding: 5px;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/balancegraph_assets/balancegraph_assets/icon_balance_cursor_1_blue.png</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>25</width>
+                <height>25</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="deltaCursorButton">
+              <property name="minimumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+border: none;
+background-color: rgb(228, 228,228);
+color: black;
+padding: 5px;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/balancegraph_assets/balancegraph_assets/icon_balance_cursor_2_gray.png</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>25</width>
+                <height>25</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="harmonicsCursorsButton">
+              <property name="minimumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+border: none;
+background-color: rgb(228, 228,228);
+color: black;
+padding: 5px;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/balancegraph_assets/balancegraph_assets/icon_balance_cursor_3_gray.png</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>25</width>
+                <height>25</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="sidebandCursors">
+              <property name="minimumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+border: none;
+background-color: rgb(228, 228,228);
+color: black;
+padding: 5px;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/balancegraph_assets/balancegraph_assets/icon_balance_cursor_4_gray.png</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>25</width>
+                <height>25</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="subSynCursorsButton">
+              <property name="minimumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+border: none;
+background-color: rgb(228, 228,228);
+color: black;
+padding: 5px;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/balancegraph_assets/balancegraph_assets/icon_balance_cursor_5_gray.png</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>25</width>
+                <height>25</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="twoLayoutButton">
+              <property name="minimumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+border: none;
+background-color: rgb(228, 228,228);
+color: black;
+padding: 5px;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/balancegraph_assets/balancegraph_assets/icon_balance_layout_2_blue.png</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>25</width>
+                <height>25</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="threeLayoutButton">
+              <property name="minimumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+border: none;
+background-color: rgb(228, 228,228);
+color: black;
+padding: 5px;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/balancegraph_assets/balancegraph_assets/icon_balance_layout_3_gray.png</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>25</width>
+                <height>25</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="fourLayoutButton">
+              <property name="minimumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+border: none;
+background-color: rgb(228, 228,228);
+color: black;
+padding: 5px;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/balancegraph_assets/balancegraph_assets/icon_balance_layout_4_gray.png</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>25</width>
+                <height>25</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="oneLayoutButton">
+              <property name="minimumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+border: none;
+background-color: rgb(228, 228,228);
+color: black;
+padding: 5px;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/balancegraph_assets/balancegraph_assets/icon_balance_layout_1_gray.png</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>25</width>
+                <height>25</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="complexValueButton">
+              <property name="minimumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>46</width>
+                <height>46</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+border: none;
+background-color: rgb(228, 228,228);
+color: black;
+padding: 5px;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/balancegraph_assets/balancegraph_assets/icon_balance_hide_sidepanel_64.png</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>40</width>
+                <height>40</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="graphWorkplace" native="true">
+          <property name="styleSheet">
+           <string notr="true">QWidget#graphWorkplace{
+	background-color: rgb(228, 228, 228);
+	border-radius: 5px;
+}
+</string>
+          </property>
+          <widget class="QWidget" name="horizontalLayoutWidget_4">
+           <property name="geometry">
+            <rect>
+             <x>-1</x>
+             <y>-1</y>
+             <width>1261</width>
+             <height>645</height>
+            </rect>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="4,2">
+            <item>
+             <widget class="QWidget" name="grapArea" native="true">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <widget class="QWidget" name="verticalLayoutWidget_3">
+               <property name="geometry">
+                <rect>
+                 <x>-1</x>
+                 <y>-2</y>
+                 <width>837</width>
+                 <height>645</height>
+                </rect>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_2">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QWidget" name="upGraph" native="true">
+                  <property name="styleSheet">
+                   <string notr="true">QWidget#upGraph{
+	border-bottom: 1px solid rgb(70, 70, 70);
+	
+}</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QWidget" name="downGraph" native="true">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="rangeValueArea" native="true">
+              <widget class="QWidget" name="verticalLayoutWidget_4">
+               <property name="geometry">
+                <rect>
+                 <x>-1</x>
+                 <y>-1</y>
+                 <width>421</width>
+                 <height>646</height>
+                </rect>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_3" stretch="1,1,8">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QWidget" name="overallTitleContainer" native="true">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QWidget#overallTitleContainer{
+border-bottom: 1px solid lightgray;
+}</string>
+                  </property>
+                  <widget class="QWidget" name="horizontalLayoutWidget_6">
+                   <property name="geometry">
+                    <rect>
+                     <x>-1</x>
+                     <y>0</y>
+                     <width>421</width>
+                     <height>66</height>
+                    </rect>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_3">
+                    <property name="leftMargin">
+                     <number>10</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>10</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="Title">
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>微软雅黑</family>
+                        <pointsize>14</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>整体</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_3">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label">
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>微软雅黑</family>
+                        <pointsize>30</pointsize>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">QLabel {
+	color:rgb(18, 150, 219);
+}</string>
+                      </property>
+                      <property name="text">
+                       <string>·</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QWidget" name="widget_3" native="true">
+                  <widget class="QWidget" name="horizontalLayoutWidget_7">
+                   <property name="geometry">
+                    <rect>
+                     <x>-1</x>
+                     <y>-1</y>
+                     <width>421</width>
+                     <height>66</height>
+                    </rect>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_4">
+                    <item>
+                     <spacer name="horizontalSpacer_4">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="sortButton">
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">QPushButton {
+border: none;
+background-color: rgb(228, 228,228);
+color: black;
+padding: 5px;
+}</string>
+                      </property>
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="icon">
+                       <iconset>
+                        <normalon>:/balancegraph_assets/balancegraph_assets/icon_balance_descending_sorting_50.png</normalon>
+                       </iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>30</width>
+                        <height>30</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QWidget" name="typeValueContainer" native="true">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <widget class="QWidget" name="verticalLayoutWidget_5">
+                   <property name="geometry">
+                    <rect>
+                     <x>-1</x>
+                     <y>-1</y>
+                     <width>421</width>
+                     <height>516</height>
+                    </rect>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_4">
+                    <property name="leftMargin">
+                     <number>10</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>10</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="iconLabel">
+                      <property name="minimumSize">
+                       <size>
+                        <width>40</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>40</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="pixmap">
+                       <pixmap resource="../../assets/assets.qrc">:/balancesetup/balancingsetup_assets/icon_balancesetup_triangle.svg</pixmap>
+                      </property>
+                      <property name="scaledContents">
+                       <bool>true</bool>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QWidget" name="baseProgressBar" native="true">
+                      <property name="minimumSize">
+                       <size>
+                        <width>60</width>
+                        <height>60</height>
+                       </size>
+                      </property>
+                      <widget class="QWidget" name="gridLayoutWidget">
+                       <property name="geometry">
+                        <rect>
+                         <x>-1</x>
+                         <y>0</y>
+                         <width>401</width>
+                         <height>56</height>
+                        </rect>
+                       </property>
+                       <layout class="QGridLayout" name="gridLayout" rowstretch="1,1" columnstretch="3,0">
+                        <property name="spacing">
+                         <number>0</number>
+                        </property>
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="typeLabel">
+                          <property name="font">
+                           <font>
+                            <family>微软雅黑</family>
+                            <pointsize>12</pointsize>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>Sum(v)2Hz - 1kHz | 0-P</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="1">
+                         <widget class="QLabel" name="valueLabel">
+                          <property name="font">
+                           <font>
+                            <family>微软雅黑</family>
+                            <pointsize>12</pointsize>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>· 1.335mm/s²</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="1">
+                         <widget class="QLabel" name="label_3">
+                          <property name="text">
+                           <string/>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QWidget" name="baseProgressBar_2" native="true">
+                      <property name="minimumSize">
+                       <size>
+                        <width>60</width>
+                        <height>60</height>
+                       </size>
+                      </property>
+                      <widget class="QWidget" name="gridLayoutWidget_4">
+                       <property name="geometry">
+                        <rect>
+                         <x>-1</x>
+                         <y>0</y>
+                         <width>401</width>
+                         <height>56</height>
+                        </rect>
+                       </property>
+                       <layout class="QGridLayout" name="gridLayout_4" rowstretch="1,1" columnstretch="3,0">
+                        <property name="spacing">
+                         <number>0</number>
+                        </property>
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="typeLabel_4">
+                          <property name="font">
+                           <font>
+                            <family>微软雅黑</family>
+                            <pointsize>12</pointsize>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>Sum(v)2Hz - 1kHz | RMS</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="1">
+                         <widget class="QLabel" name="valueLabel_4">
+                          <property name="font">
+                           <font>
+                            <family>微软雅黑</family>
+                            <pointsize>12</pointsize>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>· 0.452mm/s²</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="1">
+                         <widget class="QLabel" name="label_6">
+                          <property name="text">
+                           <string/>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QWidget" name="baseProgressBar_3" native="true">
+                      <property name="minimumSize">
+                       <size>
+                        <width>60</width>
+                        <height>60</height>
+                       </size>
+                      </property>
+                      <widget class="QWidget" name="gridLayoutWidget_5">
+                       <property name="geometry">
+                        <rect>
+                         <x>-1</x>
+                         <y>0</y>
+                         <width>401</width>
+                         <height>56</height>
+                        </rect>
+                       </property>
+                       <layout class="QGridLayout" name="gridLayout_5" rowstretch="1,1" columnstretch="3,0">
+                        <property name="spacing">
+                         <number>0</number>
+                        </property>
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="typeLabel_5">
+                          <property name="font">
+                           <font>
+                            <family>微软雅黑</family>
+                            <pointsize>12</pointsize>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>Sum(a)10Hz - 10kHz | 0-P</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="1">
+                         <widget class="QLabel" name="valueLabel_5">
+                          <property name="font">
+                           <font>
+                            <family>微软雅黑</family>
+                            <pointsize>12</pointsize>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>· 8.840mm/s²</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="1">
+                         <widget class="QLabel" name="label_7">
+                          <property name="text">
+                           <string/>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QWidget" name="baseProgressBar_4" native="true">
+                      <property name="minimumSize">
+                       <size>
+                        <width>60</width>
+                        <height>60</height>
+                       </size>
+                      </property>
+                      <widget class="QWidget" name="gridLayoutWidget_6">
+                       <property name="geometry">
+                        <rect>
+                         <x>-1</x>
+                         <y>0</y>
+                         <width>401</width>
+                         <height>56</height>
+                        </rect>
+                       </property>
+                       <layout class="QGridLayout" name="gridLayout_6" rowstretch="1,1" columnstretch="3,0">
+                        <property name="spacing">
+                         <number>0</number>
+                        </property>
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="typeLabel_6">
+                          <property name="font">
+                           <font>
+                            <family>微软雅黑</family>
+                            <pointsize>12</pointsize>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>Sum(a)10Hz - 10kHz | RMS</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="1">
+                         <widget class="QLabel" name="valueLabel_6">
+                          <property name="font">
+                           <font>
+                            <family>微软雅黑</family>
+                            <pointsize>12</pointsize>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>· 1.655mm/s²</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="1">
+                         <widget class="QLabel" name="label_8">
+                          <property name="text">
+                           <string/>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="verticalSpacer">
+                      <property name="orientation">
+                       <enum>Qt::Vertical</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>20</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+   <zorder>base_navigationbar</zorder>
+   <zorder>base_workspace</zorder>
+   <zorder>base_statebar</zorder>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../../assets/assets.qrc"/>
+ </resources>
+ <connections/>
+</ui>

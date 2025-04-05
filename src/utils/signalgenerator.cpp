@@ -1,4 +1,4 @@
-#include "utils/signalgenerator.h"
+#include "signalgenerator.h"
 #include <memory>
 
 SignalGenerator::SignalGenerator(QObject *parent) : QObject(parent)

@@ -127,7 +127,7 @@ compile_commands.json
 
 *_qmlcache.qrc
 
-#.vscode/
+.vscode/
 build/
 assets/LaunchScreen.jpg
 --post-rewrite
@@ -137,3 +137,7 @@ show
 with
 jp_balancerunscreen/jp_balancerun.ui
 .cache
+!*libqcustomplot2.a
+!*libqcustomplot2.dll
+!*libqcustomplotd2.a
+!*libqcustomplotd2.dll

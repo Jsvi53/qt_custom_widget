@@ -1,26 +1,22 @@
-#ifndef TEST_H
-#define TEST_H
-
+#pragma once
+#include <QVector>
 #include <QWidget>
-#include "qtcustomplot/qcustomplot.h"  // 包含 QCustomPlot 头文件
+#include <vector>
+#define QCUSTOMPLOT_USE_LIBRARY
+#include "qcustomplot.h"
+#include "signalgenerator.h"
+#include "signalgenerator2.h"
 
-namespace Ui {
-class myWidget;
-}
-
-class myWidget : public QWidget {
-    Q_OBJECT
-
+class VibrationGraph : public QWidget
+{
 public:
-    explicit myWidget(QWidget *parent = nullptr);
-    ~myWidget();
+    explicit VibrationGraph(QWidget *parent = nullptr);
+    ~VibrationGraph();
 
 private:
-    Ui::myWidget *ui;
-    QCustomPlot *customPlot;  // 声明 QCustomPlot 指针
-
-private slots:
-    void configureCustomPlot();  // 声明 configureCustomPlot 函数
+    QCustomPlot                 *vibrationGraph;
+    UnbalanceVibrationGenerator *vibrationGenerator;
+    QVector<qreal>               vibValue;
+    QVector<qreal>               vibTime;
+    int                          speed = 3000;
 };
-
-#endif // TEST_H
