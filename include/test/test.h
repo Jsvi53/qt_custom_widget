@@ -2,7 +2,6 @@
 #include <QVector>
 #include <QWidget>
 #include <vector>
-#define QCUSTOMPLOT_USE_LIBRARY
 #include "qcustomplot.h"
 #include "signalgenerator.h"
 #include "signalgenerator2.h"

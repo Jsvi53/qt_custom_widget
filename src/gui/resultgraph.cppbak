@@ -1,0 +1,165 @@
+#include <QDebug>
+#include <QFile>
+#include <QGraphicsDropShadowEffect>
+#include <QTextStream>
+#include <QVBoxLayout>
+
+#include "resultgraph.h"
+#include "thememanager.h"
+#include "ui_resultgraphscreen.h"
+
+
+ResultGraph::ResultGraph(QWidget *parent) : QWidget(parent), ui(new Ui::ResultGraphScreen)
+{
+    ui->setupUi(this);
+
+    // ================ 主题化阴影设置 ================
+    auto &themeMgr = ThemeManager::instance();
+    themeMgr.registerWidget(ui->base_navigationbar, "navigation");  // 注册需要阴影效果的控件
+    themeMgr.registerWidget(ui->graphWorkplace, "workarea");
+    themeMgr.registerWidget(ui->styleBar, "style");
+
+    // 整体值
+    prograssBar_V_OP  = new overallValuesPrograssBar(this);
+    prograssBar_V_RMS = new overallValuesPrograssBar(this);
+    prograssBar_A_OP  = new overallValuesPrograssBar(this);
+    prograssBar_A_RMS = new overallValuesPrograssBar(this);
+
+    addOverallValue(prograssBar_V_OP, 15, ui->gridLayout);
+    addOverallValue(prograssBar_V_RMS, 60, ui->gridLayout_4);
+    addOverallValue(prograssBar_A_OP, 20, ui->gridLayout_5);
+    addOverallValue(prograssBar_A_RMS, 30, ui->gridLayout_6);
+    graphInit();
+}
+
+ResultGraph::~ResultGraph()
+{
+    delete ui;
+}
+void ResultGraph::graphInit()
+{
+    loadCSVData("F:/code/projects/29_QT_projects/custom_widget/database/12k_144.csv", baData, deData, feData);
+    int N = baData.size();  // 生成时间轴
+    QVector<double> time(N);
+    const double Fs = 12000.0;
+    for (int i = 0; i < N; ++i) time[i] = i / Fs;
+
+    // 上图表
+    resultBigraph = new Bigraph(ui->upGraph);
+    resultBigraph->frontAxisX->setTitleText("f[Hz]");
+    resultBigraph->frontAxisY->setTitleText("v[mm/s]");
+    resultBigraph->backChart->setTitle("PlaneA Speed");
+
+    // 添加数据
+    for (int i = 0; i < N; ++i)
+    {
+        resultBigraph->addFrontSeriesPoint(time[i], baData[i]);
+    }
+    resultBigraph->adjustAxisRanges();
+    QVBoxLayout *upGraphLayout = new QVBoxLayout(ui->upGraph);
+    upGraphLayout->addWidget(resultBigraph);
+
+    // 下图表
+    resultDownBigraph = new Bigraph(ui->downGraph); // 确保使用正确的父窗口
+    resultDownBigraph->frontAxisX->setTitleText("t[s]");
+    resultDownBigraph->frontAxisY->setTitleText("v[mm/s]");
+    resultDownBigraph->backChart->setTitle("PlaneA Speed");
+
+    for (int i = 0; i < N; ++i)
+    {
+        resultDownBigraph->addFrontSeriesPoint(time[i], deData[i]);
+    }
+    resultDownBigraph->adjustAxisRanges();
+    QVBoxLayout *downGraphLayout = new QVBoxLayout(ui->downGraph);
+    downGraphLayout->addWidget(resultDownBigraph);
+}
+
+void ResultGraph::addOverallValue(overallValuesPrograssBar *overallBar, int value, QGridLayout *gridLayout)
+{
+    overallBar->setRange(0, 100);
+    overallBar->setValue(value);
+    gridLayout->addWidget(overallBar, 1, 0);  // 添加进度条到布局, 位置在第二行第一列
+}
+
+void ResultGraph::loadCSVData(const QString &filePath, QVector<double> &baData, QVector<double> &deData, QVector<double> &feData)
+{
+    QFile file(filePath);
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        qDebug() << "无法打开文件：" << filePath;
+        return;
+    }
+
+    QTextStream in(&file);
+    int         lineCount = 0;
+    while(!in.atEnd())
+    {
+        QString line = in.readLine().trimmed();
+        if(lineCount++ == 0)
+            continue;  // 跳过标题行
+
+        QStringList parts = line.split(',');
+        if(parts.size() >= 3)
+        {
+            bool   ok[3];
+            double ba = parts[0].toDouble(&ok[0]);
+            double de = parts[1].toDouble(&ok[1]);
+            double fe = parts[2].toDouble(&ok[2]);
+
+            if(ok[0] && ok[1] && ok[2])
+            {
+                baData.append(ba);
+                deData.append(de);
+                feData.append(fe);
+            } else
+            {
+                qDebug() << "行" << lineCount << "数据转换错误";
+            }
+        } else
+        {
+            qDebug() << "行" << lineCount << "数据不完整";
+        }
+    }
+    file.close();
+}
+
+overallValuesPrograssBar::overallValuesPrograssBar(QWidget *parent) : QProgressBar(parent)
+{
+    // 隐藏进度条的文本值
+    setTextVisible(false);
+
+    // 设置样式表，清除默认的绿色背景
+    setStyleSheet("QProgressBar { background-color: transparent; border: none; }");
+}
+
+overallValuesPrograssBar::~overallValuesPrograssBar()
+{
+}
+
+// 一条竖线在一条横线上滑动, 隐藏进度条的值
+void overallValuesPrograssBar::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event);  // 忽略事件参数
+
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+
+    // 获取进度条的矩形区域
+    QRect rect = this->rect();
+
+    // 计算当前进度对应的竖线位置
+    int progressWidth = rect.width() * value() / maximum();
+
+    // 绘制横线
+    // 竖线左侧为黑色
+    painter.setPen(Qt::black);
+    painter.drawLine(rect.left(), rect.height() / 2, progressWidth, rect.height() / 2);
+
+    // 竖线右侧为灰色
+    painter.setPen(Qt::gray);
+    painter.drawLine(progressWidth, rect.height() / 2, rect.right(), rect.height() / 2);
+
+    // 绘制黑色竖线
+    painter.setPen(Qt::black);
+    painter.drawLine(progressWidth, rect.top(), progressWidth, rect.bottom());
+}

@@ -1,0 +1,11 @@
+{
+    "Light": {
+
+        "shadowEffect": {
+            "enabled": true,
+            "offset": [5, 5],
+            "blurRadius": 10,
+            "color": "#888888"
+        }
+    }
+}

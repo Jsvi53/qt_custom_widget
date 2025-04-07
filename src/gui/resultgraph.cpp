@@ -1,98 +1,128 @@
-
+#include <QDebug>
+#include <QFile>
 #include <QGraphicsDropShadowEffect>
+#include <QTextStream>
 #include <QVBoxLayout>
-#include "resultgraph.h"
-#include "ui_resultgraphscreen.h"
 
+#include "resultgraph.h"
+#include "thememanager.h"
+#include "ui_resultgraphscreen.h"
 
 ResultGraph::ResultGraph(QWidget *parent) : QWidget(parent), ui(new Ui::ResultGraphScreen)
 {
     ui->setupUi(this);
-    // 设置Setting Button的阴影效果
-    QGraphicsDropShadowEffect *base_navigationbarshadow = new QGraphicsDropShadowEffect(this);
-    base_navigationbarshadow->setOffset(0, 5);               // 阴影的偏移量
-    base_navigationbarshadow->setColor(QColor(43, 43, 43));  // 阴影的颜色
-    base_navigationbarshadow->setBlurRadius(30);             // 阴影圆角的大小
-    ui->base_navigationbar->setGraphicsEffect(base_navigationbarshadow);
 
-    // 设置Setting Button的阴影效果
-    QGraphicsDropShadowEffect *graphWorkAreaShadow = new QGraphicsDropShadowEffect(this);
-    graphWorkAreaShadow->setOffset(5, 5);               // 阴影的偏移量
-    graphWorkAreaShadow->setColor(QColor(43, 43, 43));  // 阴影的颜色
-    graphWorkAreaShadow->setBlurRadius(10);             // 阴影圆角的大小
-    ui->graphWorkplace->setGraphicsEffect(graphWorkAreaShadow);
-
-    // 设置Setting Button的阴影效果
-    QGraphicsDropShadowEffect *styleBarShadow = new QGraphicsDropShadowEffect(this);
-    styleBarShadow->setOffset(5, 5);               // 阴影的偏移量
-    styleBarShadow->setColor(QColor(43, 43, 43));  // 阴影的颜色
-    styleBarShadow->setBlurRadius(10);             // 阴影圆角的大小
-    ui->styleBar->setGraphicsEffect(styleBarShadow);
+    // ================ 主题化阴影设置 ================
+    auto &themeMgr = ThemeManager::instance();
+    themeMgr.registerWidget(ui->base_navigationbar, "navigation");  // 注册需要阴影效果的控件
+    themeMgr.registerWidget(ui->graphWorkplace, "workarea");
+    themeMgr.registerWidget(ui->styleBar, "style");
 
     // 整体值
     prograssBar_V_OP  = new overallValuesPrograssBar(this);
     prograssBar_V_RMS = new overallValuesPrograssBar(this);
     prograssBar_A_OP  = new overallValuesPrograssBar(this);
     prograssBar_A_RMS = new overallValuesPrograssBar(this);
-    prograssBar_V_OP->setRange(0, 100);
-    prograssBar_V_OP->setValue(15);
-    ui->gridLayout->addWidget(prograssBar_V_OP, 1, 0);  // 添加进度条到布局, 位置在第二行第一列
 
-    prograssBar_V_RMS->setRange(0, 100);
-    prograssBar_V_RMS->setValue(20);
-    ui->gridLayout_4->addWidget(prograssBar_V_RMS, 1, 0);
-
-    prograssBar_A_OP->setRange(0, 100);
-    prograssBar_A_OP->setValue(12);
-    ui->gridLayout_5->addWidget(prograssBar_A_OP, 1, 0);
-
-    prograssBar_A_RMS->setRange(0, 100);
-    prograssBar_A_RMS->setValue(8);
-    ui->gridLayout_6->addWidget(prograssBar_A_RMS, 1, 0);
-
-    // 上图表
-    resultBigraph = new Bigraph(ui->upGraph);
-    sineGenerator = new SineGenerator(this);
-    sineGenerator->configure(1000, 1, 44100);
-
-    QVector<qreal> waveform = sineGenerator->generate(1000);
-    resultBigraph->addFrontSeriesPoint(0, 0);
-    resultBigraph->addBackSeriesPoint(0, 0);
-    for(int i = 0; i < waveform.size(); i++)
-    {
-        resultBigraph->addFrontSeriesPoint(i, waveform[i]);
-        resultBigraph->addBackSeriesPoint(i, waveform[i]);
-    }
-    resultBigraph->addFrontSeriesPoint(1000, 0);
-    resultBigraph->addBackSeriesPoint(1000, 0);
-    resultBigraph->adjustAxisRanges();
-
-    resultBigraph->frontAxisX->setTitleText("f[Hz]");
-    resultBigraph->frontAxisY->setTitleText("v[mm/s]");
-    resultBigraph->backChart->setTitle("PlaneA Speed");
-
-    QVBoxLayout *upGraphLayout = new QVBoxLayout(ui->upGraph);
-    upGraphLayout->addWidget(resultBigraph);
-
-    // 下图表
-    resultDownBigraph = new Bigraph(ui->upGraph);
-    resultDownBigraph->addFrontSeriesPoint(0, 0);
-    resultDownBigraph->addBackSeriesPoint(0, 0);
-    resultDownBigraph->addFrontSeriesPoint(1000, 0);
-    resultDownBigraph->addBackSeriesPoint(1000, 0);
-    resultDownBigraph->adjustAxisRanges();
-
-    resultDownBigraph->frontAxisX->setTitleText("t[s]");
-    resultDownBigraph->frontAxisY->setTitleText("v[mm/s]");
-    resultDownBigraph->backChart->setTitle("PlaneA Speed");
-
-    QVBoxLayout *downGraphLayout = new QVBoxLayout(ui->downGraph);
-    downGraphLayout->addWidget(resultDownBigraph);
+    addOverallValue(prograssBar_V_OP, 15, ui->gridLayout);
+    addOverallValue(prograssBar_V_RMS, 60, ui->gridLayout_4);
+    addOverallValue(prograssBar_A_OP, 20, ui->gridLayout_5);
+    addOverallValue(prograssBar_A_RMS, 30, ui->gridLayout_6);
+    graphInit();
 }
 
 ResultGraph::~ResultGraph()
 {
     delete ui;
+}
+
+void ResultGraph::graphInit()
+{
+    // 加载CSV数据
+    QVector<double> baData, deData, feData;
+    loadCSVData("D:/shawei/temp/qt_custom_widget/database/12k_144.csv", baData, deData, feData);
+
+    if(baData.isEmpty() || deData.isEmpty() || feData.isEmpty())
+    {
+        qDebug() << "数据加载失败或为空！";
+        return;
+    }
+
+    // 生成时间轴
+    int             N = baData.size();
+    QVector<double> time(N);
+    const double    Fs = 12000.0;
+    for(int i = 0; i < N; ++i) time[i] = i / Fs;
+
+    // 时域图
+    resultTimeBigraph = new Bigraph(ui->downGraph);
+    resultTimeBigraph->frontAxisX->setLabel("t[s]");
+    resultTimeBigraph->frontAxisY->setLabel("v[mm/s]");
+
+    // 配置BA通道绘图，颜色为红色
+    resultTimeBigraph->frontGraph->setPen(QPen(Qt::darkBlue));
+    resultTimeBigraph->backGraph->setPen(QPen(Qt::darkYellow));
+    resultTimeBigraph->addFrontSeriesPoint(time.mid(0, 10000), baData.mid(0, 10000));
+    resultTimeBigraph->addBackSeriesPoint(time.mid(0, 10000), baData.mid(0, 10000));
+    resultTimeBigraph->adjustAxisRanges();
+
+    // 对baData数据进行处理，进行FFT
+
+
+    // 频域图
+    resultFreqBigraph = new Bigraph(ui->upGraph);
+    resultFreqBigraph->frontAxisX->setLabel("f[Hz]");
+    resultFreqBigraph->frontAxisY->setLabel("v[mm/s]");
+    resultFreqBigraph->adjustAxisRanges();
+}
+
+void ResultGraph::addOverallValue(overallValuesPrograssBar *overallBar, int value, QGridLayout *gridLayout)
+{
+    overallBar->setRange(0, 100);
+    overallBar->setValue(value);
+    gridLayout->addWidget(overallBar, 1, 0);  // 添加进度条到布局, 位置在第二行第一列
+}
+
+void ResultGraph::loadCSVData(const QString &filePath, QVector<double> &baData, QVector<double> &deData, QVector<double> &feData)
+{
+    QFile file(filePath);
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        qDebug() << "无法打开文件：" << filePath;
+        return;
+    }
+
+    QTextStream in(&file);
+    int         lineCount = 0;
+    while(!in.atEnd())
+    {
+        QString line = in.readLine().trimmed();
+        if(lineCount++ == 0)
+            continue;  // 跳过标题行
+
+        QStringList parts = line.split(',');
+        if(parts.size() >= 3)
+        {
+            bool   ok[3];
+            double ba = parts[0].toDouble(&ok[0]);
+            double de = parts[1].toDouble(&ok[1]);
+            double fe = parts[2].toDouble(&ok[2]);
+
+            if(ok[0] && ok[1] && ok[2])
+            {
+                baData.append(ba);
+                deData.append(de);
+                feData.append(fe);
+            } else
+            {
+                qDebug() << "行" << lineCount << "数据转换错误";
+            }
+        } else
+        {
+            qDebug() << "行" << lineCount << "数据不完整";
+        }
+    }
+    file.close();
 }
 
 overallValuesPrograssBar::overallValuesPrograssBar(QWidget *parent) : QProgressBar(parent)

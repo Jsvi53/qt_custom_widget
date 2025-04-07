@@ -1,0 +1,28 @@
+{
+    "shadows": {
+        "navigation": {
+            "color": "#2B2B2B",
+            "radius": 30,
+            "offset": [
+                0,
+                5
+            ]
+        },
+        "style": {
+            "color": "#2B2B2B",
+            "radius": 10,
+            "offset": [
+                5,
+                5
+            ]
+        },
+        "workarea": {
+            "color": "#2B2B2B",
+            "radius": 10,
+            "offset": [
+                5,
+                5
+            ]
+        }
+    }
+}

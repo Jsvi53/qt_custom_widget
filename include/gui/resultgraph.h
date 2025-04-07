@@ -1,13 +1,14 @@
 #pragma once
 
-#include <QWidget>
+#include <QGridLayout>
 #include <QProgressBar>
-#include "bigraph.h"
-#include "signalgenerator.h"
-#include "signalgenerator2.h"
+#include <QVector>
+#include <QWidget>
 
-namespace Ui{
-    class ResultGraphScreen;
+#include "bigraph.h"
+
+namespace Ui {
+class ResultGraphScreen;
 }
 
 class overallValuesPrograssBar;
@@ -20,16 +21,20 @@ public:
     explicit ResultGraph(QWidget *parent = nullptr);
     ~ResultGraph();
 
+    void graphInit();
+    void addOverallValue(overallValuesPrograssBar *overallBar, int value, QGridLayout *gridLayout);
+    void loadCSVData(const QString &filePath, QVector<double> &baData, QVector<double> &deData, QVector<double> &feData);
+
 private:
     Ui::ResultGraphScreen *ui;
-    Bigraph* resultBigraph;
-    Bigraph* resultDownBigraph;
-    SineGenerator *sineGenerator;
-    UnbalanceVibrationGenerator *unbalanceVibrationGenerator;
-    overallValuesPrograssBar *prograssBar_V_OP;
-    overallValuesPrograssBar *prograssBar_V_RMS;
-    overallValuesPrograssBar *prograssBar_A_OP;
-    overallValuesPrograssBar *prograssBar_A_RMS;
+    Bigraph               *resultFreqBigraph;
+    Bigraph               *resultTimeBigraph;
+
+    overallValuesPrograssBar    *prograssBar_V_OP;
+    overallValuesPrograssBar    *prograssBar_V_RMS;
+    overallValuesPrograssBar    *prograssBar_A_OP;
+    overallValuesPrograssBar    *prograssBar_A_RMS;
+    QVector<double>              baData, deData, feData;
 };
 
 // 更改进度条外观
@@ -39,6 +44,7 @@ class overallValuesPrograssBar : public QProgressBar
 public:
     overallValuesPrograssBar(QWidget *parent = nullptr);
     ~overallValuesPrograssBar();
+
 private:
     void paintEvent(QPaintEvent *event) override;
 };

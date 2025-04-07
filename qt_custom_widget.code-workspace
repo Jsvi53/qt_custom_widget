@@ -76,7 +76,13 @@
             "qstring": "cpp",
             "qpainterpath": "cpp",
             "qvector": "cpp",
-            "qapplication": "cpp"
+            "qapplication": "cpp",
+            "deque": "cpp",
+            "qtextstream": "cpp",
+            "ctime": "cpp",
+            "xlocale": "cpp",
+            "qlist": "cpp",
+            "*.cppbak": "cpp"
         },
         "editor.formatOnSave": false,
         "editor.defaultFormatter": "ms-vscode.cpptools",

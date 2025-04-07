@@ -1,0 +1,32 @@
+{
+    "Light": {
+        "backgroundColor": "#FFFFFF",
+        "textColor": "#000000",
+        "font": {
+            "family": "Arial",
+            "size": 10
+        },
+        "buttonColor": "#4CAF50",
+        "shadowEffect": {
+            "enabled": true,
+            "offset": [5, 5],
+            "blurRadius": 10,
+            "color": "#888888"
+        }
+    },
+    "Dark": {
+        "backgroundColor": "#333333",
+        "textColor": "#FFFFFF",
+        "font": {
+            "family": "Courier New",
+            "size": 12
+        },
+        "buttonColor": "#2E8B57",
+        "shadowEffect": {
+            "enabled": true,
+            "offset": [5, 5],
+            "blurRadius": 15,
+            "color": "#000000"
+        }
+    }
+}

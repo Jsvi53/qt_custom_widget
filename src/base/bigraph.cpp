@@ -1,275 +1,225 @@
+#include <QDebug>
 #include <QPainter>
-#include <QtMath>
-#include <limits>
 
 #include "bigraph.h"
 
-Bigraph::Bigraph(QWidget* parent) : QWidget(parent)
+// Bigraph类的构造函数
+Bigraph::Bigraph(QWidget *parent) : QWidget(parent)
 {
-    setStyleSheet("background-color: transparent;");
-    // 初始化图表
-    initBackChart();
-    initFrontChart();
-
-    // 初始位置更新
-    updateChartPositions(positionBaseAngle);
-    // 开启定时器更新连接线
+    initFrontPlot();                          // 初始化前端图表
+    initBackPlot();                           // 初始化后端图表
+    updateChartPositions(positionBaseAngle);  // 更新图表位置
 }
 
+// Bigraph类的析构函数
 Bigraph::~Bigraph()
 {
+    delete frontPlot;  // 删除前端图表
+    delete backPlot;   // 删除后端图表
 }
 
-// frontchart 初始化
-void Bigraph::initFrontChart()
+// 初始化前端图表
+void Bigraph::initFrontPlot()
 {
-    frontChart     = new QChart();
-    frontSeries    = new QLineSeries();
-    frontAxisX     = new QValueAxis();
-    frontAxisY     = new QValueAxis();
-    frontChartView = new QChartView(frontChart);
+    frontPlot = new QCustomPlot(this);                           // 创建一个新的前端图表
+    frontPlot->setGeometry(frontChartX, frontChartY, 700, 190);  // 设置图表位置和大小
 
-    // 添加图表元素
-    frontChart->addSeries(frontSeries);
-    frontChart->addAxis(frontAxisX, Qt::AlignBottom);
-    frontChart->addAxis(frontAxisY, Qt::AlignLeft);
-    frontSeries->attachAxis(frontAxisX);
-    frontSeries->attachAxis(frontAxisY);
+    // 设置背景为透明
+    frontPlot->setBackground(Qt::transparent);
 
-    // 添加坐标标题
-    frontAxisX->setTitleText("Time");
-    frontAxisY->setTitleText("Voltage");
+    // 初始化坐标轴
+    frontAxisX = frontPlot->xAxis;
+    frontAxisY = frontPlot->yAxis;
+    frontAxisX->setLabel("f[Hz]");    // X轴标签
+    frontAxisY->setLabel("v[mm/s]");  // Y轴标签
 
+    // 配置刻度器
+    QSharedPointer<QCPAxisTickerFixed> frontTickerX(new QCPAxisTickerFixed);
+    QSharedPointer<QCPAxisTickerFixed> frontTickerY(new QCPAxisTickerFixed);
+    frontAxisX->setTicker(frontTickerX);  // 设置X轴刻度器
+    frontAxisY->setTicker(frontTickerY);  // 设置Y轴刻度器
 
-    // 图表设置
-    frontChart->legend()->hide();
-    frontChart->setMargins(QMargins(20, 20, 20, 20));
-    frontChart->setBackgroundVisible(false);
-    frontChartView->setParent(this);
-    frontChartView->setFixedSize(700, 190);
-    frontChartView->setAttribute(Qt::WA_TranslucentBackground);  // 打开设置透明度属性
-    frontChartView->setRenderHint(QPainter::Antialiasing);
+    // 设置小数精度，避免显示整数
+    frontAxisX->setNumberFormat("f");   // 使用浮点格式
+    frontAxisY->setNumberFormat("f");   // 使用浮点格式
+    frontAxisX->setNumberPrecision(2);  // 设置X轴标签精度为2位小数
+    frontAxisY->setNumberPrecision(2);  // 设置Y轴标签精度为2位小数
 
-    // 坐标轴设置
-    frontAxisX->setTickCount(9);
-    frontAxisY->setTickCount(4);
+    // 取消刻度网格线
+    frontAxisX->grid()->setVisible(false);  // X轴网格不可见
+    frontAxisY->grid()->setVisible(false);  // Y轴网格不可见
 
-    // 去掉网格线
-    frontAxisX->setGridLineVisible(false);
-    frontAxisY->setGridLineVisible(false);
-    frontAxisX->setLinePenColor(QColor(Qt::black));
-    frontAxisY->setLinePenColor(QColor(Qt::black));
-
-    // 将 frontChartView 放在最顶层
-    frontChartView->raise();
+    // 初始化数据系列
+    frontGraph = frontPlot->addGraph();
+    frontGraph->setPen(QPen(Qt::blue, 1.5));  // 设置图表线条的颜色和粗细
 }
 
-// backchart 初始化
-void Bigraph::initBackChart()
+// 初始化后端图表
+void Bigraph::initBackPlot()
 {
-    backChart     = new QChart();
-    backSeries    = new QLineSeries();
-    backAxisX     = new QValueAxis();
-    backAxisY     = new QValueAxis();
-    backChartView = new QChartView(backChart);
+    backPlot = new QCustomPlot(this);                         // 创建一个新的后端图表
+    backPlot->setGeometry(backChartX, backChartY, 700, 170);  // 设置图表位置和大小
 
-    // 添加图表元素
-    backChart->addSeries(backSeries);
-    backChart->addAxis(backAxisX, Qt::AlignBottom);
-    backChart->addAxis(backAxisY, Qt::AlignLeft);
-    backSeries->attachAxis(backAxisX);
-    backSeries->attachAxis(backAxisY);
+    // 设置背景为透明
+    backPlot->setBackground(Qt::transparent);
 
-    // 图表设置
-    backChart->legend()->hide();
-    backChart->setMargins(QMargins(20, 20, 20, 20));
-    backChart->setBackgroundVisible(false);
-    backChartView->setParent(this);
-    backChartView->setFixedSize(700, 170);
-    backChartView->setAttribute(Qt::WA_TranslucentBackground);  // 打开设置透明度属性
-    backChartView->setRenderHint(QPainter::Antialiasing);
+    // 配置坐标轴
+    backAxisX = backPlot->xAxis;
+    backAxisY = backPlot->yAxis;
 
-    // 坐标轴设置
-    backAxisX->setTickCount(9);
-    backAxisY->setTickCount(4);
+    // 设置坐标轴颜色为透明
+    backAxisX->setBasePen(QPen(Qt::NoPen));     // X轴线条透明
+    backAxisY->setBasePen(QPen(Qt::NoPen));     // Y轴线条透明
+    backAxisX->setTickPen(QPen(Qt::NoPen));     // X轴刻度线透明
+    backAxisY->setTickPen(QPen(Qt::NoPen));     // Y轴刻度线透明
+    backAxisX->setSubTickPen(QPen(Qt::NoPen));  // X轴子刻度线透明
+    backAxisY->setSubTickPen(QPen(Qt::NoPen));  // Y轴子刻度线透明
+    backAxisX->setTickLabels(false);            // 不显示X轴刻度标签
+    backAxisY->setTickLabels(false);            // 不显示Y轴刻度标签
 
-    // 添加坐标标题
+    // 设置网格样式
+    backAxisX->grid()->setPen(QPen(Qt::gray, 1, Qt::DotLine));  // X轴网格为灰色点线
+    backAxisY->grid()->setPen(QPen(Qt::gray, 1, Qt::DotLine));  // Y轴网格为灰色点线
+    backAxisX->grid()->setVisible(true);                        // 确保X轴网格可见
+    backAxisY->grid()->setVisible(true);                        // 确保Y轴网格可见
 
-    // 隐藏标题
-    backAxisX->setTitleVisible(false);
-    backAxisY->setTitleVisible(false);
+    // 配置刻度器
+    QSharedPointer<QCPAxisTickerFixed> backTickerX(new QCPAxisTickerFixed);
+    QSharedPointer<QCPAxisTickerFixed> backTickerY(new QCPAxisTickerFixed);
+    backAxisX->setTicker(backTickerX);  // 设置X轴刻度器
+    backAxisY->setTicker(backTickerY);  // 设置Y轴刻度器
 
-    // 去掉网格线
-    backAxisX->setGridLineVisible(true);
-    backAxisY->setGridLineVisible(true);
-    backAxisX->setGridLinePen(QPen(QColor(Qt::gray), 1, Qt::DotLine));
-    backAxisY->setGridLinePen(QPen(QColor(Qt::gray), 1, Qt::DotLine));
-    backAxisX->setLinePenColor(QColor(Qt::black));
-    backAxisY->setLinePenColor(QColor(Qt::black));
-
-    // 将 backChartView 放在最底层
-    backChartView->lower();
+    // 初始化数据系列
+    backGraph = backPlot->addGraph();
+    backGraph->setPen(QPen(Qt::lightGray, 1, Qt::DashLine));  // 设置图表线条的颜色和样式
 }
 
-// 更新图表位置的槽函数
+// 更新图表位置
 void Bigraph::updateChartPositions(int angle)
 {
-    // 将角度转换为弧度
-    qreal angleInRadians = qDegreesToRadians(static_cast<double>(angle));
-    // 计算 backChartView 的位置
-    backChartX = static_cast<int>(static_cast<qreal>(frontChartX) + static_cast<qreal>(positionBaseLength) * qCos(angleInRadians));
-    backChartY = static_cast<int>(static_cast<qreal>(frontChartY) - static_cast<qreal>(positionBaseLength) * qSin(angleInRadians));
-    backChartView->move(backChartX, backChartY);
-    frontChartView->move(frontChartX, frontChartY);
+    qreal radians = qDegreesToRadians(static_cast<double>(angle));                       // 将角度转换为弧度
+    backChartX    = frontChartX + static_cast<int>(positionBaseLength * qCos(radians));  // 计算后端图表X坐标
+    backChartY    = frontChartY - static_cast<int>(positionBaseLength * qSin(radians));  // 计算后端图表Y坐标
+    backPlot->move(backChartX, backChartY);                                              // 移动后端图表到新的位置
 }
 
-void Bigraph::paintEvent(QPaintEvent* event)
+// 添加前端图表数据点
+void Bigraph::addFrontSeriesPoint(double x, double y)
 {
-    QWidget::paintEvent(event);
-    QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing);
-    painter.setPen(QPen(QColor(Qt::darkGray), 1, Qt::DotLine));
-
-    // 连接X轴和Y轴的刻度线
-    connectAxisTicks(&painter, backChart, backSeries, frontChart, frontSeries, true);   // X轴
-    connectAxisTicks(&painter, backChart, backSeries, frontChart, frontSeries, false);  // Y轴
+    frontGraph->addData(x, y);  // 向前端图表添加数据点
 }
 
-QList<qreal> Bigraph::getTickValues(QValueAxis* axis)
+// 添加后端图表数据点
+void Bigraph::addBackSeriesPoint(double x, double y)
 {
-    QList<qreal> ticks;
-    qreal        min       = axis->min();
-    qreal        max       = axis->max();
-    int          tickCount = axis->tickCount();
-    if(tickCount < 2)
-        return ticks;
-
-    qreal step = (max - min) / (tickCount - 1);
-    for(int i = 0; i < tickCount; ++i)
-    {
-        ticks.append(min + i * step);
-    }
-    return ticks;
+    backGraph->addData(x, y);  // 向后端图表添加数据点
 }
 
-// 添加数据接口
-void Bigraph::addFrontSeriesPoint(qreal x, qreal y)
+// 添加前端图表多个数据点
+void Bigraph::addFrontSeriesPoint(QVector<double> x, QVector<double> y)
 {
-    frontSeries->append(x, y);
+    frontGraph->setData(x, y);  // 设置前端图表的数据
 }
 
-void Bigraph::addBackSeriesPoint(qreal x, qreal y)
+// 添加后端图表多个数据点
+void Bigraph::addBackSeriesPoint(QVector<double> x, QVector<double> y)
 {
-    backSeries->append(x, y);
+    backGraph->setData(x, y);  // 设置后端图表的数据
 }
 
-// 清空数据接口
+// 清空前端图表的数据
 void Bigraph::clearFrontSeries()
 {
-    frontSeries->clear();
+    frontGraph->data()->clear();  // 清空前端图表数据
 }
 
+// 清空后端图表的数据
 void Bigraph::clearBackSeries()
 {
-    backSeries->clear();
+    backGraph->data()->clear();  // 清空后端图表数据
 }
 
-
-QRectF Bigraph::calculateSeriesRange(QLineSeries* series)
-{
-    // 如果数据系列中没有点，返回一个默认范围，防止后续操作因为空数据而崩溃
-    if(series->count() == 0)
-    {
-        return QRectF(0, 0, 1, 1);  // 默认范围
-    }
-
-    // 初始化最小和最大值为极端值，用于后续比较
-    qreal minX = std::numeric_limits<qreal>::max();  // 最小X值初始化为最大可能值
-    qreal maxX = std::numeric_limits<qreal>::lowest();  // 最大X值初始化为最小可能值
-    qreal minY = minX;  // 最小Y值初始化为最大可能值
-    qreal maxY = maxX;  // 最大Y值初始化为最小可能值
-
-    // 遍历数据系列中的所有点，更新最小和最大值
-    for(const QPointF& point : series->points())
-    {
-        minX = qMin(minX, point.x());  // 更新最小X值
-        maxX = qMax(maxX, point.x());  // 更新最大X值
-        minY = qMin(minY, point.y());  // 更新最小Y值
-        maxY = qMax(maxY, point.y());  // 更新最大Y值
-    }
-
-    // 处理单点数据情况，避免范围为零导致绘图问题
-    // 如果最小X值和最大X值几乎相等（即只有一个点或数据非常接近）
-    if(qFuzzyCompare(minX, maxX))   // 用于比较两个浮点数是否“足够接近”，从而可以认为它们是相等的。
-    {
-        maxX += 0.1;  // 增加范围
-        minX -= 0.1;  // 减少范围
-    }
-    // 如果最小Y值和最大Y值几乎相等
-    if(qFuzzyCompare(minY, maxY))
-    {
-        maxY += 0.1;  // 增加范围
-        minY -= 0.1;  // 减少范围
-    }
-
-    // 添加5%的边距，使曲线在图表中不贴边，增强视觉效果
-    qreal xMargin = (maxX - minX) * 0.001;  // 计算X方向的边距
-    qreal yMargin = (maxY - minY) * 0.001;  // 计算Y方向的边距
-
-    // 返回最终的范围矩形
-    // 左上角坐标为(minX - xMargin, minY - yMargin)
-    // 宽度为(maxX - minX) + 2 * xMargin
-    // 高度为(maxY - minY) + 2 * yMargin
-    return QRectF(minX - xMargin, minY - yMargin, 
-                  (maxX - minX) + 2 * xMargin, 
-                  (maxY - minY) + 2 * yMargin);
-}
-
+// 调整坐标轴范围
 void Bigraph::adjustAxisRanges()
 {
-    // 计算合并范围
-    QRectF frontRect = calculateSeriesRange(frontSeries);
-    QRectF backRect  = calculateSeriesRange(backSeries);
+    // 自动调整坐标轴范围并同步
+    frontPlot->rescaleAxes(true);                          // 自动调整前端图表坐标轴
+    backPlot->xAxis->setRange(frontPlot->xAxis->range());  // 设置后端X轴范围与前端同步
+    backPlot->yAxis->setRange(frontPlot->yAxis->range());  // 设置后端Y轴范围与前端同步
 
-    combinedRange = QRectF(qMin(frontRect.left(), backRect.left()), qMin(frontRect.top(), backRect.top()), qMax(frontRect.width(), backRect.width()), qMax(frontRect.height(), backRect.height()));
+    // 添加5%边距
+    auto adjustWithMargin = [](QCPRange &range) {
+        double margin = (range.upper - range.lower) * 0.05;  // 计算边距
+        range.lower -= margin;                               // 设置下限
+        range.upper += margin;                               // 设置上限
+    };
 
-    // 添加统一边距
-    qreal xMargin = combinedRange.width() * 0.001;
-    qreal yMargin = combinedRange.height() * 0.001;
+    QCPRange xRange = frontPlot->xAxis->range();  // 获取前端X轴范围
+    QCPRange yRange = frontPlot->yAxis->range();  // 获取前端Y轴范围
+    adjustWithMargin(xRange);                     // 调整X轴范围
+    adjustWithMargin(yRange);                     // 调整Y轴范围
 
-    // 设置统一范围到两个图表
-    frontAxisX->setRange(combinedRange.left() - xMargin, combinedRange.right() + xMargin);
-    frontAxisY->setRange(combinedRange.top() - yMargin, combinedRange.bottom() + yMargin);
-    backAxisX->setRange(combinedRange.left() - xMargin, combinedRange.right() + xMargin);
-    backAxisY->setRange(combinedRange.top() - yMargin, combinedRange.bottom() + yMargin);
+    frontPlot->xAxis->setRange(xRange);  // 设置前端X轴范围
+    frontPlot->yAxis->setRange(yRange);  // 设置前端Y轴范围
+    backPlot->xAxis->setRange(xRange);   // 设置后端X轴范围
+    backPlot->yAxis->setRange(yRange);   // 设置后端Y轴范围
+
+    frontPlot->replot();  // 重新绘制前端图表
+    backPlot->replot();   // 重新绘制后端图表
 }
 
-void Bigraph::connectAxisTicks(QPainter* painter, QChart* backChart, QLineSeries* backSeries, QChart* frontChart, QLineSeries* frontSeries, bool isXAxis)
+// 绘制事件
+void Bigraph::paintEvent(QPaintEvent *event)
 {
-    QValueAxis* backAxis = isXAxis ? qobject_cast<QValueAxis*>(backChart->axes(Qt::Horizontal).first()) : qobject_cast<QValueAxis*>(backChart->axes(Qt::Vertical).first());
-    QValueAxis* frontAxis = isXAxis ? qobject_cast<QValueAxis*>(frontChart->axes(Qt::Horizontal).first()) : qobject_cast<QValueAxis*>(frontChart->axes(Qt::Vertical).first());
+    QWidget::paintEvent(event);                          // 调用基类的绘制事件
+    QPainter painter(this);                              // 创建绘制对象
+    painter.setRenderHint(QPainter::Antialiasing);       // 开启抗锯齿
+    painter.setPen(QPen(Qt::darkGray, 1, Qt::DotLine));  // 设置绘制的笔（灰色点线）
 
-    if(!backAxis || !frontAxis)
-        return;
+    connectAxisTicks(&painter, true);   // 绘制X轴刻度连接线
+    connectAxisTicks(&painter, false);  // 绘制Y轴刻度连接线
+}
 
-    // 使用合并后的范围计算基准点
-    qreal baseValue = isXAxis ? combinedRange.top() : combinedRange.left();
+// 连接坐标轴刻度
+void Bigraph::connectAxisTicks(QPainter *painter, bool isXAxis)
+{
+    QCPAxis *frontAxis = isXAxis ? frontAxisX : frontAxisY;  // 获取前端坐标轴
+    QCPAxis *backAxis  = isXAxis ? backAxisX : backAxisY;    // 获取后端坐标轴
 
-    QList<qreal> backTicks  = getTickValues(backAxis);
-    QList<qreal> frontTicks = getTickValues(frontAxis);
+    QList<double> frontTicks = getTickValues(frontAxis);  // 获取前端坐标轴刻度值
+    QList<double> backTicks  = getTickValues(backAxis);   // 获取后端坐标轴刻度值
 
-    int minCount = qMin(backTicks.size(), frontTicks.size());
+    const int minCount = qMin(frontTicks.size(), backTicks.size());  // 获取最小的刻度数量
     for(int i = 0; i < minCount; ++i)
     {
-        // 转换backChart坐标
-        QPointF backPoint     = isXAxis ? QPointF(backTicks[i], baseValue) : QPointF(baseValue, backTicks[i]);
-        QPoint  backGlobalPos = backChartView->mapToParent(backChartView->mapFromScene(backChart->mapToPosition(backPoint, backSeries)));
+        // 前端坐标转换
+        QPointF frontPointF = isXAxis ? QPointF(frontAxis->coordToPixel(frontTicks[i]), frontAxisY->coordToPixel(frontAxisY->range().lower))   // X轴刻度点
+                                      : QPointF(frontAxisX->coordToPixel(frontAxisX->range().lower), frontAxis->coordToPixel(frontTicks[i]));  // Y轴刻度点
+        QPoint  frontPoint  = frontPlot->mapToParent(frontPointF.toPoint());                                                                   // 转换为父坐标系坐标
 
-        // 转换frontChart坐标
-        QPointF frontPoint     = isXAxis ? QPointF(frontTicks[i], baseValue) : QPointF(baseValue, frontTicks[i]);
-        QPoint  frontGlobalPos = frontChartView->mapToParent(frontChartView->mapFromScene(frontChart->mapToPosition(frontPoint, frontSeries)));
+        // 后端坐标转换
+        QPointF backPointF = isXAxis ? QPointF(backAxis->coordToPixel(backTicks[i]), backAxisY->coordToPixel(backAxisY->range().lower))   // X轴刻度点
+                                     : QPointF(backAxisX->coordToPixel(backAxisX->range().lower), backAxis->coordToPixel(backTicks[i]));  // Y轴刻度点
+        QPoint  backPoint  = backPlot->mapToParent(backPointF.toPoint());                                                                 // 转换为父坐标系坐标
 
         // 绘制连接线
-        painter->drawLine(backGlobalPos, frontGlobalPos);
+        painter->drawLine(frontPoint, backPoint);  // 绘制前后图表刻度之间的连接线
     }
+}
+
+// 获取坐标轴的刻度值
+QList<double> Bigraph::getTickValues(QCPAxis *axis)
+{
+    QList<double> ticks;
+    if(auto ticker = static_cast<QCPAxisTickerFixed *>(axis->ticker().data()))
+    {
+        double       current = axis->range().lower;
+        const double step    = ticker->tickStep();
+        while(current <= axis->range().upper + 1e-6)
+        {  // 处理浮点精度
+            ticks.append(current);
+            current += step;
+        }
+    }
+    return ticks;
 }

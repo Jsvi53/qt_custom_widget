@@ -1,9 +1,3 @@
-/*** 
- * @Date: 2025-03-03 20:23:40
- * @LastEditors: jsvi53
- * @LastEditTime: 2025-03-03 23:08:19
- * @FilePath: \qt_custom_widget\src\chart\wavechart.cpp
- */
 #include "wavechart.h"
 #include <QtMath>
 
