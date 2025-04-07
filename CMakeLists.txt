@@ -132,7 +132,9 @@ target_include_directories(custom_widget PRIVATE
     include/base
     include/base2
     include/gui
+    include/utils2
     third_party/qcustomplot/
+    third_party/eigen/
     include
 )
 

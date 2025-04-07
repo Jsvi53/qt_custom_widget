@@ -82,7 +82,8 @@
             "ctime": "cpp",
             "xlocale": "cpp",
             "qlist": "cpp",
-            "*.cppbak": "cpp"
+            "*.cppbak": "cpp",
+            "string_view": "cpp"
         },
         "editor.formatOnSave": false,
         "editor.defaultFormatter": "ms-vscode.cpptools",

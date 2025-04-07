@@ -129,17 +129,12 @@ compile_commands.json
 
 .vscode/
 build/
-assets/LaunchScreen.jpg
---post-rewrite
-git
-read
-show
-with
-jp_balancerunscreen/jp_balancerun.ui
-.cache
+
 !*libqcustomplot2.a
 !*libqcustomplot2.dll
 !*libqcustomplotd2.a
 !*libqcustomplotd2.dll
 database/CRWU凯斯西储大学轴承数据.rar
 database/CRWU
+third_party/eigen
+third_party/qcustomplot

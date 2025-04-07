@@ -1,7 +1,9 @@
-#include "dataprocess.h"
 #include <Eigen/Dense>
 #include <cmath>
 #include <complex>
+
+#include "dataprocess.h"
+
 
 void performFFT(const QVector<double>& data, double Fs, QVector<double>& freq, QVector<double>& fftMagnitude)
 {
@@ -31,5 +33,3 @@ void performFFT(const QVector<double>& data, double Fs, QVector<double>& freq, Q
         fftMagnitude[i] = std::abs(fftResult(i)) / N;
     }
 }
-}
-;
