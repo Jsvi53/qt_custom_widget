@@ -6,6 +6,7 @@
 #include <QWidget>
 
 #include "bigraph.h"
+#include "fftw3.h"
 
 namespace Ui {
 class ResultGraphScreen;
@@ -25,16 +26,25 @@ public:
     void addOverallValue(overallValuesPrograssBar *overallBar, int value, QGridLayout *gridLayout);
     void loadCSVData(const QString &filePath, QVector<double> &baData, QVector<double> &deData, QVector<double> &feData);
 
+signals:
+    void fftCompleted(QVector<double> freq, QVector<double> amp);
+
+private slots:
+    void handleFftResults(QVector<double> freq, QVector<double> amp);
+
 private:
+    static void computeFFT(const QVector<double> &baData, QVector<double> &freq, QVector<double> &amp);
+
     Ui::ResultGraphScreen *ui;
     Bigraph               *resultFreqBigraph;
     Bigraph               *resultTimeBigraph;
 
-    overallValuesPrograssBar    *prograssBar_V_OP;
-    overallValuesPrograssBar    *prograssBar_V_RMS;
-    overallValuesPrograssBar    *prograssBar_A_OP;
-    overallValuesPrograssBar    *prograssBar_A_RMS;
-    QVector<double>              baData, deData, feData;
+    overallValuesPrograssBar *prograssBar_V_OP;
+    overallValuesPrograssBar *prograssBar_V_RMS;
+    overallValuesPrograssBar *prograssBar_A_OP;
+    overallValuesPrograssBar *prograssBar_A_RMS;
+    QVector<double>           baData, deData, feData;
+    QFutureWatcher<void>      fftWatcher;
 };
 
 // 更改进度条外观

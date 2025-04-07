@@ -105,7 +105,8 @@
             "cinttypes": "cpp",
             "random": "cpp",
             "set": "cpp",
-            "sparse": "cpp"
+            "sparse": "cpp",
+            "qprogressbar": "cpp"
         },
         "editor.formatOnSave": false,
         "editor.defaultFormatter": "ms-vscode.cpptools",

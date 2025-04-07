@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 project(custom_widget LANGUAGES CXX)
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -22,6 +23,7 @@ find_package(Qt5 REQUIRED COMPONENTS
     PrintSupport
     3DCore
     DataVisualization
+    Concurrent
     Quick
     QuickWidgets
 )
@@ -124,7 +126,6 @@ add_executable(custom_widget
     src/base/bigraph.cpp
     src/gui/resultgraph.cpp
     src/base2/thememanager.cpp
-    src/utils2/dataprocess.cpp
     src/gui/resultgraphscreen.ui
     src/tchrt.cpp
     include/tchrt.h
@@ -156,6 +157,7 @@ target_link_libraries(custom_widget PRIVATE
     Qt5::PrintSupport
     Qt5::3DCore
     Qt5::DataVisualization
+    Qt5::Concurrent
     Qt5::Quick
     Qt5::QuickWidgets
 )
@@ -187,11 +189,16 @@ add_custom_command(TARGET custom_widget POST_BUILD
     "$<TARGET_FILE_DIR:custom_widget>"
     COMMENT "Copying qcustomplotd2.dll to binary directory"
 )
-
+# 确保 FFTW 库路径正确
 add_custom_command(TARGET custom_widget POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-    ${FFTW_DIR}/windows/release/libfftw3-3.dll
-    ${FFTW_DIR}/windows/release/libfftw3f-3.dll
-    ${FFTW_DIR}/windows/release/libfftw3l-3.dll
-    $<TARGET_FILE_DIR:custom_widget>
+    "${CMAKE_CURRENT_SOURCE_DIR}/third_party/fftw/windows/release/libfftw3-3.dll"
+    "${CMAKE_CURRENT_BINARY_DIR}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    "${CMAKE_CURRENT_SOURCE_DIR}/third_party/fftw/windows/release/libfftw3f-3.dll"
+    "${CMAKE_CURRENT_BINARY_DIR}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    "${CMAKE_CURRENT_SOURCE_DIR}/third_party/fftw/windows/release/libfftw3l-3.dll"
+    "${CMAKE_CURRENT_BINARY_DIR}"
+    COMMENT "Copying FFTW DLLs to binary directory"
 )
