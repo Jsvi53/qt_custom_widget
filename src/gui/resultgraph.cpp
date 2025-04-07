@@ -3,7 +3,7 @@
 #include <QGraphicsDropShadowEffect>
 #include <QTextStream>
 #include <QVBoxLayout>
-
+#include "dataprocess.h"
 #include "resultgraph.h"
 #include "thememanager.h"
 #include "ui_resultgraphscreen.h"
@@ -67,12 +67,22 @@ void ResultGraph::graphInit()
     resultTimeBigraph->adjustAxisRanges();
 
     // 对baData数据进行处理，进行FFT
-
+    QVector<double> freq;
+    QVector<double> fftMagnitude;
+    performFFT(baData, Fs, freq, fftMagnitude);
 
     // 频域图
     resultFreqBigraph = new Bigraph(ui->upGraph);
     resultFreqBigraph->frontAxisX->setLabel("f[Hz]");
     resultFreqBigraph->frontAxisY->setLabel("v[mm/s]");
+    resultFreqBigraph->addFrontSeriesPoint(freq, fftMagnitude);
+    resultFreqBigraph->adjustAxisRanges();
+
+    // 频域图
+    resultFreqBigraph = new Bigraph(ui->upGraph);
+    resultFreqBigraph->frontAxisX->setLabel("f[Hz]");
+    resultFreqBigraph->frontAxisY->setLabel("v[mm/s]");
+    resultFreqBigraph->addFrontSeriesPoint(freq, fftMagnitude);
     resultFreqBigraph->adjustAxisRanges();
 }
 

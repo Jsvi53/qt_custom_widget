@@ -30,6 +30,10 @@ find_package(Qt5 REQUIRED COMPONENTS
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/third_party/qcustomplot")
 find_package(QCustomPlot REQUIRED)
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/third_party/fftw")
+find_package(FFTW REQUIRED)
+
+
 # 添加 TsFile 目录，并设置 CLEAN_NO_CUSTOM 属性
 add_subdirectory(assets/TsFile)
 
@@ -120,6 +124,7 @@ add_executable(custom_widget
     src/base/bigraph.cpp
     src/gui/resultgraph.cpp
     src/base2/thememanager.cpp
+    src/utils2/dataprocess.cpp
     src/gui/resultgraphscreen.ui
     src/tchrt.cpp
     include/tchrt.h
@@ -134,13 +139,14 @@ target_include_directories(custom_widget PRIVATE
     include/gui
     include/utils2
     third_party/qcustomplot/
-    third_party/eigen/
+    third_party/fftw/
     include
 )
 
 # 链接库
 target_link_libraries(custom_widget PRIVATE
     ${QCustomPlot_LIBRARIES}
+    ${FFTW_LIBRARIES}
     Qt5::Widgets
     Qt5::Charts
     Qt5::Gui
@@ -180,4 +186,12 @@ add_custom_command(TARGET custom_widget POST_BUILD
     "${CMAKE_CURRENT_SOURCE_DIR}/third_party/qcustomplot/windows/debug/qcustomplotd2.dll"
     "$<TARGET_FILE_DIR:custom_widget>"
     COMMENT "Copying qcustomplotd2.dll to binary directory"
+)
+
+add_custom_command(TARGET custom_widget POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    ${FFTW_DIR}/windows/release/libfftw3-3.dll
+    ${FFTW_DIR}/windows/release/libfftw3f-3.dll
+    ${FFTW_DIR}/windows/release/libfftw3l-3.dll
+    $<TARGET_FILE_DIR:custom_widget>
 )
