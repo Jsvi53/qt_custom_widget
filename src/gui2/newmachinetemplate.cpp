@@ -37,11 +37,12 @@ NewMachineTemplateScreen::NewMachineTemplateScreen(QWidget* parent) : QWidget(pa
     scrollAreaLayout->setContentsMargins(0, 0, 0, 0);
     scrollAreaLayout->setAlignment(Qt::AlignTop);
 
-    for(int i = 0; i < 50; i ++)
+    for(int i = 0; i < 5; i ++)
     {
         MachineTemplate* machinetemplate = new MachineTemplate(templateListScrollArea);
         scrollAreaLayout->addWidget(machinetemplate);
     }
+
     templateListScrollArea->setLayout(scrollAreaLayout);
 }
 
