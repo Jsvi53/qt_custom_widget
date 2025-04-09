@@ -16,7 +16,7 @@ NewMachineTemplateScreen::NewMachineTemplateScreen(QWidget* parent) : QWidget(pa
     themeMgr.registerWidget(ui->WorkSpace, "workarea");
 
     MachineTrainTemplate* machinetraintemplate = new MachineTrainTemplate(ui->machineNaviContainerWidget);
-    templateListScrollArea = new QScrollArea(ui->machineNaviContainerWidget);
+    templateListScrollArea                     = new QScrollArea(ui->machineNaviContainerWidget);
     templateListScrollArea->setStyleSheet("background-color: rgb(127, 127, 127); border: none;");
     templateListScrollArea->setWidgetResizable(true);
     templateListScrollArea->setFrameShape(QFrame::NoFrame);
@@ -36,16 +36,15 @@ NewMachineTemplateScreen::NewMachineTemplateScreen(QWidget* parent) : QWidget(pa
     // 添加templateListScrollArea的布局
     QVBoxLayout* scrollAreaLayout = new QVBoxLayout(templateListScrollArea);
     scrollAreaLayout->setContentsMargins(0, 0, 0, 0);
-    scrollAreaLayout->setSpacing(0);
     scrollAreaLayout->setAlignment(Qt::AlignTop);
 
-    MachineTemplate * machineTemplate = new MachineTemplate(ui->varWorkSpaceWidget);
+    MachineTemplate* machineTemplate = new MachineTemplate(ui->varWorkSpaceWidget);
     if(ui->varWorkSpaceWidget->layout())
     {
         delete ui->varWorkSpaceWidget->layout();
     }
     scrollAreaLayout->addWidget(machineTemplate);
-    scrollAreaLayout->addStretch(); // 添加伸缩项以填充剩余空间
+    scrollAreaLayout->addStretch();  // 添加伸缩项以填充剩余空间
     templateListScrollArea->setLayout(scrollAreaLayout);
 }
 
@@ -90,21 +89,31 @@ MachineTrainTemplate::~MachineTrainTemplate()
 
 MachineTemplate::MachineTemplate(QWidget* parent) : QWidget(parent)
 {
-    QVBoxLayout* verticalLayout = new QVBoxLayout(this);
-    verticalLayout->setContentsMargins(0, 0, 0, 0);  // 设置布局的边距为0
-    pushButtonFold = new QPushButton(this);
-    measurePointWidget = new QWidget(this);
-    measurePointWidgetLayout = new QVBoxLayout(measurePointWidget);
-    measurePointWidgetLayout->setContentsMargins(0, 0, 0, 0);  // 设置布局的边距为0
-    labelMachineName = new QLabel(this);
-    labelMachineName->setText("名称");
-    QHBoxLayout* layout = new QHBoxLayout(pushButtonFold);
-    layout->setContentsMargins(0, 0, 0, 0);
-    layout->addStretch(1);
-    layout->addWidget(labelMachineName);
-    connect(pushButtonFold, &QPushButton::clicked, this, &MachineTemplate::onPushButtonFoldClicked);
-    verticalLayout->addWidget(pushButtonFold);
-    verticalLayout->addWidget(measurePointWidget);
+    setFixedHeight(50);
+    QVBoxLayout* MachineTemplateLayout = new QVBoxLayout(this);
+    MachineTemplateLayout->setContentsMargins(0, 0, 0, 0);
+
+    // 设置按钮
+    machineTemplateButton = new QPushButton(QString("新机器"), this);
+    machineTemplateButton->setFixedHeight(50);
+    machineTemplateButton->setIcon(QIcon(":/newtemplate/newtemplate_assets/icon_newtemplate_machine_blue.svg"));
+    machineTemplateButton->setIconSize(QSize(25, 25));
+    QFont font = machineTemplateButton->font();
+    font.setFamily("Microsoft YaHei");
+    font.setPointSize(14);
+    machineTemplateButton->setFont(font);  // font设置微软雅黑14号
+    machineTemplateButton->setStyleSheet("QPushButton {text-align: left; padding-left: 50px; color: white; border:none;}");
+
+    measurePointScrollContainer = new QScrollArea(this);
+    measurePointScrollContainer->setStyleSheet("background-color: rgb(127, 127, 127); border: none;");
+    measurePointScrollContainer->setWidgetResizable(true);
+    measurePointScrollContainer->setFrameShape(QFrame::NoFrame);
+
+    measurePointLayout = new QVBoxLayout(measurePointScrollContainer);
+    measurePointLayout->setContentsMargins(0, 0, 0, 0);
+    connect(machineTemplateButton, &QPushButton::clicked, this, &MachineTemplate::onPushButtonFoldClicked);
+    MachineTemplateLayout->addWidget(machineTemplateButton);
+    MachineTemplateLayout->addWidget(measurePointScrollContainer);
 }
 
 MachineTemplate::~MachineTemplate()
@@ -116,54 +125,33 @@ MachineTemplate::~MachineTemplate()
 
 void MachineTemplate::expand()
 {
-    measurePointWidget->show();
-    m_bIsExpanded = true;
-    labelMachineName->setText("展开机组");
+    measurePointScrollContainer->show();
+    IsExpanded = true;
+    machineTemplateButton->setText("展开机组");
 
     // 如果还没有创建“已经展开”的标签，则创建并添加
     if (!labelExpanded)
     {
         labelExpanded = new QLabel("已经展开", this);
-        measurePointWidgetLayout->addWidget(labelExpanded);
+        labelExpanded->setFixedHeight(150);
+        measurePointLayout->addWidget(labelExpanded);
     }
 }
 
 void MachineTemplate::collapse()
 {
-    measurePointWidget->hide();
-    m_bIsExpanded = false;
-    labelMachineName->setText("折叠机组");
-
-    // 如果存在“已经展开”的标签，则移除
-    if (labelExpanded)
-    {
-        measurePointWidgetLayout->removeWidget(labelExpanded);
-        labelExpanded->deleteLater();
-        labelExpanded = nullptr;
-    }
+    measurePointScrollContainer->hide();
+    IsExpanded = false;
+    machineTemplateButton->setText("折叠机组");
 }
 
 void MachineTemplate::onPushButtonFoldClicked()
 {
-    if (m_bIsExpanded)
+    if(IsExpanded)
     {
         collapse();
-    }
-    else
+    } else
     {
         expand();
     }
-}
-
-void MachineTemplate::setWidget(const QString& title, QWidget* widget)
-{
-    if (m_widgetPlane)
-    {
-        measurePointWidgetLayout->removeWidget(m_widgetPlane);
-        m_widgetPlane->deleteLater();
-        m_widgetPlane = nullptr;
-    }
-    pushButtonFold->setText(title);
-    measurePointWidgetLayout->addWidget(widget);
-    m_widgetPlane = widget;
 }

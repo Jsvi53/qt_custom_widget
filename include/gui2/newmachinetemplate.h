@@ -16,24 +16,24 @@ class NewMachineTemplateScreen : public QWidget
 {
     Q_OBJECT
 public:
-    explicit NewMachineTemplateScreen(QWidget *parent = nullptr);
+    explicit NewMachineTemplateScreen(QWidget* parent = nullptr);
     ~NewMachineTemplateScreen();
 
 private:
-    Ui::NewMachineTemplateScreenUI *ui;
-    QScrollArea *templateListScrollArea;
+    Ui::NewMachineTemplateScreenUI* ui;
+    QScrollArea*                    templateListScrollArea;
 };
 
 class MachineTrainTemplate : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MachineTrainTemplate(QWidget *parent = nullptr);
+    explicit MachineTrainTemplate(QWidget* parent = nullptr);
     ~MachineTrainTemplate();
 
 protected:
-    QPushButton *templateButton;
-    QPushButton *templateAddButton;
+    QPushButton* templateButton;
+    QPushButton* templateAddButton;
 };
 
 class MachineTemplate : public QWidget
@@ -42,19 +42,18 @@ class MachineTemplate : public QWidget
 public:
     MachineTemplate(QWidget* parent = nullptr);
     ~MachineTemplate();
-    void setWidget(const QString& title, QWidget* widget);
     void expand();
     void collapse();
     void onPushButtonFoldClicked();
 
 private:
-    QPushButton* pushButtonFold;
-    QWidget* measurePointWidget;
-    QVBoxLayout* measurePointWidgetLayout;
-    QLabel* labelMachineName;
-    QLabel* labelExpanded; // 用于显示“已经展开”的标签
-    QWidget* m_widgetPlane;
-    bool m_bIsExpanded = false;
+    QPushButton* machineTemplateButton;
+    QScrollArea* measurePointScrollContainer;
+    QVBoxLayout* measurePointLayout;
+    QLabel*      labelMachineName;
+    QLabel*      labelExpanded;  // 用于显示“已经展开”的标签
+    QWidget*     m_widgetPlane;
+    bool         IsExpanded = false;
 };
 
 #endif  // __NEWMACHINETEMPLATE_H
