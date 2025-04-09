@@ -33,18 +33,15 @@ NewMachineTemplateScreen::NewMachineTemplateScreen(QWidget* parent) : QWidget(pa
     layout->addWidget(templateListScrollArea);
     ui->machineNaviContainerWidget->setLayout(layout);
 
-    // 添加templateListScrollArea的布局
     QVBoxLayout* scrollAreaLayout = new QVBoxLayout(templateListScrollArea);
     scrollAreaLayout->setContentsMargins(0, 0, 0, 0);
     scrollAreaLayout->setAlignment(Qt::AlignTop);
 
-    MachineTemplate* machineTemplate = new MachineTemplate(ui->varWorkSpaceWidget);
-    if(ui->varWorkSpaceWidget->layout())
+    for(int i = 0; i < 50; i ++)
     {
-        delete ui->varWorkSpaceWidget->layout();
+        MachineTemplate* machinetemplate = new MachineTemplate(templateListScrollArea);
+        scrollAreaLayout->addWidget(machinetemplate);
     }
-    scrollAreaLayout->addWidget(machineTemplate);
-    scrollAreaLayout->addStretch();  // 添加伸缩项以填充剩余空间
     templateListScrollArea->setLayout(scrollAreaLayout);
 }
 
@@ -56,6 +53,7 @@ NewMachineTemplateScreen::~NewMachineTemplateScreen()
 MachineTrainTemplate::MachineTrainTemplate(QWidget* parent) : QWidget(parent)
 {
     setFixedSize(257, 50);
+
     templateButton    = new QPushButton("新建机组模板", this);
     templateAddButton = new QPushButton("+", this);
     templateButton->setFixedSize(250, 50);
@@ -89,69 +87,80 @@ MachineTrainTemplate::~MachineTrainTemplate()
 
 MachineTemplate::MachineTemplate(QWidget* parent) : QWidget(parent)
 {
-    setFixedHeight(50);
-    QVBoxLayout* MachineTemplateLayout = new QVBoxLayout(this);
-    MachineTemplateLayout->setContentsMargins(0, 0, 0, 0);
+    machineTitleContainer = new QWidget(this);
+    spotListWidget = new QListWidget(this);
+    machineTtitleButton = new QPushButton("新建机器模板", this);
+    addSpotButton      = new QPushButton("+", this);
+    machineTitleContainer->setFixedHeight(50);
 
-    // 设置按钮
-    machineTemplateButton = new QPushButton(QString("新机器"), this);
-    machineTemplateButton->setFixedHeight(50);
-    machineTemplateButton->setIcon(QIcon(":/newtemplate/newtemplate_assets/icon_newtemplate_machine_blue.svg"));
-    machineTemplateButton->setIconSize(QSize(25, 25));
-    QFont font = machineTemplateButton->font();
+    QVBoxLayout* thisMainLayout = new QVBoxLayout(this);
+    thisMainLayout->setContentsMargins(0, 0, 0, 0);
+    thisMainLayout->setSpacing(0);
+    thisMainLayout->setAlignment(Qt::AlignTop);
+    thisMainLayout->addWidget(machineTitleContainer);
+    thisMainLayout->addWidget(spotListWidget);
+
+    machineTtitleButton->setFixedSize(250, 50);
+    addSpotButton->setFixedSize(25, 25);
+    machineTtitleButton->setIcon(QIcon(":/newtemplate/newtemplate_assets/icon_newtemplate_machine_blue.svg"));
+    machineTtitleButton->setIconSize(QSize(25, 25));
+    setLayout(thisMainLayout);
+
+    // font设置
+    QFont font = machineTtitleButton->font();
     font.setFamily("Microsoft YaHei");
     font.setPointSize(14);
-    machineTemplateButton->setFont(font);  // font设置微软雅黑14号
-    machineTemplateButton->setStyleSheet("QPushButton {text-align: left; padding-left: 50px; color: white; border:none;}");
+    machineTtitleButton->setFont(font);
+    font.setPointSize(18);
+    addSpotButton->setFont(font);
 
-    measurePointScrollContainer = new QScrollArea(this);
-    measurePointScrollContainer->setStyleSheet("background-color: rgb(127, 127, 127); border: none;");
-    measurePointScrollContainer->setWidgetResizable(true);
-    measurePointScrollContainer->setFrameShape(QFrame::NoFrame);
+    // 填充和对齐
+    machineTtitleButton->setStyleSheet("QPushButton { text-align: left; padding-left: 50px; border:none;}");
+    // 字体颜色白色，背景色rgb(41, 187, 220)，加粗,字体居中
+    addSpotButton->setStyleSheet("QPushButton { background-color: rgb(18, 150, 219); color: white; border-radius: 3px; font-weight: bold; text-align: center; border:none;}");
 
-    measurePointLayout = new QVBoxLayout(measurePointScrollContainer);
-    measurePointLayout->setContentsMargins(0, 0, 0, 0);
-    connect(machineTemplateButton, &QPushButton::clicked, this, &MachineTemplate::onPushButtonFoldClicked);
-    MachineTemplateLayout->addWidget(machineTemplateButton);
-    MachineTemplateLayout->addWidget(measurePointScrollContainer);
+    // 垂直布局
+    QHBoxLayout* containerLayout = new QHBoxLayout(machineTitleContainer);
+    containerLayout->setContentsMargins(0, 0, 20, 0);
+    containerLayout->setSpacing(0);
+    containerLayout->addWidget(machineTtitleButton);
+    containerLayout->addWidget(addSpotButton);
+
+    // 设置QListWidget的样式
+    spotListWidget->setStyleSheet("QListWidget { background-color: rgb(127, 127, 127); border: none;}");
+    for(int i = 1; i < 50; i++)
+    {
+        spotListWidget->addItem("机组模板" + QString::number(i));
+    }
+
+    machineTitleContainer->setLayout(containerLayout);
+    spotListWidget->hide();
+    connect(machineTtitleButton, &QPushButton::clicked, this, &MachineTemplate::on_machineTtitleButton_clicked);
+
+
 }
+
 
 MachineTemplate::~MachineTemplate()
 {
-    // 清理资源
-    delete labelExpanded;
-    delete m_widgetPlane;
+
 }
 
-void MachineTemplate::expand()
-{
-    measurePointScrollContainer->show();
-    IsExpanded = true;
-    machineTemplateButton->setText("展开机组");
 
-    // 如果还没有创建“已经展开”的标签，则创建并添加
-    if (!labelExpanded)
+void MachineTemplate::listwidgetShowToggle()
+{
+    if(isExpanded)
     {
-        labelExpanded = new QLabel("已经展开", this);
-        labelExpanded->setFixedHeight(150);
-        measurePointLayout->addWidget(labelExpanded);
+        spotListWidget->show();
     }
-}
-
-void MachineTemplate::collapse()
-{
-    measurePointScrollContainer->hide();
-    IsExpanded = false;
-    machineTemplateButton->setText("折叠机组");
-}
-
-void MachineTemplate::onPushButtonFoldClicked()
-{
-    if(IsExpanded)
+    else
     {
-        collapse();
-    } else
-    {
-        expand();
+        spotListWidget->hide();
     }
+    isExpanded = !isExpanded;
+}
+
+void MachineTemplate::on_machineTtitleButton_clicked()
+{
+    listwidgetShowToggle();
 }

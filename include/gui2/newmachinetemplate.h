@@ -1,6 +1,5 @@
 #ifndef __NEWMACHINETEMPLATE_H
 #define __NEWMACHINETEMPLATE_H
-#include <QFrame>
 #include <QLabel>
 #include <QListWidget>
 #include <QPushButton>
@@ -11,6 +10,8 @@
 namespace Ui {
 class NewMachineTemplateScreenUI;
 }
+
+class MachineTemplate;
 
 class NewMachineTemplateScreen : public QWidget
 {
@@ -39,21 +40,24 @@ protected:
 class MachineTemplate : public QWidget
 {
     Q_OBJECT
+
 public:
-    MachineTemplate(QWidget* parent = nullptr);
+    explicit MachineTemplate(QWidget* parent = nullptr);
     ~MachineTemplate();
-    void expand();
-    void collapse();
-    void onPushButtonFoldClicked();
+
+public slots:
+    void on_machineTtitleButton_clicked();
 
 private:
-    QPushButton* machineTemplateButton;
-    QScrollArea* measurePointScrollContainer;
-    QVBoxLayout* measurePointLayout;
-    QLabel*      labelMachineName;
-    QLabel*      labelExpanded;  // 用于显示“已经展开”的标签
-    QWidget*     m_widgetPlane;
-    bool         IsExpanded = false;
+    void listwidgetShowToggle();
+
+    QWidget*     machineTitleContainer;
+    QListWidget* spotListWidget;
+    QPushButton* machineTtitleButton;
+    QPushButton* addSpotButton;
+    QVBoxLayout* thisMainLayout;
+    bool        isExpanded{false};
+
 };
 
 #endif  // __NEWMACHINETEMPLATE_H
