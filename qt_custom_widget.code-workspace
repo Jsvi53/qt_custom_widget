@@ -106,7 +106,14 @@
             "random": "cpp",
             "set": "cpp",
             "sparse": "cpp",
-            "qprogressbar": "cpp"
+            "qprogressbar": "cpp",
+            "qqmlengine": "cpp",
+            "qrandomgenerator": "cpp",
+            "qrect": "cpp",
+            "qtconcurrent": "cpp",
+            "qscrollarea": "cpp",
+            "qlistwidget": "cpp",
+            "qobject": "cpp"
         },
         "editor.formatOnSave": false,
         "editor.defaultFormatter": "ms-vscode.cpptools",

@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>BaseWidget</class>
+ <widget class="QWidget" name="BaseWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1280</width>
+    <height>800</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1280</width>
+    <height>800</height>
+   </size>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <property name="BaseWidget" stdset="0">
+   <string>Form</string>
+  </property>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>-1</x>
+     <y>1</y>
+     <width>1281</width>
+     <height>799</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="vbaseLayout" stretch="5,72">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QFrame" name="base_navigationbar">
+      <property name="styleSheet">
+       <string notr="true">QFrame {
+                                background-color: rgb(228, 228, 228);
+                                border-top: 1px solid gray;
+                                }</string>
+      </property>
+      <widget class="QWidget" name="horizontalLayoutWidget_2">
+       <property name="geometry">
+        <rect>
+         <x>-1</x>
+         <y>1</y>
+         <width>1281</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="hnavigationLayout" stretch="0,121">
+        <item>
+         <widget class="QPushButton" name="naviBackBtn">
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+                                                border: none;
+                                                background-color: rgb(228, 228, 228);
+                                                color: black;
+                                                padding: 5px;
+                                                font: 18pt &quot;宋体&quot;;
+                                                font-weight: bold;
+                                                border-right:1px solid gray
+                                                }</string>
+          </property>
+          <property name="text">
+           <string>&lt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="widget" native="true">
+          <widget class="QWidget" name="horizontalLayoutWidget_3">
+           <property name="geometry">
+            <rect>
+             <x>-1</x>
+             <y>0</y>
+             <width>1211</width>
+             <height>55</height>
+            </rect>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QPushButton" name="naviBtn_l">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="sizeIncrement">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+                                                                font: 14pt &quot;微软雅黑&quot;;
+                                                                border: none;
+                                                                background-color: rgb(228, 228,
+                                                                228);
+                                                                }
+                                                            </string>
+              </property>
+              <property name="text">
+               <string>主页 &gt; </string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="naviDirectoryBtn">
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+font: 18px &quot;微软雅黑&quot;;
+border: none;
+color: rgb(52, 152, 219);
+}</string>
+              </property>
+              <property name="text">
+               <string>New machine template</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="hNavilSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="naviHelpBtn">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="baseSize">
+               <size>
+                <width>40</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+                                                                border: none;
+                                                                background-color: rgb(228, 228,
+                                                                228);
+                                                                color: black;
+                                                                padding: 5px;
+                                                                }</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/navigation/help/base_assets/help.png</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>40</width>
+                <height>40</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="naviSettingBtn">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+                                                                border: none;
+                                                                background-color: rgb(228, 228,
+                                                                228);
+                                                                color: black;
+                                                                padding: 5px;
+                                                                }</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/navigation/setting/base_assets/setting.png</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>40</width>
+                <height>40</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="naviHamburgerBtn">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+                                                                border: none;
+                                                                background-color: rgb(228, 228,
+                                                                228);
+                                                                color: black;
+                                                                padding: 5px;
+                                                                }</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/navigation/hamburger/base_assets/hamburger.png</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>40</width>
+                <height>40</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="hNavilMarginSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="base_workspace" native="true">
+      <property name="styleSheet">
+       <string notr="true">/* background-color: rgb(122, 132, 131); */
+                                background-color: rgb(105, 108, 105);</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../../assets/assets.qrc"/>
+ </resources>
+ <connections/>
+</ui>
