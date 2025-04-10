@@ -3,7 +3,7 @@
 #include <QQmlEngine>
 #include <QVector>
 
-#include "newmachinetemplate.h"
+#include "resultgraph.h"
 // #include "thememanager.h"
 // #include "tchrt.h"
 
@@ -20,10 +20,7 @@ int main(int argc, char *argv[])
             return &ThemeManager::instance();
         });
     */
-
-    qRegisterMetaType<QVector<double>>("QVector<double>");      // 注册QVector<double>类型到元对象系统
-
-    NewMachineTemplateScreen w;
+    ResultGraph w;
     w.show();
 
     return a.exec();

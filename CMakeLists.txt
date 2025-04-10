@@ -120,20 +120,15 @@ add_executable(custom_widget
     # ${GUISOURCES}
     # ${GUISOURCES2}
     src/main.cpp
-    # include/gui/resultgraph.h
-    # include/base/bigraph.h
+    include/gui/resultgraph.h
+    include/base/bigraph.h
     include/base2/thememanager.h
-    # include/base2/commomcustomwidget.h
-    # src/base/bigraph.cpp
-    # src/gui/resultgraph.cpp
+    src/base/bigraph.cpp
+    src/gui/resultgraph.cpp
     src/base2/thememanager.cpp
-    # src/base2/commomcustomwidget.cpp
-    # src/gui/resultgraphscreen.ui
-    # src/tchrt.cpp
-    # include/tchrt.h
-    include/gui2/newmachinetemplate.h
-    src/gui2/newmachinetemplate.cpp
-    src/gui2/newmachinetemplatescreenui.ui
+    src/gui/resultgraphscreen.ui
+    src/tchrt.cpp
+    include/tchrt.h
 )
 
 # 设置头文件路径
@@ -142,12 +137,11 @@ target_include_directories(custom_widget PRIVATE
     #${INCLUDE_DIR2}
     include/base
     include/base2
-    include/gui2
-    # include/gui
-    # include/utils2
-    # third_party/qcustomplot/
-    # third_party/fftw/
-    # include
+    include/gui
+    include/utils2
+    third_party/qcustomplot/
+    third_party/fftw/
+    include
 )
 
 # 链接库
