@@ -4,6 +4,7 @@
 #include <QVector>
 
 #include "newmachinetemplate.h"
+
 // #include "thememanager.h"
 // #include "tchrt.h"
 
@@ -23,6 +24,10 @@ int main(int argc, char *argv[])
 
     qRegisterMetaType<QVector<double>>("QVector<double>");      // 注册QVector<double>类型到元对象系统
 
+    // CommonPropertyItem w(nullptr, true);
+    // w.setTitle("名称");
+    // w.setProperty("机车");
+    // w.addListItems(QVector<QString>{"机车1", "机车2", "机车3"});
     NewMachineTemplateScreen w;
     w.show();
 

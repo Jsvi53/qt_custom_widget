@@ -113,7 +113,8 @@
             "qtconcurrent": "cpp",
             "qscrollarea": "cpp",
             "qlistwidget": "cpp",
-            "qobject": "cpp"
+            "qobject": "cpp",
+            "qdebug": "cpp"
         },
         "editor.formatOnSave": false,
         "editor.defaultFormatter": "ms-vscode.cpptools",

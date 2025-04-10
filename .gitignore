@@ -140,3 +140,4 @@ third_party/eigen
 third_party/qcustomplot
 
 !*libfftw3*
+*build.bat
