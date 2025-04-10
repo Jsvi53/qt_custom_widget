@@ -223,3 +223,5 @@ QList<double> Bigraph::getTickValues(QCPAxis *axis)
     }
     return ticks;
 }
+
+

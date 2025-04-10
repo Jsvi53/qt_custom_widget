@@ -94,11 +94,47 @@
         <file>balancegraph_assets/icon_balance_place_marker_50.png</file>
         <file>balancegraph_assets/icon_balance_descending_sorting_50.png</file>
     </qresource>
-        <qresource prefix="/balancetask_assets">
+    <qresource prefix="/balancetask_assets">
         <file>balance_task_assets/icon_balance_task1_red.svg</file>
     </qresource>
-    <qresource prefix="/">     <!-- 文件在资源系统中的路径路径前缀-->
-        <file>qmlwidget/qmlmain.qml</file>  <!-- 这是相对qrc文件的物理路径，在程序中引用时就为"qrc:前缀/相对物理路径"-->
+    <qresource prefix="/">
+        <file>qmlwidget/qmlmain.qml</file>
         <file>qmlwidget/test.qml</file>
+    </qresource>
+    <qresource prefix="/newtemplate">
+        <file>newtemplate_assets/icon_newtemplate_app_blue.png</file>
+        <file>newtemplate_assets/icon_newtemplate_app_gray (2).png</file>
+        <file>newtemplate_assets/icon_newtemplate_app_gray.png</file>
+        <file>newtemplate_assets/icon_newtemplate_itemlist_blue.png</file>
+        <file>newtemplate_assets/icon_newtemplate_itemlist_gray.png</file>
+        <file>newtemplate_assets/icon_newtemplate_itemlist2_blue.png</file>
+        <file>newtemplate_assets/icon_newtemplate_location_blue.png</file>
+        <file>newtemplate_assets/icon_newtemplate_location_gray.png</file>
+        <file>newtemplate_assets/icon_newtemplate_machine_blue.svg</file>
+        <file>newtemplate_assets/icon_newtemplate_machinetrain_blue.png</file>
+        <file>newtemplate_assets/icon_newtemplate_spot_orange.svg</file>
+        <file>newtemplate_assets/icon_newtemplate_plus_black.png</file>
+        <file>newtemplate_assets/icon_newtemplate_plus_blue.png</file>
+        <file>newtemplate_assets/icon_newtemplate_plus_gray.png</file>
+        <file>newtemplate_assets/icon_newtemplate_plus_white.png</file>
+        <file>newtemplate_assets/icon_newtemplate_copy_black.png</file>
+        <file>newtemplate_assets/icon_newtemplate_copy_blue.png</file>
+        <file>newtemplate_assets/icon_newtemplate_copy_gray.png</file>
+        <file>newtemplate_assets/icon_newtemplate_copy_white.png</file>
+    </qresource>
+    <qresource prefix="/arrow">
+        <file>arrow_assets/lift.png</file>
+        <file>arrow_assets/right.png</file>
+        <file>arrow_assets/up.png</file>
+        <file>arrow_assets/down.png</file>
+    </qresource>
+    <qresource prefix="/commonIcon">
+        <file>commonicon_assets/icon_common_assets_black.png</file>
+        <file>commonicon_assets/icon_common_assets_blue.png</file>
+        <file>commonicon_assets/icon_common_assets_gray.png</file>
+        <file>commonicon_assets/icon_common_radiobutton_off_gray.png</file>
+        <file>commonicon_assets/icon_common_radiobutton_off_black.png</file>
+        <file>commonicon_assets/icon_common_radiobutton_on_black.png</file>
+        <file>commonicon_assets/icon_common_radiobutton_on_gray.png</file>
     </qresource>
 </RCC>

@@ -7,6 +7,7 @@
 
 #include "bigraph.h"
 #include "fftw3.h"
+#include "qcustomplot.h"
 
 namespace Ui {
 class ResultGraphScreen;
@@ -57,4 +58,36 @@ public:
 
 private:
     void paintEvent(QPaintEvent *event) override;
+};
+
+class ResultGraph2 : public QWidget
+{
+    Q_OBJECT
+
+public:
+    explicit ResultGraph2(QWidget *parent = nullptr);
+    ~ResultGraph2();
+
+    void graphInit();
+    void addOverallValue(overallValuesPrograssBar *overallBar, int value, QGridLayout *gridLayout);
+    void loadCSVData(const QString &filePath, QVector<double> &baData, QVector<double> &deData, QVector<double> &feData);
+
+signals:
+    void fftCompleted(QVector<double> freq, QVector<double> amp);
+
+private slots:
+    void handleFftResults(QVector<double> freq, QVector<double> amp);
+
+private:
+    static void computeFFT(const QVector<double> &baData, QVector<double> &freq, QVector<double> &amp);
+
+    Ui::ResultGraphScreen    *ui;
+    QCustomPlot              *resultFreqGraph;
+    QCustomPlot              *resultTimeGraph;
+    overallValuesPrograssBar *prograssBar_V_OP;
+    overallValuesPrograssBar *prograssBar_V_RMS;
+    overallValuesPrograssBar *prograssBar_A_OP;
+    overallValuesPrograssBar *prograssBar_A_RMS;
+    QVector<double>           baData, deData, feData;
+    QFutureWatcher<void>      fftWatcher;
 };
