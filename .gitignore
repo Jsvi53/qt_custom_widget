@@ -141,3 +141,4 @@ third_party/qcustomplot
 
 !*libfftw3*
 *build.bat
+config2/machinetemplateconfig

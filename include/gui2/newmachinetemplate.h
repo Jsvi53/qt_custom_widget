@@ -52,21 +52,26 @@ class MachineTemplate : public QWidget
 public:
     explicit MachineTemplate(QWidget* parent = nullptr);
     ~MachineTemplate();
+    enum MeasureType { Speed, Vibration, Unknown };
+    void addListItem(const QString& itemName, MeasureType Type);
 
 public slots:
-    void on_machineTtitleButton_clicked();
+    void on_collapseExpandButton_clicked();
     void checkListEmpty();
 
 private:
     void         listwidgetShowToggle();
-    void         __updateAddSpotButtonIcon();
+    void         __updateAddSpotButtonIcon(bool isempty);
     QWidget*     machineTitleContainer;
     QListWidget* spotListWidget;
+    QPushButton* collapseExpandButton;
     QPushButton* machineTtitleButton;
     QPushButton* addSpotButton;
     QVBoxLayout* thisMainLayout;
     QTimer*      listCheckTimer;
     bool         isExpanded{false};
+    bool         isListEmpty{false};
+    QFont        font;
 };
 
 class CommonPropertyItem : public QWidget
