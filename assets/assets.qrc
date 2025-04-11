@@ -123,14 +123,18 @@
         <file>newtemplate_assets/icon_newtemplate_copy_white.png</file>
     </qresource>
     <qresource prefix="/arrow">
-        <file>arrow_assets/lift.png</file>
         <file>arrow_assets/right.png</file>
         <file>arrow_assets/up.png</file>
         <file>arrow_assets/down.png</file>
+        <file>arrow_assets/left.png</file>
     </qresource>
     <qresource prefix="/commonIcon">
         <file>commonicon_assets/icon_common_assets_black.png</file>
         <file>commonicon_assets/icon_common_assets_blue.png</file>
         <file>commonicon_assets/icon_common_assets_gray.png</file>
+        <file>commonicon_assets/icon_common_radiobutton_off_gray.png</file>
+        <file>commonicon_assets/icon_common_radiobutton_off_black.png</file>
+        <file>commonicon_assets/icon_common_radiobutton_on_black.png</file>
+        <file>commonicon_assets/icon_common_radiobutton_on_gray.png</file>
     </qresource>
 </RCC>

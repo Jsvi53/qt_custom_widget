@@ -1,8 +1,11 @@
 #include <QBoxLayout>
 #include <QDebug>
+#include <QDebug>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPalette>
+#include <QPalette>
+#include <QRadioButton>
 #include <QScrollArea>
 #include <QSpacerItem>
 #include <QVBoxLayout>
@@ -39,6 +42,8 @@ NewMachineTemplateScreen::NewMachineTemplateScreen(QWidget* parent) : QWidget(pa
     scrollAreaLayout->setAlignment(Qt::AlignTop);
 
     MachineTemplate* machinetemplate = new MachineTemplate(templateListScrollArea);
+    machinetemplate->addListItem("速度测量点", MachineTemplate::Speed);
+    machinetemplate->addListItem("振动测量点", MachineTemplate::Vibration);
     scrollAreaLayout->addWidget(machinetemplate);
     templateListScrollArea->setLayout(scrollAreaLayout);
 
@@ -104,7 +109,8 @@ MachineTemplate::MachineTemplate(QWidget* parent) : QWidget(parent)
     machineTitleContainer = new QWidget(this);
     addSpotButton         = new QPushButton(this);
     spotListWidget        = new QListWidget(this);
-    machineTtitleButton   = new QPushButton("新建机器模板", this);
+    machineTtitleButton   = new QPushButton("新建机器模板", machineTitleContainer);
+    collapseExpandButton  = new QPushButton(machineTitleContainer);
 
     QVBoxLayout* thisMainLayout = new QVBoxLayout(this);
     thisMainLayout->setContentsMargins(0, 0, 0, 0);
@@ -112,6 +118,13 @@ MachineTemplate::MachineTemplate(QWidget* parent) : QWidget(parent)
     thisMainLayout->setAlignment(Qt::AlignTop);
     thisMainLayout->addWidget(machineTitleContainer);
     thisMainLayout->addWidget(spotListWidget);
+
+    collapseExpandButton->setFixedSize(35, 50);
+    if(!isExpanded && !isListEmpty)
+    {
+        collapseExpandButton->setIcon(QIcon(":/arrow/arrow_assets/left.png"));
+    }
+    addSpotButton->setIconSize(QSize(20, 20));
 
     machineTtitleButton->setFixedSize(250, 50);
     machineTtitleButton->setIcon(QIcon(":/newtemplate/newtemplate_assets/icon_newtemplate_machine_blue.svg"));
@@ -128,7 +141,7 @@ MachineTemplate::MachineTemplate(QWidget* parent) : QWidget(parent)
     machineTtitleButton->setFont(font);
 
     // 填充和对齐
-    machineTtitleButton->setStyleSheet("QPushButton { text-align: left; padding-left: 25px; border:none;}");
+    machineTtitleButton->setStyleSheet("QPushButton { text-align: left; border:none;}");
     // 字体颜色白色，背景色rgb(41, 187, 220)，加粗,字体居中
     addSpotButton->setStyleSheet("QPushButton { background-color: rgb(18, 150, 219); color: white; border-radius: 3px; font-weight: bold; text-align: center; border:none;}");
 
@@ -136,6 +149,7 @@ MachineTemplate::MachineTemplate(QWidget* parent) : QWidget(parent)
     QHBoxLayout* containerLayout = new QHBoxLayout(machineTitleContainer);
     containerLayout->setContentsMargins(0, 0, 20, 0);
     containerLayout->setSpacing(0);
+    containerLayout->addWidget(collapseExpandButton);
     containerLayout->addWidget(machineTtitleButton);
     containerLayout->addWidget(addSpotButton);
 
@@ -146,13 +160,12 @@ MachineTemplate::MachineTemplate(QWidget* parent) : QWidget(parent)
     machineTitleContainer->setFixedHeight(50);
     font.setPointSize(14);
 
-    // 设置QListWidget的样式
-    spotListWidget->addItem("速度测量点1");
-    spotListWidget->item(0)->setSizeHint(QSize(250, 50));
-    spotListWidget->item(0)->setFont(font);
-    spotListWidget->item(0)->setIcon(QIcon(":/home/home_assets/icon_speed_template.svg"));
-    spotListWidget->item(0)->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-
+    // spotListWidget设置
+    spotListWidget->setStyleSheet("QListWidget{padding: 0; padding-left: 50px; margin: 0;}");
+    spotListWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    spotListWidget->setIconSize(QSize(25, 25));
+    machineTitleContainer->setFixedHeight(50);
+    font.setPointSize(14);
     machineTitleContainer->setLayout(containerLayout);
     spotListWidget->hide();
 
@@ -160,7 +173,7 @@ MachineTemplate::MachineTemplate(QWidget* parent) : QWidget(parent)
     listCheckTimer = new QTimer(this);
     connect(listCheckTimer, &QTimer::timeout, this, &MachineTemplate::checkListEmpty);
     listCheckTimer->start(500);  // 每1000ms检查一次
-    connect(machineTtitleButton, &QPushButton::clicked, this, &MachineTemplate::on_machineTtitleButton_clicked);
+    connect(collapseExpandButton, &QPushButton::clicked, this, &MachineTemplate::on_collapseExpandButton_clicked);
 }
 
 MachineTemplate::~MachineTemplate()
@@ -169,25 +182,32 @@ MachineTemplate::~MachineTemplate()
 
 void MachineTemplate::listwidgetShowToggle()
 {
-    if(isExpanded)
+    if(!isExpanded && !isListEmpty)
     {
+        collapseExpandButton->setIcon(QIcon(":/arrow/arrow_assets/down.png"));
         spotListWidget->show();
-    } else
-    {
-        spotListWidget->hide();
+        isExpanded = !isExpanded;
+        return;
     }
-    isExpanded = !isExpanded;
+
+    if(isExpanded && !isListEmpty)
+    {
+        collapseExpandButton->setIcon(QIcon(":/arrow/arrow_assets/left.png"));
+        spotListWidget->hide();
+        isExpanded = !isExpanded;
+        return;
+    }
 }
 
-void MachineTemplate::on_machineTtitleButton_clicked()
+void MachineTemplate::on_collapseExpandButton_clicked()
 {
     listwidgetShowToggle();
 }
 
 // 更新添加按钮图标
-void MachineTemplate::__updateAddSpotButtonIcon()
+void MachineTemplate::__updateAddSpotButtonIcon(bool isempty)
 {
-    if(spotListWidget->count() == 0)
+    if(isListEmpty)
     {
         addSpotButton->setIcon(QIcon(":/newtemplate/newtemplate_assets/icon_newtemplate_plus_white.png"));
         addSpotButton->setIconSize(QSize(20, 20));
@@ -200,7 +220,30 @@ void MachineTemplate::__updateAddSpotButtonIcon()
 
 void MachineTemplate::checkListEmpty()
 {
-    __updateAddSpotButtonIcon();
+    spotListWidget->count() == 0 ? isListEmpty = true : isListEmpty = false;
+    __updateAddSpotButtonIcon(isListEmpty);
+}
+
+void MachineTemplate::addListItem(const QString& itemName, MeasureType Type)
+{
+    QListWidgetItem* item = new QListWidgetItem(itemName);
+    switch(Type)
+    {
+        case Speed:
+            item->setIcon(QIcon(":/home/home_assets/icon_speed_template.svg"));
+            break;
+        case Vibration:
+            item->setIcon(QIcon(":/balancesetup/balancingsetup_assets/icon_balancesetup_triangle.svg"));
+            break;
+        default:
+            break;
+    }
+
+    item->setText(itemName);
+    font.setPointSize(14);
+    item->setFont(font);
+    item->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    spotListWidget->addItem(item);
 }
 
 CommonPropertyItem::CommonPropertyItem(QWidget* parent, bool listNeeded) : QWidget(parent), isListNeeded(listNeeded)
@@ -217,18 +260,35 @@ CommonPropertyItem::CommonPropertyItem(QWidget* parent, bool listNeeded) : QWidg
     titleContainer->setFixedHeight(80);
     iconButton->setFixedSize(80, 80);
     iconButton->setIconSize(QSize(20, 20));
-    if(!isListNeeded)
-        iconButton->setIcon(QIcon(":/commonIcon/commonicon_assets/icon_common_assets_gray.png"));
+
+    if(!isListNeeded || isListEmpty)
+    {
+        iconButton->setIcon(QIcon(":/commonIcon/commonicon_assets/icon_common_pen_gray.png"));
+    } else
+    {
+        iconButton->setIcon(QIcon(":/arrow/arrow_assets/left.png"));
+    }
+
     titleLabel->setFixedHeight(50);
     propertyLabel->setFixedHeight(30);
+    propertyListWidget->setStyleSheet(
+        "QListWidget{padding: 0; padding-left: 50px; margin: 0;}"
+        "QListWidget::item { height: 80px;}");
+    propertyListWidget->setFixedHeight(300);
+    propertyListWidget->setIconSize(QSize(20, 20));
+    propertyListWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     propertyListWidget->hide();
 
     // 设置字体
     font.setFamily("Microsoft YaHei");
-    font.setPointSize(14);
-    titleLabel->setFont(font);
-    font.setPointSize(10);
+    font.setPointSize(12);
+    font.setItalic(true);
+    palette.setColor(QPalette::WindowText, Qt::darkGray);
     propertyLabel->setFont(font);
+    propertyLabel->setPalette(palette);
+    font.setPointSize(14);
+    font.setItalic(false);
+    titleLabel->setFont(font);
 
     // 布局设置
     thisMainLayout = new QVBoxLayout(this);
@@ -236,6 +296,7 @@ CommonPropertyItem::CommonPropertyItem(QWidget* parent, bool listNeeded) : QWidg
     thisMainLayout->setSpacing(0);
     thisMainLayout->addWidget(titleContainer);
     thisMainLayout->addWidget(propertyListWidget);
+
     thisMainLayout->setAlignment(Qt::AlignTop);
     setLayout(thisMainLayout);
 
@@ -255,10 +316,11 @@ CommonPropertyItem::CommonPropertyItem(QWidget* parent, bool listNeeded) : QWidg
     titleSubLayout->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     titleSubContainer->setLayout(titleSubLayout);
 
-    connect(iconButton, &QPushButton::clicked, this, &CommonPropertyItem::on_iconButton_clicked);
     listCheckTimer = new QTimer(this);
     connect(listCheckTimer, &QTimer::timeout, this, &CommonPropertyItem::listCheck);
     listCheckTimer->start(500);
+    connect(iconButton, &QPushButton::clicked, this, &CommonPropertyItem::on_iconButton_clicked);
+    connect(propertyListWidget, &QListWidget::currentItemChanged, this, &CommonPropertyItem::updateItemIcon);
 }
 
 CommonPropertyItem::~CommonPropertyItem()
@@ -269,27 +331,33 @@ void CommonPropertyItem::listwidgetShowToggle()
 {
     if(isExpanded && isListNeeded)
     {
-        iconButton->setIcon(QIcon(":/arrow/arrow_assets/lift.png"));
-        propertyListWidget->show();
+        iconButton->setIcon(QIcon(":/arrow/arrow_assets/left.png"));
+        propertyListWidget->hide();
+        isExpanded = !isExpanded;
+        return;
     }
-    else
+
+    if(!isExpanded && isListNeeded)
     {
         iconButton->setIcon(QIcon(":/arrow/arrow_assets/down.png"));
-        propertyListWidget->hide();
+        propertyListWidget->show();
+        isExpanded = !isExpanded;
+        return;
     }
-    isExpanded = !isExpanded;
 }
 
 void CommonPropertyItem::on_iconButton_clicked()
 {
-    qDebug() << "isListEmpty:" << isListEmpty << "isListNeeded:" << isListNeeded;
     if(isListEmpty && isListNeeded)
     {
         iconButton->setIcon(QIcon());  // 取消iconButton的图标
         return;
-    } else
+    }
+
+    if(!isListEmpty && isListNeeded)
     {
         listwidgetShowToggle();
+        return;
     }
 }
 
@@ -297,12 +365,15 @@ void CommonPropertyItem::listCheck()
 {
     if(propertyListWidget->count() == 0 && isListNeeded)
     {
-        isListEmpty = false;
-    } else
-    {
         isListEmpty = true;
+        return;
     }
-    // qDebug() << "isListEmpty:" << isListEmpty;
+
+    if(propertyListWidget->count() != 0 && isListNeeded)
+    {
+        isListEmpty = false;
+        return;
+    }
 }
 
 void CommonPropertyItem::setTitle(const QString& title)
@@ -321,20 +392,39 @@ void CommonPropertyItem::addListItems(const QVector<QString>& itemNames)
     for(const auto& itemName : itemNames)
     {
         QListWidgetItem* item = new QListWidgetItem(itemName);
+        item->setIcon(QIcon(":/commonIcon/commonicon_assets/icon_common_radiobutton_off_gray.png"));
+        item->setFont(font);
         propertyListWidget->addItem(item);
     }
     isListEmpty = false;
 }
 
+void CommonPropertyItem::updateItemIcon(QListWidgetItem* current, QListWidgetItem* previous)
+{
+    if(current)
+    {
+        current->setIcon(QIcon(":/commonIcon/commonicon_assets/icon_common_radiobutton_on_gray.png"));
+        propertyLabel->setText(current->text());
+    }
 
-MachineTrainPropertyWorkspace::MachineTrainPropertyWorkspace(QWidget* parent) : QWidget(parent)
+    if(previous)
+    {
+        previous->setIcon(QIcon(":/commonIcon/commonicon_assets/icon_common_radiobutton_off_gray.png"));
+    }
+}
+
+MachineTrainPropertyWorkspace::MachineTrainPropertyWorkspace(QWidget* parent) : QScrollArea(parent)
 {
     // 设置大小策略
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setStyleSheet("border-radius: 0px; border: none;");
+    setWidgetResizable(true);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     // 创建控件
     titleLabel = new QLabel("    资产信息", this);
     titleLabel->setFont(QFont("Microsoft YaHei", 12));
+    contentContainer = new QWidget();
+    setWidget(contentContainer);
+
     name           = new CommonPropertyItem(this);
     type           = new CommonPropertyItem(this, true);
     direction      = new CommonPropertyItem(this);
@@ -347,7 +437,7 @@ MachineTrainPropertyWorkspace::MachineTrainPropertyWorkspace(QWidget* parent) : 
     titleLabel->setFixedHeight(50);
     name->setTitle("名称");
     type->setTitle("类型");
-    QVector<QString> typeList = {"机车", "机车1", "机车2", ""};
+    QVector<QString> typeList = {"机车", "机车1", "机车2"};
     type->addListItems(typeList);
 
     direction->setTitle("方向");
@@ -356,7 +446,7 @@ MachineTrainPropertyWorkspace::MachineTrainPropertyWorkspace(QWidget* parent) : 
     referenceshaft->setTitle("参考轴");
     base->setTitle("基础");
 
-    QVBoxLayout* mainLayout = new QVBoxLayout(this);
+    QVBoxLayout* mainLayout = new QVBoxLayout(contentContainer);
     mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setSpacing(0);
     mainLayout->setAlignment(Qt::AlignTop);
@@ -368,18 +458,9 @@ MachineTrainPropertyWorkspace::MachineTrainPropertyWorkspace(QWidget* parent) : 
     mainLayout->addWidget(speed);
     mainLayout->addWidget(referenceshaft);
     mainLayout->addWidget(base);
-    mainLayout->addStretch(1);  // 添加伸缩项，使布局向上对齐
-    setLayout(mainLayout);
+    contentContainer->setLayout(mainLayout);
 }
 
 MachineTrainPropertyWorkspace::~MachineTrainPropertyWorkspace()
 {
-    delete titleLabel;
-    delete name;
-    delete type;
-    delete direction;
-    delete power;
-    delete speed;
-    delete referenceshaft;
-    delete base;
 }

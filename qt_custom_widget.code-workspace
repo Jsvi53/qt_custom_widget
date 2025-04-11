@@ -114,7 +114,24 @@
             "qscrollarea": "cpp",
             "qlistwidget": "cpp",
             "qobject": "cpp",
+<<<<<<< HEAD
             "qdebug": "cpp"
+=======
+            "qdebug": "cpp",
+            "queue": "cpp",
+            "xhash": "cpp",
+            "locale": "cpp",
+            "ranges": "cpp",
+            "span": "cpp",
+            "stop_token": "cpp",
+            "xfacet": "cpp",
+            "xiosbase": "cpp",
+            "xlocbuf": "cpp",
+            "xlocinfo": "cpp",
+            "xlocmes": "cpp",
+            "xlocmon": "cpp",
+            "xlocnum": "cpp"
+>>>>>>> eaaef4d0f4684eb91854b73003e15cd192c22756
         },
         "editor.formatOnSave": false,
         "editor.defaultFormatter": "ms-vscode.cpptools",

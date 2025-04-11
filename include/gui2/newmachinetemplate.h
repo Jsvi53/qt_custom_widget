@@ -1,12 +1,17 @@
 #ifndef __NEWMACHINETEMPLATE_H
 #define __NEWMACHINETEMPLATE_H
+#include <QButtonGroup>
 #include <QLabel>
 #include <QListWidget>
+#include <QPalette>
 #include <QPushButton>
 #include <QScrollArea>
 #include <QStackedWidget>
 #include <QTimer>
+#include <QStackedWidget>
+#include <QTimer>
 #include <QVBoxLayout>
+#include <QVector>
 #include <QWidget>
 #include <QVector>
 
@@ -15,6 +20,8 @@ class NewMachineTemplateScreenUI;
 }
 
 class MachineTemplate;
+class CommonPropertyItem;
+class MachineTrainPropertyWorkspace;
 class CommonPropertyItem;
 class MachineTrainPropertyWorkspace;
 
@@ -50,21 +57,26 @@ class MachineTemplate : public QWidget
 public:
     explicit MachineTemplate(QWidget* parent = nullptr);
     ~MachineTemplate();
+    enum MeasureType { Speed, Vibration, Unknown };
+    void addListItem(const QString& itemName, MeasureType Type);
 
 public slots:
-    void on_machineTtitleButton_clicked();
+    void on_collapseExpandButton_clicked();
     void checkListEmpty();
 
 private:
     void         listwidgetShowToggle();
-    void         __updateAddSpotButtonIcon();
+    void         __updateAddSpotButtonIcon(bool isempty);
     QWidget*     machineTitleContainer;
     QListWidget* spotListWidget;
+    QPushButton* collapseExpandButton;
     QPushButton* machineTtitleButton;
     QPushButton* addSpotButton;
     QVBoxLayout* thisMainLayout;
     QTimer*      listCheckTimer;
     bool         isExpanded{false};
+    bool         isListEmpty{false};
+    QFont        font;
 };
 
 class CommonPropertyItem : public QWidget
@@ -85,6 +97,7 @@ public:
 public slots:
     void on_iconButton_clicked();
     void listCheck();
+    void updateItemIcon(QListWidgetItem* current, QListWidgetItem* previous);
 
 private:
     void         listwidgetShowToggle();
@@ -96,14 +109,14 @@ private:
     QListWidget* propertyListWidget;
     QVBoxLayout* thisMainLayout;
     QTimer*      listCheckTimer;
-    bool         isListEmpty{true};
+    bool         isListEmpty{false};
     bool         isExpanded{false};
     bool         isListNeeded{false};
     QFont        font;
-
+    QPalette     palette;
 };
 
-class MachineTrainPropertyWorkspace : public QWidget
+class MachineTrainPropertyWorkspace : public QScrollArea
 {
     Q_OBJECT
 public:
@@ -112,6 +125,7 @@ public:
 
 private:
     QLabel*             titleLabel;
+    QWidget*            contentContainer;
     CommonPropertyItem* name;
     CommonPropertyItem* type;
     CommonPropertyItem* direction;
