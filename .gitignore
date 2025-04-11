@@ -143,4 +143,5 @@ third_party/qcustomplot
 
 *build
 config2/machinetemplateconfig
+result/*
 

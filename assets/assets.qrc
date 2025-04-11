@@ -121,6 +121,12 @@
         <file>newtemplate_assets/icon_newtemplate_copy_blue.png</file>
         <file>newtemplate_assets/icon_newtemplate_copy_gray.png</file>
         <file>newtemplate_assets/icon_newtemplate_copy_white.png</file>
+        <file>newtemplate_assets/icon_newtemplate_model_black.png</file>
+        <file>newtemplate_assets/icon_newtemplate_model_blue.png</file>
+        <file>newtemplate_assets/icon_newtemplate_model_gray.png</file>
+        <file>newtemplate_assets/icon_newtemplate_group_black.png</file>
+        <file>newtemplate_assets/icon_newtemplate_group_blue.png</file>
+        <file>newtemplate_assets/icon_newtemplate_group_gray.png</file>
     </qresource>
     <qresource prefix="/arrow">
         <file>arrow_assets/right.png</file>

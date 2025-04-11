@@ -1,10 +1,7 @@
 #include <QBoxLayout>
 #include <QDebug>
-#include <QDebug>
 #include <QHBoxLayout>
 #include <QLabel>
-#include <QPalette>
-#include <QPalette>
 #include <QRadioButton>
 #include <QScrollArea>
 #include <QSpacerItem>
@@ -19,6 +16,12 @@ NewMachineTemplateScreen::NewMachineTemplateScreen(QWidget* parent) : QWidget(pa
     ui->setupUi(this);
     auto& themeMgr = ThemeManager::instance();
     themeMgr.registerWidget(ui->WorkSpace, "workarea");
+    screenTimer  = new QTimer(this);
+    threeButtons = new ThreeButtons(ui->menuWidget, machineTrainIconPaths, 2);
+    threeButtons->setGeometry(555, 0, 50, 50);
+    twoButtons = new ThreeButtons(ui->menuWidget, machineTrainIconPaths, 2);
+    twoButtons->setGeometry(555, 0, 50, 50);
+    threeButtons->hide();
 
     MachineTrainTemplate* machinetraintemplate = new MachineTrainTemplate(ui->machineNaviContainerWidget);
     templateListScrollArea                     = new QScrollArea(ui->machineNaviContainerWidget);
@@ -58,11 +61,67 @@ NewMachineTemplateScreen::NewMachineTemplateScreen(QWidget* parent) : QWidget(pa
     MachineTrainPropertyWorkspace* machineTrainPropertyWorkspace = new MachineTrainPropertyWorkspace(workspaceWidget);
     workspaceWidget->addWidget(machineTrainPropertyWorkspace);
     workspaceWidget->setCurrentIndex(0);
+
+    MachinePropertyWidget* machinePropertyWidget = new MachinePropertyWidget(workspaceWidget);
+    workspaceWidget->addWidget(machinePropertyWidget);
+
+    SpeedMeasureSpotPropertyWidget* speedMeasureSpotPropertyWidget = new SpeedMeasureSpotPropertyWidget(workspaceWidget);
+    workspaceWidget->addWidget(speedMeasureSpotPropertyWidget);
+
+    VibrationMeasureSpotPropertyWidget* vibrationMeasureSpotPropertyWidget = new VibrationMeasureSpotPropertyWidget(workspaceWidget);
+    workspaceWidget->addWidget(vibrationMeasureSpotPropertyWidget);
+
+    groupWidget = new GroupWidget(workspaceWidget);
+    workspaceWidget->addWidget(groupWidget);
+
+
+    // 切换工作区域
+    connect(twoButtons->buttons[1], &QPushButton::clicked, this, [=]() { workspaceWidget->setCurrentIndex(4); threeButtons->show(); twoButtons->hide(); });
+    connect(machinetraintemplate->templateButton, &QPushButton::clicked, this, [=]() { workspaceWidget->setCurrentIndex(0); twoButtons->show(); threeButtons->hide(); });
+    connect(machinetemplate->machineTtitleButton, &QPushButton::clicked, this, [=]() { workspaceWidget->setCurrentIndex(1); });
+
+    // 切换测量点工作区域
+    connect(machinetemplate->spotListWidget, &QListWidget::currentRowChanged, this, &NewMachineTemplateScreen::onCurrentRowChanged);
+    // 同步标题
+    connect(screenTimer, &QTimer::timeout, this, [=]() {
+        if(machineTrainPropertyWorkspace->name->getTitleLabel()->text().isEmpty())
+        {
+            machineTrainPropertyWorkspace->name->getTitleLabel()->setText("新建机组模板");
+            machinetraintemplate->setMachineTrainTemplateTitle("新建机组模板");
+
+        } else
+        {
+            QString title = machineTrainPropertyWorkspace->name->getTitleLabel()->text();
+            machinetraintemplate->setMachineTrainTemplateTitle(title);
+        }
+
+        if(machinePropertyWidget->name->getTitleLabel()->text().isEmpty())
+        {
+            machinePropertyWidget->name->getTitleLabel()->setText("新建机器模板");
+            machinetemplate->setMachineTemplateTitle("新建机器模板");
+        } else
+        {
+            QString title = machinePropertyWidget->name->getTitleLabel()->text();
+            machinetemplate->setMachineTemplateTitle(title);
+        }
+    });
+    screenTimer->start(500);
 }
 
 NewMachineTemplateScreen::~NewMachineTemplateScreen()
 {
     delete ui;
+}
+
+void NewMachineTemplateScreen::onCurrentRowChanged(int currentRow)
+{
+    if(currentRow == 0)
+    {
+        workspaceWidget->setCurrentIndex(2);
+    } else if(currentRow == 1)
+    {
+        workspaceWidget->setCurrentIndex(3);
+    }
 }
 
 MachineTrainTemplate::MachineTrainTemplate(QWidget* parent) : QWidget(parent)
@@ -100,6 +159,11 @@ MachineTrainTemplate::MachineTrainTemplate(QWidget* parent) : QWidget(parent)
 
 MachineTrainTemplate::~MachineTrainTemplate()
 {
+}
+
+void MachineTrainTemplate::setMachineTrainTemplateTitle(QString title)
+{
+    templateButton->setText(title);
 }
 
 MachineTemplate::MachineTemplate(QWidget* parent) : QWidget(parent)
@@ -246,6 +310,11 @@ void MachineTemplate::addListItem(const QString& itemName, MeasureType Type)
     spotListWidget->addItem(item);
 }
 
+void MachineTemplate::setMachineTemplateTitle(QString title)
+{
+    machineTtitleButton->setText(title);
+}
+
 CommonPropertyItem::CommonPropertyItem(QWidget* parent, bool listNeeded) : QWidget(parent), isListNeeded(listNeeded)
 {
     // 创建控件
@@ -263,7 +332,7 @@ CommonPropertyItem::CommonPropertyItem(QWidget* parent, bool listNeeded) : QWidg
 
     if(!isListNeeded || isListEmpty)
     {
-        iconButton->setIcon(QIcon(":/commonIcon/commonicon_assets/icon_common_pen_gray.png"));
+        iconButton->setIcon(QIcon(":/commonIcon/commonicon_assets/icon_common_assets_gray.png"));
     } else
     {
         iconButton->setIcon(QIcon(":/arrow/arrow_assets/left.png"));
@@ -413,6 +482,11 @@ void CommonPropertyItem::updateItemIcon(QListWidgetItem* current, QListWidgetIte
     }
 }
 
+QLabel* CommonPropertyItem::getTitleLabel() const
+{
+    return propertyLabel;
+}
+
 MachineTrainPropertyWorkspace::MachineTrainPropertyWorkspace(QWidget* parent) : QScrollArea(parent)
 {
     // 设置大小策略
@@ -427,9 +501,9 @@ MachineTrainPropertyWorkspace::MachineTrainPropertyWorkspace(QWidget* parent) : 
 
     name           = new CommonPropertyItem(this);
     type           = new CommonPropertyItem(this, true);
-    direction      = new CommonPropertyItem(this);
-    power          = new CommonPropertyItem(this, true);
-    speed          = new CommonPropertyItem(this, true);
+    direction      = new CommonPropertyItem(this, true);
+    power          = new CommonPropertyItem(this);
+    speed          = new CommonPropertyItem(this);
     referenceshaft = new CommonPropertyItem(this, true);
     base           = new CommonPropertyItem(this, true);
 
@@ -437,14 +511,22 @@ MachineTrainPropertyWorkspace::MachineTrainPropertyWorkspace(QWidget* parent) : 
     titleLabel->setFixedHeight(50);
     name->setTitle("名称");
     type->setTitle("类型");
-    QVector<QString> typeList = {"机车", "机车1", "机车2"};
+    QVector<QString> typeList = {"设备机组", "生产线", "汽轮机"};
     type->addListItems(typeList);
 
     direction->setTitle("方向");
+    QVector<QString> directionList = {"水平", "垂直", "轴向"};
+    direction->addListItems(directionList);
+
     power->setTitle("功率");
     speed->setTitle("速度");
+
     referenceshaft->setTitle("参考轴");
+    referenceshaft->addListItems(QVector<QString>({"新加机器测试"}));
+
     base->setTitle("基础");
+    QVector<QString> baseList = {"柔性", "刚性"};
+    base->addListItems(baseList);
 
     QVBoxLayout* mainLayout = new QVBoxLayout(contentContainer);
     mainLayout->setContentsMargins(0, 0, 0, 0);
@@ -463,4 +545,273 @@ MachineTrainPropertyWorkspace::MachineTrainPropertyWorkspace(QWidget* parent) : 
 
 MachineTrainPropertyWorkspace::~MachineTrainPropertyWorkspace()
 {
+}
+
+GroupWidget::GroupWidget(QWidget* parent) : QScrollArea(parent)
+{
+    // 设置大小策略
+    setStyleSheet("border-radius: 0px; border: none;");
+    setWidgetResizable(true);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    addGroupButton = new CommonPropertyItem(this, false);
+    addGroupButton->iconButton->setStyleSheet(
+        "QPushButton {background-color:rgb(18, 150, 219);"
+        "border:none; "
+        "icon: url(::/newtemplate/newtemplate_assets/icon_newtemplate_plus_white.png);}");
+
+    thisMainLayout = new QVBoxLayout(this);
+    thisMainLayout->setContentsMargins(0, 0, 0, 0);
+    thisMainLayout->setSpacing(0);
+    thisMainLayout->setAlignment(Qt::AlignTop);
+
+    thisMainLayout->addWidget(addGroupButton);
+    setLayout(thisMainLayout);
+
+    connect(addGroupButton->iconButton, &QPushButton::clicked, this, [=]() {
+        CommonPropertyItem* groupItem = addGroup();
+        groupItemMap.insert(groupItem->getTitleLabel()->text(), *groupItem);
+    });
+}
+
+CommonPropertyItem* GroupWidget::addGroup()
+{
+    int n = this->children().count();
+    CommonPropertyItem* groupItem = new CommonPropertyItem(this);
+    groupItem->setTitle(QString("机组%1").arg(n - 1));
+    groupItem->iconButton->setIcon(QIcon(":/newtemplate/newtemplate_assets/icon_newtemplate_spot_orange.svg"));
+    thisMainLayout->addWidget(groupItem);
+    setLayout(thisMainLayout);
+    return groupItem;
+}
+
+GroupWidget::~GroupWidget()
+{
+}
+
+MachinePropertyWidget::MachinePropertyWidget(QWidget* parent) : QScrollArea(parent)
+{
+    // 设置大小策略
+    setStyleSheet("border-radius: 0px; border: none;");
+    setWidgetResizable(true);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    // 创建控件
+    titleLabel = new QLabel("    机器信息", this);
+    titleLabel->setFont(QFont("Microsoft YaHei", 12));
+    contentContainer = new QWidget();
+    setWidget(contentContainer);
+
+    name  = new CommonPropertyItem(this);
+    type  = new CommonPropertyItem(this, true);
+    power = new CommonPropertyItem(this);
+    speed = new CommonPropertyItem(this);
+
+    // 设置控件属性
+    titleLabel->setFixedHeight(50);
+    name->setTitle("名称");
+    type->setTitle("类型");
+    QVector<QString> typeList = {"设备机组", "生产线", "汽轮机"};
+    type->addListItems(typeList);
+
+    power->setTitle("功率");
+    speed->setTitle("速度");
+
+    QVBoxLayout* mainLayout = new QVBoxLayout(contentContainer);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->setSpacing(0);
+    mainLayout->setAlignment(Qt::AlignTop);
+    mainLayout->addWidget(titleLabel);
+    mainLayout->addWidget(name);
+    mainLayout->addWidget(type);
+    mainLayout->addWidget(power);
+    mainLayout->addWidget(speed);
+
+    contentContainer->setLayout(mainLayout);
+}
+
+MachinePropertyWidget::~MachinePropertyWidget()
+{
+}
+
+CommonMeasureSpotWidget::CommonMeasureSpotWidget(QWidget* parent) : QScrollArea(parent)
+{
+}
+CommonMeasureSpotWidget::~CommonMeasureSpotWidget()
+{
+}
+
+SpeedMeasureSpotPropertyWidget::SpeedMeasureSpotPropertyWidget(QWidget* parent) : CommonMeasureSpotWidget(parent)
+{
+    // 设置大小策略
+    setStyleSheet("border-radius: 0px; border: none;");
+    setWidgetResizable(true);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    // 创建控件
+    titleLabel = new QLabel("    点位信息", this);
+    titleLabel->setFont(QFont("Microsoft YaHei", 12));
+    contentContainer = new QWidget();
+    setWidget(contentContainer);
+
+    name        = new CommonPropertyItem(this);
+    type        = new CommonPropertyItem(this, true);
+    direction   = new CommonPropertyItem(this, true);
+    speed       = new CommonPropertyItem(this);
+    measureMode = new CommonPropertyItem(this, true);
+
+    // 设置控件属性
+    titleLabel->setFixedHeight(50);
+    name->setTitle("名称");
+    type->setTitle("类型");
+    QVector<QString> typeList = {"振动", "速度", "温度", "手动输入", "位移"};
+    type->addListItems(typeList);
+
+    direction->setTitle("方向");
+    QVector<QString> directionList = {"NDE-H", "NDE-V", "NDE-A", "DE-H", "DE-V", "DE-A", "未定义"};
+    direction->addListItems(directionList);
+
+    speed->setTitle("速度");
+
+    measureMode->setTitle("测量模式");
+    QVector<QString> measureModeList = {"绝对", "相对"};
+    measureMode->addListItems(measureModeList);
+
+    QVBoxLayout* mainLayout = new QVBoxLayout(contentContainer);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->setSpacing(0);
+    mainLayout->setAlignment(Qt::AlignTop);
+    mainLayout->addWidget(titleLabel);
+    mainLayout->addWidget(name);
+    mainLayout->addWidget(type);
+    mainLayout->addWidget(direction);
+    mainLayout->addWidget(measureMode);
+    mainLayout->addWidget(speed);
+    contentContainer->setLayout(mainLayout);
+}
+
+SpeedMeasureSpotPropertyWidget::~SpeedMeasureSpotPropertyWidget()
+{
+}
+
+VibrationMeasureSpotPropertyWidget ::VibrationMeasureSpotPropertyWidget(QWidget* parent) : CommonMeasureSpotWidget(parent)
+{
+    // 设置大小策略
+    setStyleSheet("border-radius: 0px; border: none;");
+    setWidgetResizable(true);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    // 创建控件
+    titleLabel = new QLabel("    点位信息", this);
+    titleLabel->setFont(QFont("Microsoft YaHei", 12));
+    contentContainer = new QWidget();
+    setWidget(contentContainer);
+
+    name      = new CommonPropertyItem(this);
+    type      = new CommonPropertyItem(this, true);
+    direction = new CommonPropertyItem(this, true);
+    speed     = new CommonPropertyItem(this);
+
+    // 设置控件属性
+    titleLabel->setFixedHeight(50);
+    name->setTitle("名称");
+    type->setTitle("类型");
+    QVector<QString> typeList = {"振动", "速度", "温度", "手动输入", "位移"};
+    type->addListItems(typeList);
+
+    direction->setTitle("方向");
+    QVector<QString> directionList = {"NDE-H", "NDE-V", "NDE-A", "DE-H", "DE-V", "DE-A", "未定义"};
+    direction->addListItems(directionList);
+
+    speed->setTitle("速度");
+    QVBoxLayout* mainLayout = new QVBoxLayout(contentContainer);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->setSpacing(0);
+    mainLayout->setAlignment(Qt::AlignTop);
+    mainLayout->addWidget(titleLabel);
+    mainLayout->addWidget(name);
+    mainLayout->addWidget(type);
+    mainLayout->addWidget(direction);
+    mainLayout->addWidget(speed);
+    contentContainer->setLayout(mainLayout);
+}
+
+VibrationMeasureSpotPropertyWidget::~VibrationMeasureSpotPropertyWidget()
+{
+}
+
+ThreeButtons::ThreeButtons(QWidget* parent, const QMap<QString, QString>& iconPaths, int buttonCount) : QGroupBox(parent), iconPaths(iconPaths)
+{
+    setStyleSheet("QPushButton {background-color:transparent; border:none;}");
+    setFixedSize(150, 50);
+
+    setupButtons(buttonCount);
+
+    // 设置布局
+    QHBoxLayout* layout = new QHBoxLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);                 // 设置布局的边距为0
+    layout->setSpacing(0);                                  // 设置布局的间距为0
+    layout->setAlignment(Qt::AlignTop | Qt::AlignHCenter);  // 设置布局的对齐方式
+
+    for(QPushButton* button : buttons)
+    {
+        layout->addWidget(button);
+    }
+
+    setLayout(layout);
+
+    // 连接按钮点击信号到槽函数, 选中不同按钮时，改变其他按钮的图标
+    connect(buttonGroup, QOverload<int>::of(&QButtonGroup::buttonClicked), this, [this](int id) { updateIcons(); });
+}
+
+ThreeButtons::~ThreeButtons()
+{
+}
+
+void ThreeButtons::changeButtonIcon(const QMap<QString, QString>& iconPaths)
+{
+    this->iconPaths = iconPaths;
+    updateIcons();
+}
+
+void ThreeButtons::setupButtons(int buttonCount)
+{
+    buttonGroup = new QButtonGroup(this);
+
+    for(int i = 1; i <= buttonCount; ++i)
+    {
+        QString buttonName  = "button" + QString::number(i);
+        QString iconKey     = buttonName + "_blue";
+        QString grayIconKey = buttonName + "_gray";
+
+        QPushButton* button = new QPushButton(this);
+        button->setIcon(QIcon(iconPaths[grayIconKey]));  // 默认设置为灰色图标
+        button->setIconSize(QSize(30, 30));
+        button->setFixedSize(50, 50);
+        button->setCheckable(true);
+        buttonGroup->addButton(button, i - 1);
+
+        buttons.append(button);
+    }
+
+    if(!buttons.isEmpty())
+    {
+        buttons.first()->setChecked(true);                           // 默认选中第一个按钮
+        buttons.first()->setIcon(QIcon(iconPaths["button1_blue"]));  // 将第一个按钮设置为蓝色图标
+    }
+}
+
+void ThreeButtons::updateIcons()
+{
+    int selectedId = buttonGroup->checkedId();
+    for(int i = 0; i < buttons.size(); ++i)
+    {
+        QString buttonName  = "button" + QString::number(i + 1);
+        QString iconKey     = buttonName + "_blue";
+        QString grayIconKey = buttonName + "_gray";
+
+        if(i == selectedId)
+        {
+            buttons[i]->setIcon(QIcon(iconPaths[iconKey]));  // 选中的按钮设置为蓝色图标
+        } else
+        {
+            buttons[i]->setIcon(QIcon(iconPaths[grayIconKey]));  // 其他按钮设置为灰色图标
+        }
+    }
 }
