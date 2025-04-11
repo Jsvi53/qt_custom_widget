@@ -569,7 +569,7 @@ GroupWidget::GroupWidget(QWidget* parent) : QScrollArea(parent)
 
     connect(addGroupButton->iconButton, &QPushButton::clicked, this, [=]() {
         CommonPropertyItem* groupItem = addGroup();
-        groupItemMap.insert(groupItem->getTitleLabel()->text(), *groupItem);
+        groupItemMap.insert(groupItem->getTitleLabel()->text(), groupItem);
     });
 }
 

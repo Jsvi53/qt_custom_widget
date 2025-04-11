@@ -23,6 +23,7 @@ class MachineTrainPropertyWorkspace;
 class CommonPropertyItem;
 class MachineTrainPropertyWorkspace;
 class ThreeButtons;
+class GroupWidget;
 
 class NewMachineTemplateScreen : public QWidget
 {
@@ -171,7 +172,7 @@ public:
 private:
     CommonPropertyItem*                addGroupButton;
     QVBoxLayout*                       thisMainLayout;
-    QMap<QString, CommonPropertyItem&> groupItemMap;
+    QMap<QString, CommonPropertyItem*> groupItemMap;    // 存储新建的组信息
 };
 
 class MachinePropertyWidget : public QScrollArea
