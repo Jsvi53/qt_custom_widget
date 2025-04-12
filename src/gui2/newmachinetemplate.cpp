@@ -17,12 +17,13 @@ NewMachineTemplateScreen::NewMachineTemplateScreen(QWidget* parent) : QWidget(pa
     auto& themeMgr = ThemeManager::instance();
     themeMgr.registerWidget(ui->WorkSpace, "workarea");
     screenTimer  = new QTimer(this);
-    threeButtons = new ThreeButtons(ui->menuWidget, machineTrainIconPaths, 2);
+    threeButtons = new ThreeButtons(ui->menuWidget, spotIconPaths, 3);
     threeButtons->setGeometry(555, 0, 50, 50);
     twoButtons = new ThreeButtons(ui->menuWidget, machineTrainIconPaths, 2);
     twoButtons->setGeometry(555, 0, 50, 50);
     threeButtons->hide();
 
+    // 添加机组模板和机器模板按钮
     MachineTrainTemplate* machinetraintemplate = new MachineTrainTemplate(ui->machineNaviContainerWidget);
     templateListScrollArea                     = new QScrollArea(ui->machineNaviContainerWidget);
     templateListScrollArea->setWidgetResizable(true);
@@ -59,29 +60,73 @@ NewMachineTemplateScreen::NewMachineTemplateScreen(QWidget* parent) : QWidget(pa
     workAreaLayout->addWidget(workspaceWidget);
     ui->varWorkSpaceWidget->setLayout(workAreaLayout);
     MachineTrainPropertyWorkspace* machineTrainPropertyWorkspace = new MachineTrainPropertyWorkspace(workspaceWidget);
-    workspaceWidget->addWidget(machineTrainPropertyWorkspace);
+    workspaceWidget->addWidget(machineTrainPropertyWorkspace);  //  添加机组属性工作区, 索引0
     workspaceWidget->setCurrentIndex(0);
 
     MachinePropertyWidget* machinePropertyWidget = new MachinePropertyWidget(workspaceWidget);
-    workspaceWidget->addWidget(machinePropertyWidget);
+    workspaceWidget->addWidget(machinePropertyWidget);  //  添加机器属性工作区, 索引1
 
     SpeedMeasureSpotPropertyWidget* speedMeasureSpotPropertyWidget = new SpeedMeasureSpotPropertyWidget(workspaceWidget);
-    workspaceWidget->addWidget(speedMeasureSpotPropertyWidget);
+    workspaceWidget->addWidget(speedMeasureSpotPropertyWidget);  //  添加速度测量点工作区, 索引2
 
     VibrationMeasureSpotPropertyWidget* vibrationMeasureSpotPropertyWidget = new VibrationMeasureSpotPropertyWidget(workspaceWidget);
-    workspaceWidget->addWidget(vibrationMeasureSpotPropertyWidget);
+    workspaceWidget->addWidget(vibrationMeasureSpotPropertyWidget);  //  添加振动测量点工作区, 索引3
 
     groupWidget = new GroupWidget(workspaceWidget);
-    workspaceWidget->addWidget(groupWidget);
+    workspaceWidget->addWidget(groupWidget);  //  添加机组的群组工作区, 索引4
 
+    appWidget = new MachineTrainAppWidget(workspaceWidget);
+    workspaceWidget->addWidget(appWidget);  //  添加机组的应用工作区, 索引5
 
-    // 切换工作区域
-    connect(twoButtons->buttons[1], &QPushButton::clicked, this, [=]() { workspaceWidget->setCurrentIndex(4); threeButtons->show(); twoButtons->hide(); });
-    connect(machinetraintemplate->templateButton, &QPushButton::clicked, this, [=]() { workspaceWidget->setCurrentIndex(0); twoButtons->show(); threeButtons->hide(); });
-    connect(machinetemplate->machineTtitleButton, &QPushButton::clicked, this, [=]() { workspaceWidget->setCurrentIndex(1); });
+    // 切换机组到工作区，index=0
+    connect(machinetraintemplate->templateButton, &QPushButton::clicked, this, [=]() {
+        connect(threeButtons->buttons[0], &QPushButton::clicked, this, [=]() {
+            workspaceWidget->setCurrentIndex(0);
+        });
+        connect(threeButtons->buttons[1], &QPushButton::clicked, this, [=]() {
+            workspaceWidget->setCurrentIndex(4);
+        });
+        connect(threeButtons->buttons[2], &QPushButton::clicked, this, [=]() {
+            workspaceWidget->setCurrentIndex(5);
+        });
+        // workspaceWidget->setCurrentIndex(0);
+        threeButtons->show();
+        threeButtons->changeButtonIcon(machineTrainIconPaths);
+        threeButtons->buttons[0]->setChecked(true);  // 设置按钮为按下状态
+        emit twoButtons->buttons[0]->clicked();  // 手动发射 twoButtons->buttons[0] 的 clicked 信号
+        twoButtons->hide();
 
-    // 切换测量点工作区域
-    connect(machinetemplate->spotListWidget, &QListWidget::currentRowChanged, this, &NewMachineTemplateScreen::onCurrentRowChanged);
+    });
+
+    // 切换机器工作区, index=1
+    connect(machinetemplate->machineTtitleButton, &QPushButton::clicked, this, [=]() {
+        connect(twoButtons->buttons[0], &QPushButton::clicked, this, [=]() {
+            workspaceWidget->setCurrentIndex(1);
+        });
+        // workspaceWidget->setCurrentIndex(1);
+        twoButtons->changeButtonIcon(machineIconPaths);
+        twoButtons->show();
+        twoButtons->buttons[0]->setChecked(true);
+        emit twoButtons->buttons[0]->clicked();
+        threeButtons->hide();
+    });
+
+    // 切换测量点工作区
+    connect(machinetemplate->spotListWidget, &QListWidget::currentRowChanged, this, [=](int currentRow)
+    {
+        onCurrentRowChanged(currentRow);
+        threeButtons->show();
+        threeButtons->changeButtonIcon(spotIconPaths);
+        threeButtons->buttons[0]->setChecked(true);
+        emit threeButtons->buttons[0]->clicked();
+        twoButtons->hide();
+    });
+
+    // 切换群组工作区
+    connect(twoButtons->buttons[1], &QPushButton::clicked, this, [=]() {
+        workspaceWidget->setCurrentIndex(4);
+    });
+
     // 同步标题
     connect(screenTimer, &QTimer::timeout, this, [=]() {
         if(machineTrainPropertyWorkspace->name->getTitleLabel()->text().isEmpty())
@@ -547,6 +592,35 @@ MachineTrainPropertyWorkspace::~MachineTrainPropertyWorkspace()
 {
 }
 
+MachineTrainAppWidget::MachineTrainAppWidget(QWidget* parent) : QScrollArea(parent)
+{
+    setStyleSheet("border-radius: 0px; border: none;");
+    setWidgetResizable(true);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    // 创建控件
+    titleLabel = new QLabel("    应用", this);
+    titleLabel->setFont(QFont("Microsoft YaHei", 12));
+    contentContainer = new QWidget();
+    setWidget(contentContainer);
+
+    appType           = new CommonPropertyItem(this, true);
+    appType->setTitle("默认应用类型");
+    QVector<QString> appTypeList = {"振动分析", "动平衡"};
+    appType->addListItems(appTypeList);
+
+    QVBoxLayout* mainLayout = new QVBoxLayout(contentContainer);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->setSpacing(0);
+    mainLayout->setAlignment(Qt::AlignTop);
+    mainLayout->addWidget(titleLabel);
+    mainLayout->addWidget(appType);
+    contentContainer->setLayout(mainLayout);
+}
+
+MachineTrainAppWidget::~MachineTrainAppWidget()
+{
+}
+
 GroupWidget::GroupWidget(QWidget* parent) : QScrollArea(parent)
 {
     // 设置大小策略
@@ -554,38 +628,36 @@ GroupWidget::GroupWidget(QWidget* parent) : QScrollArea(parent)
     setWidgetResizable(true);
     setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     addGroupButton = new CommonPropertyItem(this, false);
-    addGroupButton->iconButton->setStyleSheet(
-        "QPushButton {background-color:rgb(18, 150, 219);"
-        "border:none; "
-        "icon: url(::/newtemplate/newtemplate_assets/icon_newtemplate_plus_white.png);}");
+    addGroupButton->setTitle("添加新群组");
+    addGroupButton->iconButton->setIcon(QIcon(":/newtemplate/newtemplate_assets/icon_newtemplate_plus_white.png"));
+    addGroupButton->iconButton->setStyleSheet("QPushButton {background-color: rgb(18, 150, 219); margin: 20px; border-radius: 3px;}");
 
-    thisMainLayout = new QVBoxLayout(this);
+    QWidget* container = new QWidget(this);
+    thisMainLayout     = new QVBoxLayout(container);
     thisMainLayout->setContentsMargins(0, 0, 0, 0);
     thisMainLayout->setSpacing(0);
     thisMainLayout->setAlignment(Qt::AlignTop);
-
     thisMainLayout->addWidget(addGroupButton);
-    setLayout(thisMainLayout);
+    setWidget(container);
 
     connect(addGroupButton->iconButton, &QPushButton::clicked, this, [=]() {
         CommonPropertyItem* groupItem = addGroup();
         groupItemMap.insert(groupItem->getTitleLabel()->text(), groupItem);
+        groupItemCount++;
     });
-}
-
-CommonPropertyItem* GroupWidget::addGroup()
-{
-    int n = this->children().count();
-    CommonPropertyItem* groupItem = new CommonPropertyItem(this);
-    groupItem->setTitle(QString("机组%1").arg(n - 1));
-    groupItem->iconButton->setIcon(QIcon(":/newtemplate/newtemplate_assets/icon_newtemplate_spot_orange.svg"));
-    thisMainLayout->addWidget(groupItem);
-    setLayout(thisMainLayout);
-    return groupItem;
 }
 
 GroupWidget::~GroupWidget()
 {
+}
+
+CommonPropertyItem* GroupWidget::addGroup()
+{
+    CommonPropertyItem* groupItem = new CommonPropertyItem(this);
+    groupItem->setTitle("新建组" + QString::number(groupItemCount));
+    groupItem->iconButton->setIcon(QIcon(":/newtemplate/newtemplate_assets/icon_newtemplate_spot_orange.svg"));
+    thisMainLayout->addWidget(groupItem);
+    return groupItem;
 }
 
 MachinePropertyWidget::MachinePropertyWidget(QWidget* parent) : QScrollArea(parent)
@@ -635,9 +707,34 @@ MachinePropertyWidget::~MachinePropertyWidget()
 CommonMeasureSpotWidget::CommonMeasureSpotWidget(QWidget* parent) : QScrollArea(parent)
 {
 }
+
 CommonMeasureSpotWidget::~CommonMeasureSpotWidget()
 {
 }
+
+ModelItem::ModelItem(QWidget* parent, bool listNeeded, bool isToolButton)
+{
+
+    if(listNeeded)
+    {
+        modelplate = new CommonPropertyItem(this, listNeeded);
+    }else
+    {
+        modelplate = new CommonPropertyItem(this);
+    }
+
+    if(isToolButton)
+    {
+        toobutton = new QToolButton(modelplate);
+        toobutton->setStyleSheet("QToolButton {background-color: rgb(18, 150, 219); margin: 20px; border-radius: 3px;}");
+    }
+    toobutton->setGeometry(0, 0, 200, 0);
+}
+
+ModelItem::~ModelItem()
+{
+}
+
 
 SpeedMeasureSpotPropertyWidget::SpeedMeasureSpotPropertyWidget(QWidget* parent) : CommonMeasureSpotWidget(parent)
 {
@@ -736,13 +833,23 @@ VibrationMeasureSpotPropertyWidget::~VibrationMeasureSpotPropertyWidget()
 {
 }
 
+ModelWidget::ModelWidget(QWidget* parent) : QWidget(parent)
+{
+    setStyleSheet("border-radius: 0px; border: none;");
+    setFixedSize(257, 50);
+    modelItem = new ModelItem(this, true, true);
+    QHBoxLayout* layout = new QHBoxLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);  // 设置布局的边距为0
+    layout->setSpacing(0);                    // 设置布局的间距为0
+    layout->addWidget(modelItem);
+    setLayout(layout);
+}
+
 ThreeButtons::ThreeButtons(QWidget* parent, const QMap<QString, QString>& iconPaths, int buttonCount) : QGroupBox(parent), iconPaths(iconPaths)
 {
     setStyleSheet("QPushButton {background-color:transparent; border:none;}");
     setFixedSize(150, 50);
-
     setupButtons(buttonCount);
-
     // 设置布局
     QHBoxLayout* layout = new QHBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);                 // 设置布局的边距为0

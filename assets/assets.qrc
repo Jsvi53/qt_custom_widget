@@ -103,7 +103,6 @@
     </qresource>
     <qresource prefix="/newtemplate">
         <file>newtemplate_assets/icon_newtemplate_app_blue.png</file>
-        <file>newtemplate_assets/icon_newtemplate_app_gray (2).png</file>
         <file>newtemplate_assets/icon_newtemplate_app_gray.png</file>
         <file>newtemplate_assets/icon_newtemplate_itemlist_blue.png</file>
         <file>newtemplate_assets/icon_newtemplate_itemlist_gray.png</file>
@@ -127,6 +126,16 @@
         <file>newtemplate_assets/icon_newtemplate_group_black.png</file>
         <file>newtemplate_assets/icon_newtemplate_group_blue.png</file>
         <file>newtemplate_assets/icon_newtemplate_group_gray.png</file>
+        <file>newtemplate_assets/icon_newtemplate_itemlist2_gray.png</file>
+        <file>newtemplate_assets/icon_newtemplate_band_black.png</file>
+        <file>newtemplate_assets/icon_newtemplate_band_blue.png</file>
+        <file>newtemplate_assets/icon_newtemplate_band_gray.png</file>
+        <file>newtemplate_assets/icon_newtemplate_task_black.png</file>
+        <file>newtemplate_assets/icon_newtemplate_task_blue.png</file>
+        <file>newtemplate_assets/icon_newtemplate_task_gray.png</file>
+        <file>newtemplate_assets/icon_newtemplate_app_black.png</file>
+        <file>newtemplate_assets/icon_newtemplate_app_gray.png</file>
+        <file>newtemplate_assets/icon_newtemplate_app_blue.png</file>
     </qresource>
     <qresource prefix="/arrow">
         <file>arrow_assets/right.png</file>

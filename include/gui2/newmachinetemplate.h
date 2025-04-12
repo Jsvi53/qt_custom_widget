@@ -9,9 +9,11 @@
 #include <QScrollArea>
 #include <QStackedWidget>
 #include <QTimer>
+#include <QToolButton>
 #include <QVBoxLayout>
 #include <QVector>
 #include <QWidget>
+
 
 namespace Ui {
 class NewMachineTemplateScreenUI;
@@ -24,6 +26,7 @@ class CommonPropertyItem;
 class MachineTrainPropertyWorkspace;
 class ThreeButtons;
 class GroupWidget;
+class MachineTrainAppWidget;
 
 class NewMachineTemplateScreen : public QWidget
 {
@@ -43,19 +46,21 @@ private:
     ThreeButtons*                   threeButtons;
     ThreeButtons*                   twoButtons;
     GroupWidget*                    groupWidget;
+    MachineTrainAppWidget*          appWidget;
 
-    QMap<QString, QString> machineTrainIconPaths{{"button1_blue", ":/newtemplate/newtemplate_assets/icon_newtemplate_group_blue.png"},
-                                                 {"button1_gray", ":/newtemplate/newtemplate_assets/icon_newtemplate_group_gray.png"},
-                                                 {"button2_blue", ":/newtemplate/newtemplate_assets/icon_newtemplate_location_blue.png"},
-                                                 {"button2_gray", ":/newtemplate/newtemplate_assets/icon_newtemplate_location_gray.png"}};
-    QMap<QString, QString> machineIconPaths{{"button1_blue", ":/newtemplate/newtemplate_assets/icon_newtemplate_itemlist_blue.png"},
-                                            {"button1_gray", ":/newtemplate/newtemplate_assets/icon_newtemplate_itemlist_gray.png"},
+
+    QMap<QString, QString> machineTrainIconPaths{
+        {"button1_blue", ":/newtemplate/newtemplate_assets/icon_newtemplate_itemlist2_blue.png"}, {"button1_gray", ":/newtemplate/newtemplate_assets/icon_newtemplate_itemlist2_gray.png"},
+        {"button2_blue", ":/newtemplate/newtemplate_assets/icon_newtemplate_group_blue.png"},     {"button2_gray", ":/newtemplate/newtemplate_assets/icon_newtemplate_group_gray.png"},
+        {"button3_blue", ":/newtemplate/newtemplate_assets/icon_newtemplate_app_blue.png"},       {"button3_gray", ":/newtemplate/newtemplate_assets/icon_newtemplate_app_gray.png"}};
+    QMap<QString, QString> machineIconPaths{{"button1_blue", ":/newtemplate/newtemplate_assets/icon_newtemplate_itemlist2_blue.png"},
+                                            {"button1_gray", ":/newtemplate/newtemplate_assets/icon_newtemplate_itemlist2_gray.png"},
                                             {"button2_blue", ":/newtemplate/newtemplate_assets/icon_newtemplate_model_blue.png"},
                                             {"button2_gray", ":/newtemplate/newtemplate_assets/icon_newtemplate_model_gray.png"}};
     QMap<QString, QString> spotIconPaths{
-        {"button1_blue", ":/commonIcon/commonicon_assets/icon_common_radiobutton_on_gray.png"}, {"button1_gray", ":/commonIcon/commonicon_assets/icon_common_radiobutton_off_gray.png"},
-        {"button2_blue", ":/commonIcon/commonicon_assets/icon_common_radiobutton_on_gray.png"}, {"button2_gray", ":/commonIcon/commonicon_assets/icon_common_radiobutton_off_gray.png"},
-        {"button3_blue", ":/commonIcon/commonicon_assets/icon_common_radiobutton_on_gray.png"}, {"button3_gray", ":/commonIcon/commonicon_assets/icon_common_radiobutton_off_gray.png"}};
+        {"button1_blue", ":/newtemplate/newtemplate_assets/icon_newtemplate_itemlist2_blue.png"}, {"button1_gray", ":/newtemplate/newtemplate_assets/icon_newtemplate_itemlist2_gray.png"},
+        {"button2_blue", ":/newtemplate/newtemplate_assets/icon_newtemplate_task_blue.png"},      {"button2_gray", ":/newtemplate/newtemplate_assets/icon_newtemplate_task_gray.png"},
+        {"button3_blue", ":/newtemplate/newtemplate_assets/icon_newtemplate_band_blue.png"},      {"button3_gray", ":/newtemplate/newtemplate_assets/icon_newtemplate_band_gray.png"}};
 };
 
 class MachineTrainTemplate : public QWidget
@@ -141,6 +146,19 @@ private:
     QPalette     palette;
 };
 
+class ModelItem : public QScrollArea
+{
+    Q_OBJECT
+public:
+    explicit ModelItem(QWidget* parent = nullptr, bool listNeeded = false, bool isToolButton = false);
+    ~ModelItem();
+
+private:
+    CommonPropertyItem* modelplate;
+    QToolButton*        toobutton;
+
+};
+
 class MachineTrainPropertyWorkspace : public QScrollArea
 {
     Q_OBJECT
@@ -172,7 +190,22 @@ public:
 private:
     CommonPropertyItem*                addGroupButton;
     QVBoxLayout*                       thisMainLayout;
-    QMap<QString, CommonPropertyItem*> groupItemMap;    // 存储新建的组信息
+    QMap<QString, CommonPropertyItem*> groupItemMap;       // 存储新建的组信息
+    int                                groupItemCount{1};  // 组数量
+};
+
+class MachineTrainAppWidget : public QScrollArea
+{
+    Q_OBJECT
+
+public:
+    explicit MachineTrainAppWidget(QWidget* parent = nullptr);
+    ~MachineTrainAppWidget();
+
+private:
+    QLabel*             titleLabel;
+    CommonPropertyItem* appType;
+    QWidget*            contentContainer;
 };
 
 class MachinePropertyWidget : public QScrollArea
@@ -210,6 +243,23 @@ protected:
     CommonPropertyItem* type;
     CommonPropertyItem* direction;
     CommonPropertyItem* speed;
+};
+
+class ModelWidget : public QScrollArea
+{
+    Q_OBJECT
+public:
+    explicit ModelWidget(QWidget* parent = nullptr);
+    ~ModelWidget();
+
+private:
+    CommonPropertyItem* name;
+    CommonPropertyItem* type;
+    CommonPropertyItem* direction;
+    CommonPropertyItem* power;
+    CommonPropertyItem* speed;
+    CommonPropertyItem* referenceshaft;
+    CommonPropertyItem* base;
 };
 
 class SpeedMeasureSpotPropertyWidget : public CommonMeasureSpotWidget
