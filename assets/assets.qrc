@@ -151,5 +151,8 @@
         <file>commonicon_assets/icon_common_radiobutton_off_black.png</file>
         <file>commonicon_assets/icon_common_radiobutton_on_black.png</file>
         <file>commonicon_assets/icon_common_radiobutton_on_gray.png</file>
+        <file>commonicon_assets/icon_common_toolbutton_black.png</file>
+        <file>commonicon_assets/icon_common_toolbutton_blue.png</file>
+        <file>commonicon_assets/icon_common_toolbutton_gray.png</file>
     </qresource>
 </RCC>

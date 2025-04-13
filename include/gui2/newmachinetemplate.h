@@ -14,7 +14,6 @@
 #include <QVector>
 #include <QWidget>
 
-
 namespace Ui {
 class NewMachineTemplateScreenUI;
 }
@@ -27,6 +26,8 @@ class MachineTrainPropertyWorkspace;
 class ThreeButtons;
 class GroupWidget;
 class MachineTrainAppWidget;
+class ModelItem;
+class ModelWidget;
 
 class NewMachineTemplateScreen : public QWidget
 {
@@ -47,7 +48,7 @@ private:
     ThreeButtons*                   twoButtons;
     GroupWidget*                    groupWidget;
     MachineTrainAppWidget*          appWidget;
-
+    ModelWidget*                    modelWidget;
 
     QMap<QString, QString> machineTrainIconPaths{
         {"button1_blue", ":/newtemplate/newtemplate_assets/icon_newtemplate_itemlist2_blue.png"}, {"button1_gray", ":/newtemplate/newtemplate_assets/icon_newtemplate_itemlist2_gray.png"},
@@ -118,7 +119,6 @@ public:
     QPushButton* iconButton;
     void         setTitle(const QString& title);
     void         setProperty(const QString& property);
-    void         setIcon(const QString& iconPath);
     void         addListItem(const QString& itemName);
     void         addListItem(const QString& itemName, const QString& itemIconPath);
     void         addListItems(const QVector<QString>& itemNames);
@@ -146,17 +146,19 @@ private:
     QPalette     palette;
 };
 
-class ModelItem : public QScrollArea
+class ModelItem : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ModelItem(QWidget* parent = nullptr, bool listNeeded = false, bool isToolButton = false);
+    explicit ModelItem(QWidget* parent = nullptr);
     ~ModelItem();
 
+    void setTitle(const QString &text);
 private:
-    CommonPropertyItem* modelplate;
-    QToolButton*        toobutton;
-
+    QLabel*      title;
+    QLabel*      content;
+    QToolButton* toolbutton;
+    QWidget*     container;
 };
 
 class MachineTrainPropertyWorkspace : public QScrollArea
@@ -253,13 +255,15 @@ public:
     ~ModelWidget();
 
 private:
-    CommonPropertyItem* name;
-    CommonPropertyItem* type;
-    CommonPropertyItem* direction;
-    CommonPropertyItem* power;
-    CommonPropertyItem* speed;
-    CommonPropertyItem* referenceshaft;
-    CommonPropertyItem* base;
+    QLabel*             title1;
+    QLabel*             title2;
+    QLabel*             title3;
+    QLabel*             title4;
+    QWidget*            contentContainer;
+    CommonPropertyItem* machineDesign;
+    CommonPropertyItem* bears;
+    CommonPropertyItem* frequency;
+    ModelItem*          modelItem;
 };
 
 class SpeedMeasureSpotPropertyWidget : public CommonMeasureSpotWidget

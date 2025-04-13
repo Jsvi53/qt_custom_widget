@@ -78,6 +78,11 @@ NewMachineTemplateScreen::NewMachineTemplateScreen(QWidget* parent) : QWidget(pa
     appWidget = new MachineTrainAppWidget(workspaceWidget);
     workspaceWidget->addWidget(appWidget);  //  添加机组的应用工作区, 索引5
 
+    modelWidget = new ModelWidget(workspaceWidget);
+    workspaceWidget->addWidget(modelWidget);  //  添加机组的模型工作区, 索引6
+
+
+
     // 切换机组到工作区，index=0
     connect(machinetraintemplate->templateButton, &QPushButton::clicked, this, [=]() {
         connect(threeButtons->buttons[0], &QPushButton::clicked, this, [=]() {
@@ -102,6 +107,9 @@ NewMachineTemplateScreen::NewMachineTemplateScreen(QWidget* parent) : QWidget(pa
     connect(machinetemplate->machineTtitleButton, &QPushButton::clicked, this, [=]() {
         connect(twoButtons->buttons[0], &QPushButton::clicked, this, [=]() {
             workspaceWidget->setCurrentIndex(1);
+        });
+        connect(twoButtons->buttons[1], &QPushButton::clicked, this, [=]() {
+            workspaceWidget->setCurrentIndex(6);
         });
         // workspaceWidget->setCurrentIndex(1);
         twoButtons->changeButtonIcon(machineIconPaths);
@@ -712,29 +720,47 @@ CommonMeasureSpotWidget::~CommonMeasureSpotWidget()
 {
 }
 
-ModelItem::ModelItem(QWidget* parent, bool listNeeded, bool isToolButton)
+ModelItem::ModelItem(QWidget* parent) : QWidget(parent)
 {
+    container = new QWidget(this);
+    title = new QLabel(container);
+    title->setFont(QFont("Microsoft YaHei", 14));
+    title->setFixedHeight(50);
+    title->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    content = new QLabel(container);
+    content->setFont(QFont("Microsoft YaHei", 12));
+    content->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    content->setStyleSheet("border-radius: 0px; border: none;");
+    QVBoxLayout *containerLayout = new QVBoxLayout(container);
+    containerLayout->setContentsMargins(0, 0, 0, 0);
+    containerLayout->setSpacing(0);
+    containerLayout->addWidget(title);
+    containerLayout->addWidget(content);
+    container->setLayout(containerLayout);
 
-    if(listNeeded)
-    {
-        modelplate = new CommonPropertyItem(this, listNeeded);
-    }else
-    {
-        modelplate = new CommonPropertyItem(this);
-    }
+    toolbutton = new QToolButton(this);
+    toolbutton->setStyleSheet("border-radius: 4px; border: 1px solid darkgray;");
+    toolbutton->setFixedSize(40, 40);
+    toolbutton->setIcon(QIcon(":/commonIcon/commonicon_assets/icon_common_toolbutton_black.png"));
+    toolbutton->setIconSize(QSize(25, 25));
+    
 
-    if(isToolButton)
-    {
-        toobutton = new QToolButton(modelplate);
-        toobutton->setStyleSheet("QToolButton {background-color: rgb(18, 150, 219); margin: 20px; border-radius: 3px;}");
-    }
-    toobutton->setGeometry(0, 0, 200, 0);
+    QHBoxLayout *mainLayout = new QHBoxLayout(this);
+    mainLayout->setContentsMargins(0, 0, 50, 0);
+    mainLayout->setSpacing(0);
+    mainLayout->addWidget(container);
+    mainLayout->addWidget(toolbutton);
+    setLayout(mainLayout);
 }
 
 ModelItem::~ModelItem()
 {
 }
 
+void ModelItem::setTitle(const QString &text)
+{
+    title->setText(text);
+}
 
 SpeedMeasureSpotPropertyWidget::SpeedMeasureSpotPropertyWidget(QWidget* parent) : CommonMeasureSpotWidget(parent)
 {
@@ -833,17 +859,58 @@ VibrationMeasureSpotPropertyWidget::~VibrationMeasureSpotPropertyWidget()
 {
 }
 
-ModelWidget::ModelWidget(QWidget* parent) : QWidget(parent)
+ModelWidget::ModelWidget(QWidget* parent) : QScrollArea(parent)
 {
     setStyleSheet("border-radius: 0px; border: none;");
-    setFixedSize(257, 50);
-    modelItem = new ModelItem(this, true, true);
-    QHBoxLayout* layout = new QHBoxLayout(this);
-    layout->setContentsMargins(0, 0, 0, 0);  // 设置布局的边距为0
-    layout->setSpacing(0);                    // 设置布局的间距为0
+    setWidgetResizable(true);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    contentContainer = new QWidget();
+    setWidget(contentContainer);
+    title1 = new QLabel("    机器设计", this);
+    title1->setFont(QFont("Microsoft YaHei", 12));
+    title2 = new QLabel("    机器", this);
+    title2->setFont(QFont("Microsoft YaHei", 12));
+    title3 = new QLabel("    轴承", this);
+    title3->setFont(QFont("Microsoft YaHei", 12));
+    title4 = new QLabel("    频率标记", this);
+    title4->setFont(QFont("Microsoft YaHei", 12));
+    machineDesign = new CommonPropertyItem(this, false);
+    machineDesign->setTitle("速度");
+    modelItem = new ModelItem(this);
+    modelItem->setTitle("            特性");
+    bears = new CommonPropertyItem(this, false);
+    frequency= new CommonPropertyItem(this, false);
+    bears->iconButton->setIcon(QIcon());
+    frequency->iconButton->setIcon(QIcon());
+
+    QVBoxLayout* layout = new QVBoxLayout(contentContainer);
+    layout->setContentsMargins(0, 0, 0, 0);     // 设置布局的边距为0
+    layout->setSpacing(0);
+    layout->setAlignment(Qt::AlignTop);
+    layout->addWidget(title1);
+    layout->addWidget(machineDesign);
+    layout->addWidget(title2);
     layout->addWidget(modelItem);
+    layout->addWidget(title3);
+    layout->addWidget(bears);
+    layout->addWidget(title4);
+    layout->addWidget(frequency);
+
     setLayout(layout);
 }
+
+
+ModelWidget::~ModelWidget()
+{
+}
+
+
+
+
+
+
+
+
 
 ThreeButtons::ThreeButtons(QWidget* parent, const QMap<QString, QString>& iconPaths, int buttonCount) : QGroupBox(parent), iconPaths(iconPaths)
 {
