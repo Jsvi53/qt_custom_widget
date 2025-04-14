@@ -28,6 +28,9 @@ class GroupWidget;
 class MachineTrainAppWidget;
 class ModelItem;
 class ModelWidget;
+class TaskSpeedWidget;
+class TaskVibrationWidget;
+class TaskBandWidget;
 
 class NewMachineTemplateScreen : public QWidget
 {
@@ -49,6 +52,9 @@ private:
     GroupWidget*                    groupWidget;
     MachineTrainAppWidget*          appWidget;
     ModelWidget*                    modelWidget;
+    TaskSpeedWidget*                taskWidget;
+    TaskVibrationWidget*            taskVibrationWidget;
+    TaskBandWidget*                 taskBandWidget;
 
     QMap<QString, QString> machineTrainIconPaths{
         {"button1_blue", ":/newtemplate/newtemplate_assets/icon_newtemplate_itemlist2_blue.png"}, {"button1_gray", ":/newtemplate/newtemplate_assets/icon_newtemplate_itemlist2_gray.png"},
@@ -154,11 +160,14 @@ public:
     ~ModelItem();
 
     void setTitle(const QString &text);
+    void setContent(const QString &text);
 private:
     QLabel*      title;
     QLabel*      content;
     QToolButton* toolbutton;
     QWidget*     container;
+    QFont        font;
+    QPalette     palette;
 };
 
 class MachineTrainPropertyWorkspace : public QScrollArea
@@ -264,6 +273,59 @@ private:
     CommonPropertyItem* bears;
     CommonPropertyItem* frequency;
     ModelItem*          modelItem;
+};
+
+class TaskSpeedWidget : public QScrollArea
+{
+    Q_OBJECT
+public:
+    explicit TaskSpeedWidget(QWidget* parent = nullptr);
+    ~TaskSpeedWidget();
+
+private:
+    QLabel*             widgetTitle;
+    QWidget*            titleContainer;
+    QWidget*            contentContainer;
+    QLabel*             addTaskTitle;
+    QPushButton*        addTaskButton;
+    ModelItem*          speed;
+
+};
+
+class TaskVibrationWidget: public QScrollArea
+{
+    Q_OBJECT
+public:
+    explicit TaskVibrationWidget(QWidget* parent = nullptr);
+    ~TaskVibrationWidget();
+private:
+    QLabel*             widgetTitle;
+    QWidget*            titleContainer;
+    QWidget*            contentContainer;
+    QLabel*             addTaskTitle;
+    QPushButton*        addTaskButton;
+    ModelItem*          vibration1;
+    ModelItem*          vibration2;
+    ModelItem*          vibration3;
+    ModelItem*          vibration4;
+    ModelItem*          vibration5;
+    ModelItem*          vibration6;
+};
+
+class TaskBandWidget : public QScrollArea
+{
+    Q_OBJECT
+public:
+    explicit TaskBandWidget(QWidget* parent = nullptr);
+    ~TaskBandWidget();
+private:
+    QLabel*             widgetTitle;
+    QWidget*            titleContainer;
+    QWidget*            contentContainer;
+    QLabel*             addTaskTitle;
+    QPushButton*        addTaskButton;
+    ModelItem*          band1;
+    ModelItem*          band2;
 };
 
 class SpeedMeasureSpotPropertyWidget : public CommonMeasureSpotWidget

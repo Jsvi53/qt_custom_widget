@@ -81,36 +81,34 @@ NewMachineTemplateScreen::NewMachineTemplateScreen(QWidget* parent) : QWidget(pa
     modelWidget = new ModelWidget(workspaceWidget);
     workspaceWidget->addWidget(modelWidget);  //  添加机组的模型工作区, 索引6
 
+    taskWidget = new TaskSpeedWidget(workspaceWidget);
+    workspaceWidget->addWidget(taskWidget);  //  添加机组的任务工作区, 索引7
 
+    taskVibrationWidget = new TaskVibrationWidget(workspaceWidget);
+    workspaceWidget->addWidget(taskVibrationWidget);  //  添加机组的任务工作区, 索引8
+
+    taskBandWidget = new TaskBandWidget(workspaceWidget);
+    workspaceWidget->addWidget(taskBandWidget);  //  添加机组的任务工作区, 索引9
 
     // 切换机组到工作区，index=0
     connect(machinetraintemplate->templateButton, &QPushButton::clicked, this, [=]() {
-        connect(threeButtons->buttons[0], &QPushButton::clicked, this, [=]() {
-            workspaceWidget->setCurrentIndex(0);
-        });
-        connect(threeButtons->buttons[1], &QPushButton::clicked, this, [=]() {
-            workspaceWidget->setCurrentIndex(4);
-        });
-        connect(threeButtons->buttons[2], &QPushButton::clicked, this, [=]() {
-            workspaceWidget->setCurrentIndex(5);
-        });
+        connect(threeButtons->buttons[0], &QPushButton::clicked, this, [=]() { workspaceWidget->setCurrentIndex(0); });
+        connect(threeButtons->buttons[1], &QPushButton::clicked, this, [=]() { workspaceWidget->setCurrentIndex(4); });
+        connect(threeButtons->buttons[2], &QPushButton::clicked, this, [=]() { workspaceWidget->setCurrentIndex(5); });
         // workspaceWidget->setCurrentIndex(0);
         threeButtons->show();
         threeButtons->changeButtonIcon(machineTrainIconPaths);
         threeButtons->buttons[0]->setChecked(true);  // 设置按钮为按下状态
-        emit twoButtons->buttons[0]->clicked();  // 手动发射 twoButtons->buttons[0] 的 clicked 信号
+        emit twoButtons->buttons[0]->clicked();      // 手动发射 twoButtons->buttons[0] 的 clicked 信号
         twoButtons->hide();
-
     });
 
     // 切换机器工作区, index=1
     connect(machinetemplate->machineTtitleButton, &QPushButton::clicked, this, [=]() {
-        connect(twoButtons->buttons[0], &QPushButton::clicked, this, [=]() {
-            workspaceWidget->setCurrentIndex(1);
-        });
-        connect(twoButtons->buttons[1], &QPushButton::clicked, this, [=]() {
-            workspaceWidget->setCurrentIndex(6);
-        });
+        connect(twoButtons->buttons[0], &QPushButton::clicked, this, [=]() { workspaceWidget->setCurrentIndex(2); });
+
+        connect(twoButtons->buttons[1], &QPushButton::clicked, this, [=]() { workspaceWidget->setCurrentIndex(6); });
+
         // workspaceWidget->setCurrentIndex(1);
         twoButtons->changeButtonIcon(machineIconPaths);
         twoButtons->show();
@@ -120,9 +118,19 @@ NewMachineTemplateScreen::NewMachineTemplateScreen(QWidget* parent) : QWidget(pa
     });
 
     // 切换测量点工作区
-    connect(machinetemplate->spotListWidget, &QListWidget::currentRowChanged, this, [=](int currentRow)
-    {
+    connect(machinetemplate->spotListWidget, &QListWidget::currentRowChanged, this, [=](int currentRow) {
         onCurrentRowChanged(currentRow);
+        if(currentRow == 0)
+        {
+            connect(threeButtons->buttons[0], &QPushButton::clicked, this, [=]() { workspaceWidget->setCurrentIndex(2); });
+            connect(threeButtons->buttons[1], &QPushButton::clicked, this, [=]() { workspaceWidget->setCurrentIndex(7); });
+        } else if(currentRow == 1)
+        {
+            connect(threeButtons->buttons[0], &QPushButton::clicked, this, [=]() { workspaceWidget->setCurrentIndex(3); });
+            connect(threeButtons->buttons[1], &QPushButton::clicked, this, [=]() { workspaceWidget->setCurrentIndex(8); });
+            connect(threeButtons->buttons[2], &QPushButton::clicked, this, [=]() { workspaceWidget->setCurrentIndex(9); });
+        }
+
         threeButtons->show();
         threeButtons->changeButtonIcon(spotIconPaths);
         threeButtons->buttons[0]->setChecked(true);
@@ -131,9 +139,7 @@ NewMachineTemplateScreen::NewMachineTemplateScreen(QWidget* parent) : QWidget(pa
     });
 
     // 切换群组工作区
-    connect(twoButtons->buttons[1], &QPushButton::clicked, this, [=]() {
-        workspaceWidget->setCurrentIndex(4);
-    });
+    connect(twoButtons->buttons[1], &QPushButton::clicked, this, [=]() { workspaceWidget->setCurrentIndex(4); });
 
     // 同步标题
     connect(screenTimer, &QTimer::timeout, this, [=]() {
@@ -611,7 +617,7 @@ MachineTrainAppWidget::MachineTrainAppWidget(QWidget* parent) : QScrollArea(pare
     contentContainer = new QWidget();
     setWidget(contentContainer);
 
-    appType           = new CommonPropertyItem(this, true);
+    appType = new CommonPropertyItem(this, true);
     appType->setTitle("默认应用类型");
     QVector<QString> appTypeList = {"振动分析", "动平衡"};
     appType->addListItems(appTypeList);
@@ -723,15 +729,22 @@ CommonMeasureSpotWidget::~CommonMeasureSpotWidget()
 ModelItem::ModelItem(QWidget* parent) : QWidget(parent)
 {
     container = new QWidget(this);
-    title = new QLabel(container);
+    title     = new QLabel(container);
     title->setFont(QFont("Microsoft YaHei", 14));
     title->setFixedHeight(50);
     title->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+
     content = new QLabel(container);
-    content->setFont(QFont("Microsoft YaHei", 12));
+    font.setFamily("Microsoft YaHei");
+    font.setPointSize(12);
+    font.setItalic(true);
+    palette.setColor(QPalette::WindowText, Qt::darkGray);
+    content->setFont(font);
+    content->setPalette(palette);
     content->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     content->setStyleSheet("border-radius: 0px; border: none;");
-    QVBoxLayout *containerLayout = new QVBoxLayout(container);
+
+    QVBoxLayout* containerLayout = new QVBoxLayout(container);
     containerLayout->setContentsMargins(0, 0, 0, 0);
     containerLayout->setSpacing(0);
     containerLayout->addWidget(title);
@@ -743,9 +756,8 @@ ModelItem::ModelItem(QWidget* parent) : QWidget(parent)
     toolbutton->setFixedSize(40, 40);
     toolbutton->setIcon(QIcon(":/commonIcon/commonicon_assets/icon_common_toolbutton_black.png"));
     toolbutton->setIconSize(QSize(25, 25));
-    
 
-    QHBoxLayout *mainLayout = new QHBoxLayout(this);
+    QHBoxLayout* mainLayout = new QHBoxLayout(this);
     mainLayout->setContentsMargins(0, 0, 50, 0);
     mainLayout->setSpacing(0);
     mainLayout->addWidget(container);
@@ -757,9 +769,14 @@ ModelItem::~ModelItem()
 {
 }
 
-void ModelItem::setTitle(const QString &text)
+void ModelItem::setTitle(const QString& text)
 {
     title->setText(text);
+}
+
+void ModelItem::setContent(const QString& text)
+{
+    content->setText(text);
 }
 
 SpeedMeasureSpotPropertyWidget::SpeedMeasureSpotPropertyWidget(QWidget* parent) : CommonMeasureSpotWidget(parent)
@@ -878,13 +895,13 @@ ModelWidget::ModelWidget(QWidget* parent) : QScrollArea(parent)
     machineDesign->setTitle("速度");
     modelItem = new ModelItem(this);
     modelItem->setTitle("            特性");
-    bears = new CommonPropertyItem(this, false);
-    frequency= new CommonPropertyItem(this, false);
+    bears     = new CommonPropertyItem(this, false);
+    frequency = new CommonPropertyItem(this, false);
     bears->iconButton->setIcon(QIcon());
     frequency->iconButton->setIcon(QIcon());
 
     QVBoxLayout* layout = new QVBoxLayout(contentContainer);
-    layout->setContentsMargins(0, 0, 0, 0);     // 设置布局的边距为0
+    layout->setContentsMargins(0, 0, 0, 0);  // 设置布局的边距为0
     layout->setSpacing(0);
     layout->setAlignment(Qt::AlignTop);
     layout->addWidget(title1);
@@ -899,13 +916,185 @@ ModelWidget::ModelWidget(QWidget* parent) : QScrollArea(parent)
     setLayout(layout);
 }
 
-
 ModelWidget::~ModelWidget()
 {
 }
 
+TaskSpeedWidget::TaskSpeedWidget(QWidget* parent) : QScrollArea(parent)
+{
+    setStyleSheet("border-radius: 0px; border: none;");
+    setWidgetResizable(true);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    contentContainer = new QWidget();
+    setWidget(contentContainer);
+
+    widgetTitle = new QLabel("    任务", this);
+    widgetTitle->setFont(QFont("Microsoft YaHei", 12));
+
+    titleContainer = new QWidget(this);
+    addTaskButton  = new QPushButton(titleContainer);
+    addTaskButton->setFixedSize(40, 40);
+    addTaskButton->setStyleSheet("QPushButton {background-color: rgb(18, 150, 219); border: 1px solid darkgray; border-radius: 3px;}");
+    addTaskButton->setIcon(QIcon(":/newtemplate/newtemplate_assets/icon_newtemplate_plus_white.png"));
+    addTaskButton->setIconSize(QSize(20, 20));
+
+    addTaskTitle = new QLabel("    添加新任务", titleContainer);
+    addTaskTitle->setFont(QFont("Microsoft YaHei", 14));
+    QHBoxLayout* addTaskLayout = new QHBoxLayout(titleContainer);
+    addTaskLayout->setContentsMargins(80, 0, 50, 0);
+    addTaskLayout->setSpacing(0);
+    addTaskLayout->addWidget(addTaskTitle);
+    addTaskLayout->addStretch();
+    addTaskLayout->addWidget(addTaskButton);
+    addTaskLayout->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    titleContainer->setLayout(addTaskLayout);
+
+    speed = new ModelItem(this);
+    speed->setTitle("    速度");
+    speed->setContent("    1000rpm");
+
+    QVBoxLayout* contentContainerLayout = new QVBoxLayout(contentContainer);
+    contentContainerLayout->setContentsMargins(0, 0, 0, 0);
+    contentContainerLayout->setSpacing(0);
+    contentContainerLayout->setAlignment(Qt::AlignTop);
+    contentContainerLayout->addWidget(widgetTitle);
+    contentContainerLayout->addWidget(titleContainer);
+    contentContainerLayout->addWidget(speed);
+    contentContainer->setLayout(contentContainerLayout);
+}
+
+TaskSpeedWidget::~TaskSpeedWidget()
+{
+
+}
+
+TaskVibrationWidget::TaskVibrationWidget(QWidget *parent) : QScrollArea(parent)
+{
+    setStyleSheet("border-radius: 0px; border: none;");
+    setWidgetResizable(true);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    contentContainer = new QWidget();
+    setWidget(contentContainer);
+
+    widgetTitle = new QLabel("    任务", this);
+    widgetTitle->setFont(QFont("Microsoft YaHei", 12));
+
+    titleContainer = new QWidget(this);
+    addTaskButton  = new QPushButton(titleContainer);
+    addTaskButton->setFixedSize(40, 40);
+    addTaskButton->setStyleSheet("QPushButton {background-color: rgb(18, 150, 219); border: 1px solid darkgray; border-radius: 3px;}");
+    addTaskButton->setIcon(QIcon(":/newtemplate/newtemplate_assets/icon_newtemplate_plus_white.png"));
+    addTaskButton->setIconSize(QSize(20, 20));
+
+    addTaskTitle = new QLabel("    添加新任务", titleContainer);
+    addTaskTitle->setFont(QFont("Microsoft YaHei", 14));
+    QHBoxLayout* addTaskLayout = new QHBoxLayout(titleContainer);
+    addTaskLayout->setContentsMargins(80, 0, 50, 0);
+    addTaskLayout->setSpacing(0);
+    addTaskLayout->addWidget(addTaskTitle);
+    addTaskLayout->addStretch();
+    addTaskLayout->addWidget(addTaskButton);
+    addTaskLayout->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    titleContainer->setLayout(addTaskLayout);
+
+    vibration1 = new ModelItem(this);
+    vibration1->setTitle("    特征总体振动值");
+    vibration1->setContent("   Sum(v)2Hz-1kHz");
+
+    vibration2 = new ModelItem(this);
+    vibration2->setTitle("    特征总体振动值");
+    vibration2->setContent("   Sum(a)10Hz-10kHz");
+
+    vibration3 = new ModelItem(this);
+    vibration3->setTitle("    加速度包络谱");
+    vibration3->setContent("   Spec(a)10Hz-10kHz");
+
+    vibration4 = new ModelItem(this);
+    vibration4->setTitle("    加速度谱");
+    vibration4->setContent("   Spec(a)10Hz-12000Hz");
+
+    vibration5 = new ModelItem(this);
+    vibration5->setTitle("    速度谱");
+    vibration5->setContent("   Spec(v)2Hz-800Hz");
+
+    vibration6 = new ModelItem(this);
+    vibration6->setTitle("    时域波形");
+    vibration6->setContent("   Acc 2Hz-10kHz 5s");
+
+    QVBoxLayout* contentContainerLayout = new QVBoxLayout(contentContainer);
+    contentContainerLayout->setContentsMargins(0, 0, 0, 0);
+    contentContainerLayout->setSpacing(0);
+    contentContainerLayout->setAlignment(Qt::AlignTop);
+    contentContainerLayout->addWidget(widgetTitle);
+    contentContainerLayout->addWidget(titleContainer);
+    contentContainerLayout->addWidget(vibration1);
+    contentContainerLayout->addWidget(vibration2);
+    contentContainerLayout->addWidget(vibration3);
+    contentContainerLayout->addWidget(vibration4);
+    contentContainerLayout->addWidget(vibration5);
+    contentContainerLayout->addWidget(vibration6);
+    contentContainer->setLayout(contentContainerLayout);
+}
 
 
+TaskVibrationWidget::~TaskVibrationWidget()
+{
+
+}
+
+TaskBandWidget::TaskBandWidget(QWidget *parent) : QScrollArea(parent)
+{
+    setStyleSheet("border-radius: 0px; border: none;");
+    setWidgetResizable(true);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    contentContainer = new QWidget();
+    setWidget(contentContainer);
+
+    widgetTitle = new QLabel("    任务", this);
+    widgetTitle->setFont(QFont("Microsoft YaHei", 12));
+
+    titleContainer = new QWidget(this);
+    addTaskButton  = new QPushButton(titleContainer);
+    addTaskButton->setFixedSize(40, 40);
+    addTaskButton->setStyleSheet("QPushButton {background-color: rgb(18, 150, 219); border: 1px solid darkgray; border-radius: 3px;}");
+    addTaskButton->setIcon(QIcon(":/newtemplate/newtemplate_assets/icon_newtemplate_plus_white.png"));
+    addTaskButton->setIconSize(QSize(20, 20));
+
+    addTaskTitle = new QLabel("    添加新任务", titleContainer);
+    addTaskTitle->setFont(QFont("Microsoft YaHei", 14));
+    QHBoxLayout* addTaskLayout = new QHBoxLayout(titleContainer);
+    addTaskLayout->setContentsMargins(80, 0, 50, 0);
+    addTaskLayout->setSpacing(0);
+    addTaskLayout->addWidget(addTaskTitle);
+    addTaskLayout->addStretch();
+    addTaskLayout->addWidget(addTaskButton);
+    addTaskLayout->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    titleContainer->setLayout(addTaskLayout);
+
+    band1 = new ModelItem(this);
+    band1->setTitle("    1x频率");
+    band1->setContent("   Spec(a)2Hz-800Hz");
+
+    band2 = new ModelItem(this);
+    band2->setTitle("    2x频率");
+    band2->setContent("   Spec(a)2Hz-1600Hz");
+
+    QVBoxLayout* contentContainerLayout = new QVBoxLayout(contentContainer);
+    contentContainerLayout->setContentsMargins(0, 0, 0, 0);
+    contentContainerLayout->setSpacing(0);
+    contentContainerLayout->setAlignment(Qt::AlignTop);
+    contentContainerLayout->addWidget(widgetTitle);
+    contentContainerLayout->addWidget(titleContainer);
+    contentContainerLayout->addWidget(band1);
+    contentContainerLayout->addWidget(band2);
+    contentContainer->setLayout(contentContainerLayout);
+}
+
+
+TaskBandWidget::~TaskBandWidget()
+{
+
+}
 
 
 
